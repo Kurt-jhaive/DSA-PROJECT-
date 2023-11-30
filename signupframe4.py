@@ -2,7 +2,7 @@
 
 
 from pathlib import Path
-
+import subprocess
 from tkinter import *
 
 
@@ -13,6 +13,16 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup4_resources\assets\frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+
+def sign_up_button_clicked():
+    window.withdraw()
+    # Call the signup5 function here
+    subprocess.Popen(["python", "signupframe5.py"])
+
+def signupform4_back_button():
+    window.withdraw()
+    # open the signupframe3.py
+    subprocess.Popen(["python", "signupframe3.py"])
 
 
 window = Tk()
@@ -97,7 +107,7 @@ button_2 = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=sign_up_button_clicked,
     relief="flat"
 )
 button_2.place(
@@ -134,7 +144,7 @@ back_button = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=signupform4_back_button,
     relief="flat"
 )
 back_button.place(

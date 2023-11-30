@@ -13,14 +13,20 @@ ASSETS_PATH = OUTPUT_PATH / Path (r"forms\signup5_resources\assets\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+def sign_up_button_clicked():
+    window.withdraw()
+    # Go back to the login page
+    subprocess.Popen(["python", "loginframe.py"])
+
+def signupform5_back_button():
+    window.withdraw()
+    # open the signupframe4.py
+    subprocess.Popen(["python", "signupframe4.py"])
+
 
 
 window = Tk()
 
-def sign_up5_back_button_clicked():
-    window.withdraw()
-    subprocess.Popen(["python", "loginframe.py"])
-# Get the screen width and height
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
@@ -57,7 +63,7 @@ sign_up5_back_button = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=sign_up5_back_button_clicked,
+    command=sign_up_button_clicked,
     relief="flat"
 )
 sign_up5_back_button.place(
@@ -107,7 +113,7 @@ button_3 = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=signupform5_back_button,
     relief="flat"
 )
 button_3.place(
