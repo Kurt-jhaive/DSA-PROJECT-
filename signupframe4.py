@@ -4,7 +4,8 @@
 from pathlib import Path
 
 from tkinter import *
-
+import os
+import subprocess
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -14,7 +15,13 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup4_resources\assets\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+def sign_up4_next_button_clicked():
+    window.withdraw()
+    subprocess.Popen(["python", "signupframe5.py"])
 
+def sign_up4_back_button_clicked():
+    window.withdraw()
+    subprocess.Popen(["python", "signupframe3.py"])
 window = Tk()
 
 # Get the screen width and height
@@ -97,7 +104,7 @@ button_2 = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=sign_up4_next_button_clicked,
     relief="flat"
 )
 button_2.place(
@@ -130,14 +137,14 @@ address_textbox.place(
 
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
-back_button = Button(
+back_button4 = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=sign_up4_back_button_clicked,
     relief="flat"
 )
-back_button.place(
+back_button4.place(
     x=126.0,
     y=77.0,
     width=9.627197265625,

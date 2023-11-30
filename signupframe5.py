@@ -16,10 +16,12 @@ def relative_to_assets(path: str) -> Path:
 
 
 window = Tk()
-
-def sign_up5_back_button_clicked():
+def sign_up5_next_button_clicked():
     window.withdraw()
     subprocess.Popen(["python", "loginframe.py"])
+def sign_up5_back_button_clicked():
+    window.withdraw()
+    subprocess.Popen(["python", "signupframe4.py"])
 # Get the screen width and height
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -53,14 +55,14 @@ image_1 = canvas.create_image(
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
-sign_up5_back_button = Button(
+sign_up5_next_button = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=sign_up5_back_button_clicked,
+    command=sign_up5_next_button_clicked,
     relief="flat"
 )
-sign_up5_back_button.place(
+sign_up5_next_button.place(
     x=230.0,
     y=294.0,
     width=154.39837646484375,
@@ -103,14 +105,14 @@ canvas.create_text(
 
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
-button_3 = Button(
+sign_up5_back_button = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=sign_up5_back_button_clicked,
     relief="flat"
 )
-button_3.place(
+sign_up5_back_button.place(
     x=126.0,
     y=77.0,
     width=9.627197265625,
