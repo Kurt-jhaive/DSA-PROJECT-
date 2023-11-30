@@ -69,7 +69,6 @@ def sign_up_button_clicked():
     # Run signupframe1.py
     subprocess.Popen(["python", "signupframe1.py"])
 
-
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()

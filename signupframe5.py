@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from pathlib import Path
 from tkinter import *
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 import os
 import subprocess
 
@@ -23,12 +23,17 @@ def signupform5_back_button():
     # open the signupframe4.py
     subprocess.Popen(["python", "signupframe4.py"])
 
-
+def close_window():
+    if messagebox.askokcancel("Exit", "Do you really want to exit?"):
+        window.destroy()
 
 window = Tk()
 
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
+
+# Set the protocol for the window close event
+window.protocol("WM_DELETE_WINDOW", close_window)
 
 # Calculate the x and y coordinates for the window to be centered
 x = (screen_width - 620) // 2
