@@ -6,12 +6,11 @@ from pathlib import Path
 from tkinter import *
 import os
 import subprocess
-import signupframe2
+
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup3_resources\assets\frame0")
 
-def signupframe2():
-    pass
+
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
@@ -22,9 +21,8 @@ def sign_up_button_clicked():
 
 def signupform3_back_button():
     window.withdraw()
-    
-    if __name__ == "__signupframe2__":
-        signupframe2()
+    # open the signupframe2.py
+    subprocess.Popen(["python", "signupframe2.py"])
 window = Tk()
 
 # Get the screen width and height

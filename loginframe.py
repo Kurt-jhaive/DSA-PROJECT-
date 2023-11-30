@@ -46,7 +46,7 @@ def on_focus_out(event):
 def check_login():
     global user_id
 
-    df = pd.read_csv('data/new_credentials.csv')
+    df = pd.read_csv(r'data\new_credentials.csv')
 
     entered_username = username_textbox.get()
     entered_password = password_textbox.get()
