@@ -25,8 +25,8 @@ def signupform2_signup_button():
 
 def signupform2_back_button():
     window.withdraw()
-    # open the signupframe3.py without passing any arguments
-    subprocess.Popen(["python", "signupframe3.py"])
+    # open the signupframe2.py without passing any arguments
+    subprocess.Popen(["python", "signupframe1.py"])
     
 window = Tk()
 
@@ -196,8 +196,8 @@ signupframe2_signup_button = Button(
     relief="flat"
 )
 signupframe2_signup_button.place(
-    x=418.0,
-    y=274.0,
+    x=484.0,
+    y=272.0,
     width=112.0,
     height=27.0
 )
@@ -217,6 +217,24 @@ terms_and_conditions.place(
     width=251.0,
     height=46.0
 )
+
+button_image_4 = PhotoImage(
+    file=relative_to_assets("button_4.png") )
+signupframe2_back_button = Button(
+    image = button_image_4,
+    borderwidth=0,
+    highlightthickness=0,
+    command=signupform2_back_button,
+    relief="flat"
+)
+
+signupframe2_back_button.place(
+    x=345.0,
+    y=272.0,
+    width=112.0,
+    height=27.0
+)
+
 
 window.resizable(False, False)
 window.mainloop()

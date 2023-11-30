@@ -1,7 +1,9 @@
-
+import customtkinter as ctk
 from pathlib import Path
 from tkinter import *
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+import os
+import subprocess
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -15,6 +17,9 @@ def relative_to_assets(path: str) -> Path:
 
 window = Tk()
 
+def sign_up5_back_button_clicked():
+    window.withdraw()
+    subprocess.Popen(["python", "loginframe.py"])
 # Get the screen width and height
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -48,14 +53,14 @@ image_1 = canvas.create_image(
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
-button_1 = Button(
+sign_up5_back_button = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=sign_up5_back_button_clicked,
     relief="flat"
 )
-button_1.place(
+sign_up5_back_button.place(
     x=230.0,
     y=294.0,
     width=154.39837646484375,

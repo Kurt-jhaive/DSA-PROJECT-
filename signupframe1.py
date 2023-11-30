@@ -1,7 +1,14 @@
 
 
 
-
+import customtkinter as ctk
+import pandas as pd
+from PIL import Image
+from tkinter import messagebox
+import smtplib
+import random
+import shutil
+import os
 from pathlib import Path
 
 from tkinter import *
@@ -15,10 +22,14 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup1_resources\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+def sign_up1_back_button_clicked():
+    window.withdraw()
+    subprocess.Popen(["python", "loginframe.py"])
 
-
+def sign_up1_next_button_clicked():
+    window.withdraw()
+    subprocess.Popen(["python", "signupframe2.py"])
 window = Tk()
-
 # Get the screen width and height
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -196,7 +207,7 @@ next_button = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("next button clicked"),
+    command=sign_up1_next_button_clicked,
     relief="flat"
 )
 next_button.place(
@@ -211,7 +222,7 @@ back_button= Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda:print("backbuttonclicked"),
+    command=sign_up1_back_button_clicked,
     relief="flat"
 )
 back_button.place(
