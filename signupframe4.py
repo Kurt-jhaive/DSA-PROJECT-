@@ -1,16 +1,9 @@
-
-
-
 from pathlib import Path
-import subprocess
+
 from tkinter import *
-<<<<<<< HEAD
 import os
 import subprocess
-=======
 from tkinter import messagebox
->>>>>>> b9478ad5dbc36495282382ab040a0286e59695ee
-
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup4_resources\assets\frame0")
@@ -19,11 +12,6 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup4_resources\assets\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-<<<<<<< HEAD
-def sign_up4_next_button_clicked():
-    window.withdraw()
-    subprocess.Popen(["python", "signupframe5.py"])
-=======
 def sign_up_button_clicked():
     window.withdraw()
     # Call the signup5 function here
@@ -38,11 +26,6 @@ def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
->>>>>>> b9478ad5dbc36495282382ab040a0286e59695ee
-
-def sign_up4_back_button_clicked():
-    window.withdraw()
-    subprocess.Popen(["python", "signupframe3.py"])
 window = Tk()
 
 # Get the screen width and height
@@ -53,18 +36,16 @@ screen_height = window.winfo_screenheight()
 window.protocol("WM_DELETE_WINDOW", close_window)
 
 # Calculate the x and y coordinates for the window to be centered
-x = (screen_width - 620) // 2
-y = (screen_height - 600) // 2
+x = (screen_width - 820) // 2
+y = (screen_height - 500) // 2
 
-window.geometry(f"620x400+{x}+{y}")
+window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
-
-
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
-    height = 400,
-    width = 600,
+    height = 500,
+    width = 820,
     bd = 0,
     highlightthickness = 0,
     relief = "ridge"
@@ -74,82 +55,61 @@ canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    296.0,
-    57.0,
+    404.0,
+    98.0,
     image=image_image_1
 )
 
-button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
-    relief="flat"
-)
-button_1.place(
-    x=198.0,
-    y=85.0,
-    width=204.0,
-    height=7.0
-)
+canvas.create_rectangle(
+    259.5927734375,
+    119.0,
+    583.767333984375,
+    126.0,
+    fill="#D9D9D9",
+    outline="")
+
+canvas.create_rectangle(
+    259.5927734375,
+    119.0,
+    480.36370849609375,
+    126.0,
+    fill="#F19FB5",
+    outline="")
 
 canvas.create_text(
-    217.0,
-    158.0,
+    319.0,
+    235.0,
     anchor="nw",
-    text="Please enter your address?\n",
-    fill="#000000",
-    font=("Inter SemiBold", 12 * -1)
-)
-
-canvas.create_text(
-    166.0,
-    247.0,
-    anchor="nw",
-    text="This is how your address will appear in the PurffectMatch",
-    fill="#969696",
-    font=("Inter", 10 * -1)
-)
-
-canvas.create_text(
-    238.0,
-    130.0,
-    anchor="nw",
-    text=f"MEOW, !",
+    text="Please enter your address?",
     fill="#000000",
     font=("Inter Bold", 16 * -1)
 )
 
-button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
-button_2 = Button(
-    image=button_image_2,
-    borderwidth=0,
-    highlightthickness=0,
-<<<<<<< HEAD
-    command=sign_up4_next_button_clicked,
-=======
-    command=sign_up_button_clicked,
->>>>>>> b9478ad5dbc36495282382ab040a0286e59695ee
-    relief="flat"
+canvas.create_text(
+    265.0,
+    339.0,
+    anchor="nw",
+    text="This is how your address will appear in the PurffectMatch",
+    fill="#969696",
+    font=("Inter", 12 * -1)
 )
-button_2.place(
-    x=223.0,
-    y=294.0,
-    width=154.0,
-    height=27.0
+
+canvas.create_text(
+    330.0,
+    195.0,
+    anchor="nw",
+    text="MEOW, MARIE!",
+    fill="#000000",
+    font=("Inter Bold", 24 * -1)
 )
 
 entry_image_1 = PhotoImage(
     file=relative_to_assets("entry_1.png"))
 entry_bg_1 = canvas.create_image(
+    410.0,
     303.0,
-    222.5,
     image=entry_image_1
 )
-
 address_textbox = Entry(
     bd=0,
     bg="#FFFFFF",
@@ -157,30 +117,42 @@ address_textbox = Entry(
     highlightthickness=0
 )
 address_textbox.place(
-    x=146.0,
-    y=213.0,
-    width=316.0,
-    height=19.0
+    x=182.0,
+    y=289.0,
+    width=457.0,
+    height=29.0
 )
 
-button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+button_image_1 = PhotoImage(
+    file=relative_to_assets("button_1.png"))
 back_button4 = Button(
-    image=button_image_3,
+    image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-<<<<<<< HEAD
-    command=sign_up4_back_button_clicked,
-=======
     command=signupform4_back_button,
->>>>>>> b9478ad5dbc36495282382ab040a0286e59695ee
     relief="flat"
 )
 back_button4.place(
-    x=126.0,
-    y=77.0,
-    width=9.627197265625,
+    x=137.0,
+    y=111.0,
+    width=9.62713623046875,
     height=16.506439208984375
+)
+
+button_image_2 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+sign_up4_button= Button(
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=sign_up_button_clicked,
+    relief="flat"
+)
+sign_up4_button.place(
+    x=340.0,
+    y=388.0,
+    width=159.0,
+    height=39.0
 )
 window.resizable(False, False)
 window.mainloop()

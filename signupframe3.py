@@ -1,12 +1,10 @@
-
-
-
 from pathlib import Path
 
 from tkinter import *
 import os
 import subprocess
 from tkinter import messagebox
+
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup3_resources\assets\frame0")
@@ -29,7 +27,6 @@ def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
-
 window = Tk()
 
 # Get the screen width and height
@@ -40,18 +37,18 @@ screen_height = window.winfo_screenheight()
 window.protocol("WM_DELETE_WINDOW", close_window)
 
 # Calculate the x and y coordinates for the window to be centered
-x = (screen_width - 620) // 2
-y = (screen_height - 600) // 2
+x = (screen_width - 820) // 2
+y = (screen_height - 500) // 2
 
-window.geometry(f"620x400+{x}+{y}")
+window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
 
 
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
-    height = 400,
-    width = 600,
+    height = 500,
+    width = 820,
     bd = 0,
     highlightthickness = 0,
     relief = "ridge"
@@ -61,8 +58,8 @@ canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    296.0,
-    57.0,
+    404.0,
+    98.0,
     image=image_image_1
 )
 
@@ -76,95 +73,89 @@ button_1 = Button(
     relief="flat"
 )
 button_1.place(
-    x=205.0,
-    y=85.0,
-    width=204.0,
+    x=259.5927734375,
+    y=119.0,
+    width=324.174560546875,
     height=7.0
 )
 
 canvas.create_text(
-    180.0,
-    173.0,
+    273.0,
+    231.0,
     anchor="nw",
     text="What purrfect name do you prefer to go by?",
     fill="#000000",
-    font=("Inter SemiBold", 12 * -1)
+    font=("Inter SemiBold", 16 * -1)
 )
 
 canvas.create_text(
-    194.0,
-    249.0,
+    275.0,
+    338.0,
     anchor="nw",
-    text="This is how you’ll appear in PurrfectMatch",
-    fill="#969696",
-    font=("Inter", 10 * -1)
+    text="This is how your address will appear in the PurffectMatch",
+    fill="#7C7C7C",
+    font=("Inter", 12 * -1)
 )
 
 canvas.create_text(
-    147.0,
-    141.0,
+    205.0,
+    186.0,
     anchor="nw",
     text="HEY THERE, FUTURE PURR PARENTS!",
     fill="#000000",
-    font=("Inter Bold", 16 * -1)
-)
-
-button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
-button_2 = Button(
-    image=button_image_2,
-    borderwidth=0,
-    highlightthickness=0,
-    command=sign_up_button_clicked,
-    relief="flat"
-)
-button_2.place(
-    x=223.0,
-    y=294.0,
-    width=154.0,
-    height=27.0
+    font=("Inter Bold", 24 * -1)
 )
 
 entry_image_1 = PhotoImage(
     file=relative_to_assets("entry_1.png"))
 entry_bg_1 = canvas.create_image(
-    295.5,
-    222.5,
+    431.0,
+    294.0,
     image=entry_image_1
 )
-
 name_textbox = Entry(
     bd=0,
     bg="#FFFFFF",
-    fg="#000000",
+    fg="#000716",
     highlightthickness=0
 )
-
 name_textbox.place(
-    x=168.0,
-    y=213.0,
-    width=252.0,
-    height=19.0
-    )
+    x=202.0,
+    y=280.0,
+    width=457.0,
+    height=29.0
+)
 
-button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
-signupframe3_back_button = Button(
-    image=button_image_3,
+button_image_2 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+signupframe3_back_button= Button(
+    image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
     command=signupform3_back_button,
     relief="flat"
 )
 signupframe3_back_button.place(
-    x=126.0,
-    y=77.0,
-    width=9.627197265625,
+    x=137.0,
+    y=111.0,
+    width=9.62713623046875,
     height=16.506439208984375
+)
+
+button_image_3 = PhotoImage(
+    file=relative_to_assets("button_3.png"))
+signupframe3_next_button = Button(
+    image=button_image_3,
+    borderwidth=0,
+    highlightthickness=0,
+    command=sign_up_button_clicked,
+    relief="flat"
+)
+signupframe3_next_button.place(
+    x=343.0,
+    y=387.0,
+    width=159.0,
+    height=39.0
 )
 window.resizable(False, False)
 window.mainloop()
-
-## SIGN UP FRAME 4 ## 
-
-    

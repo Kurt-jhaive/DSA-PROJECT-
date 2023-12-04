@@ -1,13 +1,19 @@
-import customtkinter as ctk
 from pathlib import Path
+
 from tkinter import *
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 import os
 import subprocess
+from tkinter import messagebox
+
+
+
+# from tkinter import *
+# Explicit imports to satisfy Flake8
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path (r"forms\signup5_resources\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup5_resources\assets\frame0")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -23,22 +29,14 @@ def signupform5_back_button():
     # open the signupframe4.py
     subprocess.Popen(["python", "signupframe4.py"])
 
+
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
 window = Tk()
-<<<<<<< HEAD
-def sign_up5_next_button_clicked():
-    window.withdraw()
-    subprocess.Popen(["python", "loginframe.py"])
-def sign_up5_back_button_clicked():
-    window.withdraw()
-    subprocess.Popen(["python", "signupframe4.py"])
-# Get the screen width and height
-=======
 
->>>>>>> b9478ad5dbc36495282382ab040a0286e59695ee
+# Get the screen width and height
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
@@ -46,18 +44,17 @@ screen_height = window.winfo_screenheight()
 window.protocol("WM_DELETE_WINDOW", close_window)
 
 # Calculate the x and y coordinates for the window to be centered
-x = (screen_width - 620) // 2
-y = (screen_height - 600) // 2
+x = (screen_width - 820) // 2
+y = (screen_height - 500) // 2
 
-window.geometry(f"620x400+{x}+{y}")
+window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
-
 
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
-    height = 400,
-    width = 600,
+    height = 500,
+    width = 820,
     bd = 0,
     highlightthickness = 0,
     relief = "ridge"
@@ -67,83 +64,75 @@ canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    296.0,
-    57.0,
+    404.0,
+    98.0,
     image=image_image_1
 )
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
-sign_up5_next_button = Button(
+button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-<<<<<<< HEAD
-    command=sign_up5_next_button_clicked,
-=======
-    command=sign_up_button_clicked,
->>>>>>> b9478ad5dbc36495282382ab040a0286e59695ee
+    command=lambda: print("button_1 clicked"),
     relief="flat"
 )
-sign_up5_next_button.place(
-    x=230.0,
-    y=294.0,
-    width=154.39837646484375,
-    height=27.0
+button_1.place(
+    x=259.5927734375,
+    y=119.0,
+    width=324.4072265625,
+    height=7.0
 )
 
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
-button_2 = Button(
+sign_up5_back_button = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=signupform5_back_button,
     relief="flat"
 )
-button_2.place(
-    x=205.0,
-    y=85.0,
-    width=204.0,
-    height=7.0
-)
-
-canvas.create_text(
-    188.0,
-    201.0,
-    anchor="nw",
-    text="Are you excited to find your perfect match?",
-    fill="#000000",
-    font=("Inter SemiBold", 12 * -1)
-)
-
-canvas.create_text(
-    253.0,
-    172.0,
-    anchor="nw",
-    text="MEOW! AFR!",
-    fill="#000000",
-    font=("Inter Bold", 16 * -1)
+sign_up5_back_button.place(
+    x=137.0,
+    y=111.0,
+    width=9.62713623046875,
+    height=16.5064697265625
 )
 
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
-sign_up5_back_button = Button(
+sign_up5_next_button = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-<<<<<<< HEAD
-    command=sign_up5_back_button_clicked,
-=======
-    command=signupform5_back_button,
->>>>>>> b9478ad5dbc36495282382ab040a0286e59695ee
+    command= sign_up_button_clicked,
     relief="flat"
 )
-sign_up5_back_button.place(
-    x=126.0,
-    y=77.0,
-    width=9.627197265625,
-    height=16.506439208984375
+sign_up5_next_button.place(
+    x=327.0,
+    y=355.0,
+    width=159.0,
+    height=39.0
+)
+
+canvas.create_text(
+    331.0,
+    222.0,
+    anchor="nw",
+    text="MEOW! ARF!",
+    fill="#000000",
+    font=("Inter Bold", 24 * -1)
+)
+
+canvas.create_text(
+    265.0,
+    267.0,
+    anchor="nw",
+    text="Are you excited to find your perfect match?",
+    fill="#000000",
+    font=("Inter SemiBold", 16 * -1)
 )
 window.resizable(False, False)
 window.mainloop()
