@@ -91,10 +91,12 @@ entry_bg_1 = canvas.create_image(
     image=entry_image_1
 )
 confirm_password = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
-    highlightthickness=0
+    highlightthickness=0,
+    show='*'
 )
 confirm_password.place(
     x=415.0,
@@ -111,6 +113,7 @@ entry_bg_2 = canvas.create_image(
     image=entry_image_2
 )
 email_address = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
@@ -131,6 +134,7 @@ entry_bg_3 = canvas.create_image(
     image=entry_image_3
 )
 contact_number = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",

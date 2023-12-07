@@ -59,7 +59,7 @@ def sign_up_button_clicked():
 
 def forgot_password_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "forgetpassframe.py"])
+    subprocess.Popen(["python", "forgetpassframe1.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -149,6 +149,7 @@ entry_bg_1 = canvas.create_image(
     image=entry_image_1
 )
 username_textbox = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
@@ -169,10 +170,12 @@ entry_bg_2 = canvas.create_image(
     image=entry_image_2
 )
 password_textbox = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
-    highlightthickness=0
+    highlightthickness=0,
+    show='*'
     
 )
 password_textbox.place(
@@ -205,5 +208,6 @@ image_2 = canvas.create_image(
     221.0,
     image=image_image_2
 )
+
 window.resizable(False, False)
 window.mainloop()

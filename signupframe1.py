@@ -86,6 +86,7 @@ entry_bg_1 = canvas.create_image(
     image=entry_image_1
 )
 password_signup = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
@@ -106,6 +107,7 @@ entry_bg_2 = canvas.create_image(
     image=entry_image_2
 )
 user_name_signup  = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
@@ -126,6 +128,7 @@ entry_bg_3 = canvas.create_image(
     image=entry_image_3
 )
 last_name_signup= Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
@@ -146,6 +149,7 @@ entry_bg_4 = canvas.create_image(
     image=entry_image_4
 )
 middle_name_signup = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
@@ -166,6 +170,7 @@ entry_bg_5 = canvas.create_image(
     image=entry_image_5
 )
 first_name_signup  = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",

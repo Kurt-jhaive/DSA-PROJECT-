@@ -114,6 +114,7 @@ entry_bg_1 = canvas.create_image(
     image=entry_image_1
 )
 name_textbox = Entry(
+    font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
