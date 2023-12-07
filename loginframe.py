@@ -57,6 +57,10 @@ def sign_up_button_clicked():
     # Run signupframe1.py
     subprocess.Popen(["python", "signupframe1.py"])
 
+def forgot_password_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "forgetpassframe.py"])
+
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
@@ -127,7 +131,7 @@ forgot_password_button = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=forgot_password_button_clicked,
     relief="flat"
 )
 forgot_password_button .place(
