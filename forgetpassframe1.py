@@ -20,7 +20,7 @@ email_password = "xvwi jcex gwqq zwtg"
 smtp_server = "smtp.gmail.com"
 smtp_port = 587
 typed_email = ""
-otp = ""
+otp = None
 
 def check_email():
     global typed_email
