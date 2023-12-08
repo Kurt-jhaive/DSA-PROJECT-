@@ -31,7 +31,7 @@ ASSETS_PATH = OUTPUT_PATH / Path(r'forms\login_resources\assets\frame0')
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def check_login():
+def login_button_clicked():
     global user_id
 
     df = pd.read_csv(r'data\new_credentials.csv')
@@ -47,14 +47,9 @@ def check_login():
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
         
-def login_button_clicked():
-    check_login()
 
 def sign_up_button_clicked():
-    # close the process of the loginframe.py window
     window.destroy()
-    
-    # Run signupframe1.py
     subprocess.Popen(["python", "signupframe1.py"])
 
 def forgot_password_button_clicked():
@@ -64,6 +59,30 @@ def forgot_password_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+
+def persistent_input():
+    # check if there is a file called "inputs/login_input.csv"
+    if os.path.exists("inputs/login_input.csv"):
+        # if there is, then read the file using pandas
+        df = pd.read_csv("inputs/login_input.csv")
+        # get the last username and password from the csv file
+        last_username = df['username'].values[-1]
+        last_password = df['password'].values[-1]
+        # put the last username and password into the textboxes
+        username_textbox.insert(0, last_username)
+        password_textbox.insert(0, last_password)
+    else:
+        # get the username and password from the inputted textboxes
+        inputted_username = username_textbox.get()
+        inputted_password = password_textbox.get()
+
+        # put the username and password into the csv file using pandas
+        df = pd.DataFrame({
+            "username": [inputted_username],
+            "password": [inputted_password]
+        })
+        df.to_csv("inputs/login_input.csv", index=False)
+
 
 window = Tk()
 
@@ -208,6 +227,9 @@ image_2 = canvas.create_image(
     221.0,
     image=image_image_2
 )
+
+# to make the input persistent
+persistent_input()
 
 window.resizable(False, False)
 window.mainloop()

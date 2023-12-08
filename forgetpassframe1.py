@@ -20,7 +20,7 @@ email_password = "xvwi jcex gwqq zwtg"
 smtp_server = "smtp.gmail.com"
 smtp_port = 587
 typed_email = ""
-otp = ""
+otp = None
 
 def check_email():
     global typed_email
@@ -116,48 +116,45 @@ canvas.create_text(
     font=("Inter SemiBold", 20 * -1)
 )
 
-button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
+label_image_1 = PhotoImage(
+    file=relative_to_assets("label_1.png"))
+label_1 = Label(
+    image=label_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
     relief="flat"
 )
-button_1.place(
+label_1.place(
     x=410.0,
     y=95.0,
     width=376.0,
     height=62.59821701049805
 )
 
-button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
-button_2 = Button(
-    image=button_image_2,
+label_image_2 = PhotoImage(
+    file=relative_to_assets("label_2.png"))
+label_2 = Label(
+    image=label_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
     relief="flat"
 )
-button_2.place(
+label_2.place(
     x=410.0,
     y=173.0,
     width=376.0,
     height=62.59821701049805
 )
 
-button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
-button_3 = Button(
-    image=button_image_3,
+label_image_3 = PhotoImage(
+    file=relative_to_assets("label_3.png"))
+label_3 = Label(
+    image=label_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
     relief="flat"
 )
-button_3.place(
+label_3.place(
     x=410.0,
     y=262.0,
     width=376.0,
