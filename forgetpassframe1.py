@@ -1,12 +1,10 @@
-
-from pathlib import Path
 from tkinter import *
 from tkinter import messagebox
+from pathlib import Path
 import subprocess
 import smtplib
 import random
 import pandas as pd
-
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -71,6 +69,14 @@ def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
+def login_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "loginframe.py"])
+
+def sign_up_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "signupframe1.py"])
+
 window = Tk()
 
 # Get the screen width and height
@@ -116,58 +122,61 @@ canvas.create_text(
     font=("Inter SemiBold", 20 * -1)
 )
 
-label_image_1 = PhotoImage(
+email_image = PhotoImage(
     file=relative_to_assets("label_1.png"))
-label_1 = Label(
-    image=label_image_1,
+email_image_label = Label(
+    bg="#FFFFFF",
+    image=email_image,
     borderwidth=0,
     highlightthickness=0,
     relief="flat"
 )
-label_1.place(
+email_image_label.place(
     x=410.0,
     y=95.0,
     width=376.0,
     height=62.59821701049805
 )
 
-label_image_2 = PhotoImage(
+otp_image = PhotoImage(
     file=relative_to_assets("label_2.png"))
-label_2 = Label(
-    image=label_image_2,
+otp_image_label = Label(
+    bg="#FFFFFF",
+    image=otp_image,
     borderwidth=0,
     highlightthickness=0,
     relief="flat"
 )
-label_2.place(
+otp_image_label.place(
     x=410.0,
     y=173.0,
     width=376.0,
     height=62.59821701049805
 )
 
-label_image_3 = PhotoImage(
+newpass_image = PhotoImage(
     file=relative_to_assets("label_3.png"))
-label_3 = Label(
-    image=label_image_3,
+newpass_image_label = Label(
+    bg="#FFFFFF",
+    image=newpass_image,
     borderwidth=0,
     highlightthickness=0,
     relief="flat"
 )
-label_3.place(
+newpass_image_label.place(
     x=410.0,
     y=262.0,
     width=376.0,
     height=62.59821701049805
 )
 
-button_image_4 = PhotoImage(
+login_btn_img = PhotoImage(
     file=relative_to_assets("button_4.png"))
 login_button = Button(
-    image=button_image_4,
+    image=login_btn_img,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
+    command=login_button_clicked,
     relief="flat"
 )
 login_button.place(
@@ -177,48 +186,49 @@ login_button.place(
     height=39.0
 )
 
-button_image_5 = PhotoImage(
+submit_btn_img = PhotoImage(
     file=relative_to_assets("button_5.png"))
-submit_button1 = Button(
-    image=button_image_5,
+submit_button = Button(
+    image=submit_btn_img,
     borderwidth=0,
     highlightthickness=0,
     command=submit_button,
     relief="flat"
 )
-submit_button1.place(
+submit_button.place(
     x=522.0,
     y=345.0,
     width=159.0,
     height=39.0
 )
 
-button_image_6 = PhotoImage(
+signup_btn_img = PhotoImage(
     file=relative_to_assets("button_6.png"))
-sign_up_button = Button(
-    image=button_image_6,
+signup_button = Button(
+    image=signup_btn_img,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_6 clicked"),
+    command=sign_up_button_clicked,
     relief="flat"
 )
-sign_up_button.place(
+signup_button.place(
     x=627.0,
     y=404.0,
     width=159.0,
     height=39.0
 )
 
-button_image_7 = PhotoImage(
+otp_btn_img = PhotoImage(
     file=relative_to_assets("button_7.png"))
-send_otp1 = Button(
-    image=button_image_7,
+otp_button = Button(
+    bg="#FFFFFF",
+    image=otp_btn_img,
     borderwidth=0,
     highlightthickness=0,
     command=send_otp,
     relief="flat"
 )
-send_otp1.place(
+otp_button.place(
     x=722.0,
     y=243.0,
     width=62.0,
@@ -232,6 +242,8 @@ image_2 = canvas.create_image(
     241.0,
     image=image_image_2
 )
+
+# Entry of email, otp, and new password
 email_textbox = Entry(
     font=("Inter", 15 * -1),
     bd=0,

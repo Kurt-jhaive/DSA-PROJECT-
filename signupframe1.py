@@ -1,19 +1,8 @@
-import customtkinter as ctk
-import pandas as pd
-from PIL import Image
-from tkinter import messagebox
-import smtplib
-import random
-import shutil
-import os
-from pathlib import Path
-
 from tkinter import *
-import os
+from tkinter import messagebox
+from pathlib import Path
 import subprocess
 from pathlib import Path
-
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
 OUTPUT_PATH = Path(__file__).parent

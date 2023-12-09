@@ -1,9 +1,8 @@
-from pathlib import Path
-
 from tkinter import *
-import os
-import subprocess
 from tkinter import messagebox
+from pathlib import Path
+import subprocess
+
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup4_resources\assets\frame0")
@@ -127,11 +126,13 @@ address_textbox.place(
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 back_button4 = Button(
+    bg="#FFFFFF",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
     command=signupform4_back_button,
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 back_button4.place(
     x=137.0,

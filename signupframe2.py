@@ -1,10 +1,7 @@
-from pathlib import Path
-
 from tkinter import *
-import os
-import subprocess
 from tkinter import messagebox
-
+from pathlib import Path
+import subprocess
 
 
 OUTPUT_PATH = Path(__file__).parent

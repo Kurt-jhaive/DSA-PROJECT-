@@ -1,21 +1,8 @@
-
-import customtkinter as ctk
-import pandas as pd
-from PIL import Image, ImageTk
-from tkinter import messagebox
-import smtplib
-import random
-import shutil
-import os
-from time import sleep
-
-from pathlib import Path
-
 from tkinter import *
+from tkinter import messagebox
+import pandas as pd
 import os
 import subprocess
-
-
 from pathlib import Path
 
 
@@ -144,11 +131,14 @@ login_button.place(
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 forgot_password_button = Button(
+    bg="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
     command=forgot_password_button_clicked,
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
+
 )
 forgot_password_button .place(
     x=658.0,
