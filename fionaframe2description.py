@@ -29,6 +29,9 @@ def register_button_clicked():
 def donate_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "donateframe.py"])
+def description_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "fionaframe1.py"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
@@ -325,7 +328,7 @@ description_button = Button(
     image=button_image_13,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_13 clicked"),
+    command=description_button_clicked,
     relief="flat"
 )
 description_button.place(

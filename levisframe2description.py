@@ -18,7 +18,7 @@ import subprocess
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\fionaform1_resources\assets\frame1")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\levisform2_resources\assets\frame1")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -31,7 +31,7 @@ def donate_button_clicked():
     subprocess.Popen(["python", "donateframe.py"])
 def description_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "fionaframe2description.py"])
+    subprocess.Popen(["python", "levisframe1.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -52,7 +52,6 @@ y = (screen_height - 500) // 2
 
 window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
-
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
@@ -84,15 +83,15 @@ image_image_3 = PhotoImage(
     file=relative_to_assets("image_3.png"))
 image_3 = canvas.create_image(
     544.0,
-    312.0,
+    309.0,
     image=image_image_3
 )
 
 image_image_4 = PhotoImage(
     file=relative_to_assets("image_4.png"))
 image_4 = canvas.create_image(
-    672.0,
-    381.0,
+    665.0,
+    311.0,
     image=image_image_4
 )
 
@@ -104,17 +103,9 @@ image_5 = canvas.create_image(
     image=image_image_5
 )
 
-image_image_6 = PhotoImage(
-    file=relative_to_assets("image_6.png"))
-image_6 = canvas.create_image(
-    668.0,
-    285.0,
-    image=image_image_6
-)
-
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
-dogs_filter_button = Button(
+dogs_filter_button= Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
@@ -188,7 +179,7 @@ register_button = Button(
 register_button.place(
     x=95.0,
     y=204.0,
-    width=127.0,
+    width=120.0,
     height=30.0
 )
 
@@ -204,16 +195,17 @@ donate_button = Button(
 donate_button.place(
     x=95.0,
     y=253.0,
-    width=127.0,
+    width=120.0,
     height=30.0
 )
 
-image_image_7 = PhotoImage(
-    file=relative_to_assets("image_7.png"))
-image_7 = canvas.create_image(
-    641.0,
+
+image_image_6 = PhotoImage(
+    file=relative_to_assets("image_6.png"))
+image_6 = canvas.create_image(
+    627.0,
     189.0,
-    image=image_image_7
+    image=image_image_6
 )
 
 button_image_7 = PhotoImage(
@@ -226,9 +218,9 @@ adopt_button = Button(
     relief="flat"
 )
 adopt_button.place(
-    x=585.0,
-    y=415.0,
-    width=183.0,
+    x=586.0,
+    y=413.0,
+    width=182.0,
     height=37.0
 )
 
