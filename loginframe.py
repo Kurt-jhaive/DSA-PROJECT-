@@ -18,7 +18,7 @@ def relative_to_assets(path: str) -> Path:
 def login_button_clicked():
     global user_id
 
-    df = pd.read_csv(r'data\new_credentials.csv')
+    df = pd.read_csv(r'data\profile_data.csv')
 
     entered_username = username_textbox.get()
     entered_password = password_textbox.get()
@@ -26,7 +26,7 @@ def login_button_clicked():
     user_record = df[(df['username'] == entered_username) & (df['password'] == entered_password)]
 
     if not user_record.empty:
-        user_id = user_record['user_id'].values[0]
+        # user_id = user_record['user_id'].values[0]
         messagebox.showinfo("Login Successful", "Welcome, {}!".format(entered_username))
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
