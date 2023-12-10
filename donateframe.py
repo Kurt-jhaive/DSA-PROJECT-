@@ -71,7 +71,7 @@ image_1 = canvas.create_image(
 image_image_2 = PhotoImage(
     file=relative_to_assets("image_2.png"))
 image_2 = canvas.create_image(
-    388.0,
+    352.0,
     72.0,
     image=image_image_2
 )
@@ -79,6 +79,8 @@ image_2 = canvas.create_image(
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 favorites_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
@@ -95,6 +97,8 @@ favorites_button.place(
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 menu_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
@@ -111,6 +115,8 @@ menu_button.place(
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 button_3 = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
@@ -145,6 +151,8 @@ canvas.create_text(
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
 home_button = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
@@ -161,6 +169,8 @@ home_button.place(
 button_image_5 = PhotoImage(
     file=relative_to_assets("button_5.png"))
 register_button = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_5,
     borderwidth=0,
     highlightthickness=0,
@@ -177,6 +187,8 @@ register_button.place(
 button_image_6 = PhotoImage(
     file=relative_to_assets("button_6.png"))
 donate_button = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_6,
     borderwidth=0,
     highlightthickness=0,
@@ -193,6 +205,8 @@ donate_button.place(
 button_image_7 = PhotoImage(
     file=relative_to_assets("button_7.png"))
 button_7 = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_7,
     borderwidth=0,
     highlightthickness=0,
@@ -241,6 +255,8 @@ image_6 = canvas.create_image(
 button_image_8 = PhotoImage(
     file=relative_to_assets("button_8.png"))
 submit_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_8,
     borderwidth=0,
     highlightthickness=0,

@@ -74,7 +74,7 @@ image_1 = canvas.create_image(
 image_image_2 = PhotoImage(
     file=relative_to_assets("image_2.png"))
 image_2 = canvas.create_image(
-    388.0,
+    372.0,
     72.0,
     image=image_image_2
 )
@@ -106,6 +106,8 @@ image_5 = canvas.create_image(
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 dogs_filter_button= Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
@@ -122,6 +124,8 @@ dogs_filter_button.place(
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 cats_filter_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
@@ -138,6 +142,8 @@ cats_filter_button.place(
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 filter_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
@@ -154,6 +160,8 @@ filter_button.place(
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
 home_button = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
@@ -170,6 +178,8 @@ home_button.place(
 button_image_5 = PhotoImage(
     file=relative_to_assets("button_5.png"))
 register_button = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_5,
     borderwidth=0,
     highlightthickness=0,
@@ -186,6 +196,8 @@ register_button.place(
 button_image_6 = PhotoImage(
     file=relative_to_assets("button_6.png"))
 donate_button = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_6,
     borderwidth=0,
     highlightthickness=0,
@@ -211,6 +223,8 @@ image_6 = canvas.create_image(
 button_image_7 = PhotoImage(
     file=relative_to_assets("button_7.png"))
 adopt_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_7,
     borderwidth=0,
     highlightthickness=0,
@@ -227,6 +241,8 @@ adopt_button.place(
 button_image_8 = PhotoImage(
     file=relative_to_assets("button_8.png"))
 favorites_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_8,
     borderwidth=0,
     highlightthickness=0,
@@ -243,6 +259,8 @@ favorites_button.place(
 button_image_9 = PhotoImage(
     file=relative_to_assets("button_9.png"))
 menu_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_9,
     borderwidth=0,
     highlightthickness=0,
@@ -277,6 +295,8 @@ canvas.create_text(
 button_image_10 = PhotoImage(
     file=relative_to_assets("button_10.png"))
 button_10 = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
     image=button_image_10,
     borderwidth=0,
     highlightthickness=0,
@@ -293,6 +313,8 @@ button_10.place(
 button_image_11 = PhotoImage(
     file=relative_to_assets("button_11.png"))
 close_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_11,
     borderwidth=0,
     highlightthickness=0,
@@ -309,6 +331,8 @@ close_button.place(
 button_image_12 = PhotoImage(
     file=relative_to_assets("button_12.png"))
 add_to_favorites_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_12,
     borderwidth=0,
     highlightthickness=0,
@@ -325,6 +349,8 @@ add_to_favorites_button.place(
 button_image_13 = PhotoImage(
     file=relative_to_assets("button_13.png"))
 description_button= Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_13,
     borderwidth=0,
     highlightthickness=0,
