@@ -1,36 +1,121 @@
-from pathlib import Path
-
 from tkinter import *
-import os
-import subprocess
 from tkinter import messagebox
-
+from pathlib import Path
+import subprocess
+import pandas as pd
+import os
 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup2_resources\assets\frame0")
 
+df = pd.read_csv("inputs/signup_input.csv")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 def signupform2_signup_button():
+    # make sure that the user has entered all the required information
+    if confirm_password.get() == "" or email_address.get() == "" or contact_number.get() == "":
+        messagebox.showerror("Error", "Please fill in all the required information.")
+        return
 
+    save_input()
+    submit_input()
     window.withdraw()
 
     # open the signupframe3.py and pass the stored values as arguments
     subprocess.Popen(["python", "signupframe3.py"])
 
 def signupform2_back_button():
+    save_input()
     window.withdraw()
     # open the signupframe2.py without passing any arguments
     subprocess.Popen(["python", "signupframe1.py"])
     
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
+        reset_input()
         window.destroy()
 
+def read_input():
+    csv_file_path = "inputs/signup_input.csv"
 
+    if os.path.exists(csv_file_path) and os.stat(csv_file_path).st_size > 0:
+        df = pd.read_csv(csv_file_path)
+
+        # get the first values from the dataframe
+        confirm_pass = df['confirm_password'].values[0]
+        email = df['email'].values[0]
+        contact = df['contact_number'].values[0]
+
+        if pd.notna(confirm_pass):
+            confirm_password.insert(0, confirm_pass)
+        if pd.notna(email):
+            email_address.insert(0, email)
+        if pd.notna(contact):
+            contact_number.insert(0, contact)
+
+def save_input():
+    global df
+    csv_file_path = "inputs/signup_input.csv"
+
+    df = pd.read_csv(csv_file_path)
+
+    # get the first values from the dataframe
+    first_name = df['first_name'].values[0]
+    mid_name = df['mid_name'].values[0]
+    last_name = df['last_name'].values[0]
+    username = df['username'].values[0]
+    password = df['password'].values[0]
+
+    # Get input from the user
+    inputted_confirm_password = confirm_password.get()
+    inputted_email = email_address.get()
+    inputted_contact_number = contact_number.get()
+
+    df = pd.DataFrame({
+        'first_name': [first_name],
+        'mid_name': [mid_name],
+        'last_name': [last_name],
+        'username': [username],
+        'password': [password],
+        'confirm_password': [inputted_confirm_password],
+        'email': [inputted_email],
+        'contact_number': [inputted_contact_number],
+    })
+
+    # save the dataframe as a csv file
+    df.to_csv(csv_file_path, mode='w', index=False)
+
+def submit_input():
+        # save the dataframe to the profile_data.csv file
+    df.to_csv("data/profile_data.csv", mode='a', index=False, header=False)
+
+def reset_input():
+    csv_file_path = "inputs/signup_input.csv"
+
+    # Read the CSV file to get the column names and data types
+    df_default = pd.read_csv(csv_file_path, nrows=0)
+
+    # Create a DataFrame for the default values with the same column names and data types
+    df_default = pd.DataFrame({
+        'first_name': [""],
+        'mid_name': [""],
+        'last_name': [""],
+        'username': [""],
+        'password': [""],
+        'confirm_password': [""],
+        'email': [""],
+        'contact_number': [""],
+    }, columns=df_default.columns)
+
+    # Save the DataFrame as a CSV file
+    df_default.to_csv(csv_file_path, mode='w', index=False)
+
+    
+
+    
 window = Tk()
 
 # Get the screen width and height
@@ -194,5 +279,7 @@ signupframe2_back_button.place(
     width=112.8924560546875,
     height=39.0
 )
+
+read_input()
 window.resizable(False, False)
 window.mainloop()

@@ -1,9 +1,7 @@
-from pathlib import Path
-
 from tkinter import *
-import os
-import subprocess
 from tkinter import messagebox
+from pathlib import Path
+import subprocess
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -130,11 +128,13 @@ name_textbox.place(
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 signupframe3_back_button= Button(
+    bg="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
     command=signupform3_back_button,
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 signupframe3_back_button.place(
     x=137.0,

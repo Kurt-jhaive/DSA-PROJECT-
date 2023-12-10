@@ -1,15 +1,7 @@
-from pathlib import Path
-
 from tkinter import *
-import os
-import subprocess
 from tkinter import messagebox
-
-
-
-# from tkinter import *
-# Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from pathlib import Path
+import subprocess
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -88,11 +80,13 @@ button_1.place(
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 sign_up5_back_button = Button(
+    bg="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
     command=signupform5_back_button,
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 sign_up5_back_button.place(
     x=137.0,
