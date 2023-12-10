@@ -23,6 +23,12 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"forms\miloform1_resources\assets\frame0")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+def register_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "registerframe.py"])
+def donate_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "donateframe.py"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
@@ -205,7 +211,7 @@ register_button = Button(
     image=button_image_7,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("register button clicked"),
+    command=register_button_clicked,
     relief="flat"
 )
 register_button.place(
@@ -221,7 +227,7 @@ donate_button = Button(
     image=button_image_8,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("donate button clicked"),
+    command=donate_button_clicked,
     relief="flat"
 )
 donate_button.place(
@@ -303,7 +309,7 @@ description_button = Button(
     image=button_image_12,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_12 clicked"),
+    command=lambda: print("description_button clicked"),
     relief="flat"
 )
 description_button.place(
