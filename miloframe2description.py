@@ -70,7 +70,7 @@ image_1 = canvas.create_image(
 image_image_2 = PhotoImage(
     file=relative_to_assets("image_2.png"))
 image_2 = canvas.create_image(
-    388.0,
+    372.0,
     72.0,
     image=image_image_2
 )
@@ -142,11 +142,13 @@ dogs_filter_button.place(
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 favorites_button = Button(
+    bg="#FFFFFF",
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("favorites_button clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 favorites_button.place(
     x=713.0,
@@ -158,11 +160,13 @@ favorites_button.place(
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
 menu_button = Button(
+    bg="#FFFFFF",
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("menu_button  clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 menu_button.place(
     x=749.0,
@@ -174,11 +178,13 @@ menu_button.place(
 button_image_5 = PhotoImage(
     file=relative_to_assets("button_5.png"))
 filter_button = Button(
+    bg="#FFFFFF",
     image=button_image_5,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("filter_button clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 filter_button.place(
     x=311.0,
@@ -190,11 +196,13 @@ filter_button.place(
 button_image_6 = PhotoImage(
     file=relative_to_assets("button_6.png"))
 home_button = Button(
+    bg="#F19FB5",
     image=button_image_6,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("home_button clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#F19FB5",
 )
 home_button.place(
     x=95.0,
@@ -206,32 +214,36 @@ home_button.place(
 button_image_7 = PhotoImage(
     file=relative_to_assets("button_7.png"))
 register_button = Button(
+    bg="#F19FB5",
     image=button_image_7,
     borderwidth=0,
     highlightthickness=0,
     command=register_button_clicked,
-    relief="flat"
+    relief="flat",
+    activebackground="#F19FB5",
 )
 register_button.place(
     x=95.0,
     y=204.0,
-    width=127.0,
+    width=120.0,
     height=30.0
 )
 
 button_image_8 = PhotoImage(
     file=relative_to_assets("button_8.png"))
 donate_button = Button(
+    bg="#F19FB5",
     image=button_image_8,
     borderwidth=0,
     highlightthickness=0,
     command=donate_button_clicked,
-    relief="flat"
+    relief="flat",
+    activebackground="#F19FB5",
 )
 donate_button.place(
     x=95.0,
     y=253.0,
-    width=127.0,
+    width=120.0,
     height=30.0
 )
 
@@ -246,11 +258,13 @@ image_7 = canvas.create_image(
 button_image_9 = PhotoImage(
     file=relative_to_assets("button_9.png"))
 adopt_button= Button(
+    bg="#FFFFFF",
     image=button_image_9,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("adopt_button clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 adopt_button.place(
     x=581.0,
@@ -288,11 +302,13 @@ canvas.create_text(
 button_image_10 = PhotoImage(
     file=relative_to_assets("button_10.png"))
 button_10 = Button(
+    bg="#F19FB5",
     image=button_image_10,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_10 clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#F19FB5",
 )
 button_10.place(
     x=68.0,
@@ -304,11 +320,13 @@ button_10.place(
 button_image_11 = PhotoImage(
     file=relative_to_assets("button_11.png"))
 close_button = Button(
+    bg="#FFFFFF",
     image=button_image_11,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("close_button clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 close_button.place(
     x=624.0,
@@ -320,11 +338,13 @@ close_button.place(
 button_image_12 = PhotoImage(
     file=relative_to_assets("button_12.png"))
 add_to_favorites_button = Button(
+    bg="#FFFFFF",
     image=button_image_12,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("add_to_favorites_button clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 add_to_favorites_button.place(
     x=672.0,
@@ -336,11 +356,13 @@ add_to_favorites_button.place(
 button_image_13 = PhotoImage(
     file=relative_to_assets("button_13.png"))
 description_button = Button(
+    bg="#FFFFFF",
     image=button_image_13,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("description_button clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 description_button.place(
     x=721.0,
