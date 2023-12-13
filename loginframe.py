@@ -6,8 +6,6 @@ import subprocess
 from pathlib import Path
 
 
-
-
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r'forms\login_resources\assets\frame0')
 
