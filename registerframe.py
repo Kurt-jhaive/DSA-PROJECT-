@@ -1,31 +1,25 @@
-
-import customtkinter as ctk
+from tkinter import *
+from tkinter import messagebox, filedialog
+import subprocess
 import pandas as pd
-from PIL import Image, ImageTk
-from tkinter import messagebox
-import smtplib
-import random
 import shutil
 import os
-from time import sleep
-
-from pathlib import Path
-
-from tkinter import *
-import os
-import subprocess
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\registerform_resources\assets\frame0")
 
+new_file_path = ''
+
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+
 def home_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "miloframe1.py"])
+
 def donate_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "donateframe.py"])
@@ -33,6 +27,69 @@ def donate_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+
+def upload_image_button_clicked():
+    global new_file_path
+    file_path = filedialog.askopenfilename()
+
+    if file_path:
+        # Create a new folder called "uploads" if it doesn't exist
+        if not os.path.exists("uploads"):
+            os.mkdir("uploads")
+
+        # Get the filename of the selected image
+        filename = os.path.basename(file_path)
+
+        # Create a new path to store the image in the "uploads" folder
+        new_file_path = os.path.join("uploads", filename)
+
+        # Copy the image to the "uploads" folder
+        shutil.copy(file_path, new_file_path)
+
+        upload_label.configure(text=f"{filename}")
+
+
+def submit_button_clicked(): 
+    csv_file_path = 'data/register_data.csv'
+
+    # check if all fields are filled up
+    if not(petname_textbox.get() and breed_textbox.get() and age_textbox.get() and gender_textbox.get() and color_textbox.get() and size_textbox.get() and description_textbox.get("1.0", END).strip() and new_file_path):
+        messagebox.showerror("Error", "Please fill up all fields and upload an image.")
+    else:
+        # Get input from the user
+        inputted_pet_name = petname_textbox.get()
+        inputted_breed = breed_textbox.get()
+        inputted_age = age_textbox.get()
+        inputted_gender = gender_textbox.get()
+        inputted_color = color_textbox.get()
+        inputted_size = size_textbox.get()
+        inputted_description = description_textbox.get("1.0", END).strip()
+
+        try:
+            df = pd.read_csv(csv_file_path)
+        except FileNotFoundError:
+            # If the file doesn't exist, create a new DataFrame
+            df = pd.DataFrame(columns=['pet_name', 'breed', 'age', 'gender', 'color', 'size', 'description', 'image_path'])
+
+        # Create a new DataFrame with the inputted data
+        new_data = pd.DataFrame({
+            'pet_name': [inputted_pet_name],
+            'breed': [inputted_breed],
+            'age': [inputted_age],
+            'gender': [inputted_gender],
+            'color': [inputted_color],
+            'size': [inputted_size],
+            'description': [inputted_description],
+            'image_path': [new_file_path]
+        })
+
+        # Append the new data to the existing DataFrame
+        df = pd.concat([df, new_data], ignore_index=True)
+
+        # Save the updated DataFrame to the CSV file
+        df.to_csv(csv_file_path, index=False)
+
+
 
 window = Tk()
 
@@ -157,7 +214,6 @@ register_button = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("register_button clicked"),
     relief="flat"
 )
 register_button.place(
@@ -259,20 +315,33 @@ image_9 = canvas.create_image(
     image=image_image_9
 )
 
-button_image_7 = PhotoImage(
+upload_button_img = PhotoImage(
     file=relative_to_assets("button_7.png"))
 upload_image_button = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
-    image=button_image_7,
+    image=upload_button_img,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("upload_image_button clicked"),
+    command=upload_image_button_clicked,
     relief="flat"
 )
 upload_image_button.place(
     x=311.0,
     y=411.0,
+    width=159.0,
+    height=39.0
+)
+
+upload_label = Label(
+    text="",   
+    fg="#000716",
+    bg="#FFFFFF",
+    font=("Inter Bold", 12 * -1)
+)
+upload_label.place(
+    x=311.0,
+    y=450.0,
     width=159.0,
     height=39.0
 )
@@ -285,7 +354,7 @@ submit_button = Button(
     image=button_image_8,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("submit_button clicked"),
+    command=submit_button_clicked,
     relief="flat"
 )
 submit_button.place(

@@ -1,24 +1,11 @@
-
-import customtkinter as ctk
-import pandas as pd
-from PIL import Image, ImageTk
-from tkinter import messagebox
-import smtplib
-import random
-import shutil
-import os
-from time import sleep
-
-from pathlib import Path
-
 from tkinter import *
-import os
+from tkinter import messagebox
+import random
 import subprocess
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-# ASSETS_PATH = OUTPUT_PATH / Path(r"forms\miloform1_resources\assets\frame0")
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\home_frame")
 
 
@@ -47,9 +34,7 @@ def change_pet():
     if len(favorites) == len(pets):
         messagebox.showinfo("No more pets", "You have seen all the pets!")
         return
-    
     else:
-
         random_pet = random.choice(list(pets.keys()))
         while random_pet in favorites:
             random_pet = random.choice(list(pets.keys()))
@@ -73,13 +58,20 @@ def ekis_button_clicked():
 
 
 def add_to_favorites_button_clicked(dictionary):
-    favorites.append(random_pet)
+    if random_pet in favorites:
+        messagebox.showinfo("Already added", "This pet is already in your favorites!")
+    else:
+        favorites.append(random_pet)
 
-    print("added to favorites", random_pet)
-    print(favorites)
+        print("added to favorites", random_pet)
+        print(favorites)
 
-    back_to_normal()
-    change_pet()
+        with open('inputs/favorites.txt', 'w') as file:
+            for item in favorites:
+                file.write(item + '\n')
+
+        back_to_normal()
+        change_pet()
 
 def description_button_clicked(dictionary):
     full_desc = pets[random_pet]["full_desc"]   
@@ -94,6 +86,13 @@ def back_to_normal():
     canvas.itemconfigure(pet_full_desc, state="hidden")
     canvas.itemconfigure(pet_desc, state="normal")
     canvas.itemconfigure(pet_quote, state="normal")
+
+def check_list():
+    with open('inputs/favorites.txt', 'r') as file:
+        for line in file:
+            favorites.append(line.strip())
+
+
 
 
 
@@ -240,7 +239,6 @@ home_button = Button(
     image=button_image_6,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("home button clicked"),
     relief="flat",
     activebackground="#F19FB5",
 )
@@ -537,6 +535,8 @@ canvas.create_rectangle(
     289.3240229487419,
     fill="#F19FB5",
     outline="")
+
+check_list()    
 
 window.resizable(False, False)
 window.mainloop()
