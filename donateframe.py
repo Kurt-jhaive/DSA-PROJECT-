@@ -34,6 +34,44 @@ def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
+
+def submit_button_clicked(): 
+    csv_file_path = 'data/donate_data.csv'
+
+    # check if all fields are filled up
+    if not(name_textbox.get() and contactnumber_textbox.get() and address_textbox.get() and email_textbox.get() and donation_type_textbox.get()):
+        messagebox.showerror("Error", "Please fill up all fields.")
+    else:
+        messagebox.showinfo("Success", "Your registration for donation has been submitted! Please wait for our team to contact you.")
+
+        # Get input from the user
+        inputted_name = name_textbox.get()
+        inputted_contactnumber = contactnumber_textbox.get()
+        inputted_address = address_textbox.get()
+        inputted_email = email_textbox.get()
+        inputted_donation = donation_type_textbox.get()
+
+        try:
+            df = pd.read_csv(csv_file_path)
+        except FileNotFoundError:
+            # If the file doesn't exist, create a new DataFrame
+            df = pd.DataFrame(columns=['name', 'contact_number', 'address', 'email', 'donation_type'])
+
+        # Create a new DataFrame with the inputted data
+        new_data = pd.DataFrame({
+            'name': [inputted_name],
+            'contact_number': [inputted_contactnumber],
+            'address': [inputted_address],
+            'email': [inputted_email],
+            'donation_type': [inputted_donation]
+        })
+
+        # Append the new data to the existing DataFrame
+        df = pd.concat([df, new_data], ignore_index=True)
+
+        # Save the updated DataFrame to the CSV file
+        df.to_csv(csv_file_path, index=False)
+
 window = Tk()
 
 # Get the screen width and height
@@ -192,7 +230,6 @@ donate_button = Button(
     image=button_image_6,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("donate_buttonclicked"),
     relief="flat"
 )
 donate_button.place(
@@ -260,7 +297,7 @@ submit_button = Button(
     image=button_image_8,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("submit_button clicked"),
+    command=submit_button_clicked,
     relief="flat"
 )
 submit_button.place(
@@ -337,14 +374,14 @@ email_textbox.place(
     width=443.0,
     height=28
 )
-wheredonate_textbox = Entry(
+donation_type_textbox = Entry(
     font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
     highlightthickness=0
 )
-wheredonate_textbox.place(
+donation_type_textbox.place(
     x=318.0,
     y=315.0,
     width=443.0,

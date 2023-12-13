@@ -19,7 +19,7 @@ def sign_up_button_clicked():
 def signupform3_back_button():
     window.withdraw()
     # open the signupframe2.py
-    subprocess.Popen(["python", "signupframe2.py"])
+    subprocess.Popen(["python", "signupframe1.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -90,7 +90,7 @@ canvas.create_text(
     275.0,
     338.0,
     anchor="nw",
-    text="This is how your address will appear in the PurffectMatch",
+    text="This is how your name will appear in the PurffectMatch",
     fill="#7C7C7C",
     font=("Inter", 12 * -1)
 )
