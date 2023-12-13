@@ -18,22 +18,87 @@ import subprocess
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\miloform1_resources\assets\frame0")
+# ASSETS_PATH = OUTPUT_PATH / Path(r"forms\miloform1_resources\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\home_frame")
+
+
+favorites = []
+random_pet = ""
 
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+
 def register_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "registerframe.py"])
+
 def donate_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "donateframe.py"])
+
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
+def change_pet():
+    # change the image of the dog
+    global random_pet
+    if len(favorites) == len(pets):
+        messagebox.showinfo("No more pets", "You have seen all the pets!")
+        return
+    
+    else:
+
+        random_pet = random.choice(list(pets.keys()))
+        while random_pet in favorites:
+            random_pet = random.choice(list(pets.keys()))
+        
+
+        name = pets[random_pet]["name"]
+        picture = pets[random_pet]["picture"]
+        description = pets[random_pet]["description"]
+        quote = pets[random_pet]["quote"]
+
+        canvas.itemconfigure(pet_name, text=name)
+        canvas.itemconfigure(pet_pic, image=picture)
+        canvas.itemconfigure(pet_desc, image=description)
+        canvas.itemconfigure(pet_quote, image=quote)
+
+        print(random_pet)   
+
+def ekis_button_clicked():
+    back_to_normal()
+    change_pet()
+
+
+def add_to_favorites_button_clicked(dictionary):
+    favorites.append(random_pet)
+
+    print("added to favorites", random_pet)
+    print(favorites)
+
+    back_to_normal()
+    change_pet()
+
+def description_button_clicked(dictionary):
+    full_desc = pets[random_pet]["full_desc"]   
+
+    canvas.itemconfigure(pet_desc, state="hidden")
+    canvas.itemconfigure(pet_quote, state="hidden")
+
+    canvas.itemconfigure(pet_full_desc, image=full_desc, state="normal")
+    canvas.after(15000, back_to_normal)
+
+def back_to_normal():
+    canvas.itemconfigure(pet_full_desc, state="hidden")
+    canvas.itemconfigure(pet_desc, state="normal")
+    canvas.itemconfigure(pet_quote, state="normal")
+
+
+
 window = Tk()
+
 
 # Get the screen width and height
 screen_width = window.winfo_screenwidth()
@@ -82,31 +147,6 @@ image_3 = canvas.create_image(
     372.0,
     72.0,
     image=image_image_3
-)
-
-canvas.create_text(
-    582.0,
-    167.0,
-    anchor="nw",
-    text="MILO, 1",
-    fill="#000000",
-    font=("Inter SemiBold", 20 * -1)
-)
-
-image_image_4 = PhotoImage(
-    file=relative_to_assets("image_4.png"))
-image_4 = canvas.create_image(
-    448.0,
-    307.0,
-    image=image_image_4
-)
-
-image_image_5 = PhotoImage(
-    file=relative_to_assets("image_5.png"))
-image_5 = canvas.create_image(
-    673.0,
-    399.0,
-    image=image_image_5
 )
 
 button_image_1 = PhotoImage(
@@ -248,7 +288,7 @@ donate_button.place(
     height=30.0
 )
 
-canvas.create_text(
+profile_name = canvas.create_text(
     115.0,
     65.0,
     anchor="nw",
@@ -257,7 +297,7 @@ canvas.create_text(
     font=("Inter Bold", 16 * -1)
 )
 
-canvas.create_text(
+profile_location = canvas.create_text(
     115.0,
     85.0,
     anchor="nw",
@@ -284,23 +324,141 @@ button_9.place(
     height=36.0
 )
 
-button_image_10 = PhotoImage(
+ekis_image = PhotoImage(
     file=relative_to_assets("button_10.png"))
-close_button = Button(
+ekis_button = Button(
     bg="#FFFFFF",
-    image=button_image_10,
+    image=ekis_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("X button clicked"),
+    command=ekis_button_clicked,
     relief="flat",
     activebackground="#FFFFFF",
 )
-close_button.place(
+ekis_button.place(
     x=621.0,
     y=123.0,
     width=42.0,
     height=43.0
 )
+
+pets = {
+    "milo": {
+        "name": "MILO, 1",
+        "picture": PhotoImage(file=relative_to_assets("dogs/milo/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("dogs/milo/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("dogs/milo/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("dogs/milo/full_desc.png"))
+    },
+    "fiona": {
+        "name": "FIONA, 3 1/2",
+        "picture": PhotoImage(file=relative_to_assets("dogs/fiona/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("dogs/fiona/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("dogs/fiona/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("dogs/fiona/full_desc.png"))
+    },
+    "levis": {
+        "name": "LEVIS, 2",
+        "picture": PhotoImage(file=relative_to_assets("dogs/levis/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("dogs/levis/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("dogs/levis/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("dogs/levis/full_desc.png"))
+    },
+    "kaira": {
+        "name": "KAIRA, 2",
+        "picture": PhotoImage(file=relative_to_assets("dogs/kaira/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("dogs/kaira/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("dogs/kaira/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("dogs/kaira/full_desc.png"))
+    },
+    "pepper": {
+        "name": "PEPPER, 3",
+        "picture": PhotoImage(file=relative_to_assets("dogs/pepper/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("dogs/pepper/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("dogs/pepper/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("dogs/pepper/full_desc.png"))
+    },   
+    "candy": {
+        "name": "CANDY, 2",
+        "picture": PhotoImage(file=relative_to_assets("cats/candy/picture.png")),   
+        "description": PhotoImage(file=relative_to_assets("cats/candy/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("cats/candy/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("cats/candy/full_desc.png")),        
+    },
+    "lemon": {
+        "name": "LEMON, 3",
+        "picture": PhotoImage(file=relative_to_assets("cats/lemon/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("cats/lemon/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("cats/lemon/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("cats/lemon/full_desc.png")),
+    },
+    "luna": {
+        "name": "LUNA, 1",
+        "picture": PhotoImage(file=relative_to_assets("cats/luna/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("cats/luna/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("cats/luna/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("cats/luna/full_desc.png")),    
+    },
+    "orange": {
+        "name": "ORANGE, 3",
+        "picture": PhotoImage(file=relative_to_assets("cats/orange/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("cats/orange/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("cats/orange/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("cats/orange/full_desc.png")),
+    },
+    "sugar": {
+        "name": "SUGAR, 1",
+        "picture": PhotoImage(file=relative_to_assets("cats/sugar/picture.png")),
+        "description": PhotoImage(file=relative_to_assets("cats/sugar/description.png")),
+        "quote": PhotoImage(file=relative_to_assets("cats/sugar/quote.png")),
+        "full_desc": PhotoImage(file=relative_to_assets("cats/sugar/full_desc.png")),
+    },
+
+}
+
+# pet_name = canvas.create_image(
+#     644.0,
+#     189.0,
+#     image=dogs["milo"]["name"]
+# )
+
+pet_name  = canvas.create_text(
+    582.0,
+    176.0,
+    anchor="nw",
+    text="MILO, 1",
+    fill="#000000",
+    font=("Inter", 22 * -1, "bold")
+)
+
+
+pet_pic = canvas.create_image(
+    448.0,
+    307.0,
+    image=pets["milo"]["picture"]
+)
+
+pet_desc = canvas.create_image(
+    674.0,
+    288.0,
+    image=pets["milo"]["description"]
+)
+
+pet_quote = canvas.create_image(
+    673.0,
+    399.0,
+    image=pets["milo"]["quote"]
+)
+
+pet_full_desc = canvas.create_image(
+    664.0,
+    309.0,
+    image=pets["milo"]["full_desc"],
+    state="hidden",
+)
+
+
+change_pet()
 
 button_image_11 = PhotoImage(
     file=relative_to_assets("button_11.png"))
@@ -309,7 +467,7 @@ add_to_favorites_button = Button(
     image=button_image_11,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("add to favorites button clicked"),
+    command=lambda: add_to_favorites_button_clicked(pets),
     relief="flat",
     activebackground="#FFFFFF",
 )
@@ -327,7 +485,7 @@ description_button = Button(
     image=button_image_12,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("description_button clicked"),
+    command=lambda: description_button_clicked(pets),
     relief="flat",
     activebackground="#FFFFFF",
 )
@@ -380,12 +538,5 @@ canvas.create_rectangle(
     fill="#F19FB5",
     outline="")
 
-image_image_6 = PhotoImage(
-    file=relative_to_assets("image_6.png"))
-image_6 = canvas.create_image(
-    674.0,
-    288.0,
-    image=image_image_6
-)
 window.resizable(False, False)
 window.mainloop()
