@@ -2,117 +2,29 @@ from tkinter import *
 from tkinter import messagebox
 from pathlib import Path
 import subprocess
-import pandas as pd
-import os
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup2_resources\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup2_frame")
 
-df = pd.read_csv("inputs/signup_input.csv")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def signupform2_signup_button():
-    # make sure that the user has entered all the required information
-    if confirm_password.get() == "" or email_address.get() == "" or contact_number.get() == "":
-        messagebox.showerror("Error", "Please fill in all the required information.")
-        return
-
-    save_input()
-    submit_input()
+def sign_up_button_clicked():
     window.withdraw()
-
-    # open the signupframe3.py and pass the stored values as arguments
+    # Call the signup5 function here
     subprocess.Popen(["python", "signupframe3.py"])
 
-def signupform2_back_button():
-    save_input()
+def signupform4_back_button():
     window.withdraw()
-    # open the signupframe2.py without passing any arguments
+    # open the signupframe3.py
     subprocess.Popen(["python", "signupframe1.py"])
-    
+
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
-        reset_input()
         window.destroy()
 
-def read_input():
-    csv_file_path = "inputs/signup_input.csv"
-
-    if os.path.exists(csv_file_path) and os.stat(csv_file_path).st_size > 0:
-        df = pd.read_csv(csv_file_path)
-
-        # get the first values from the dataframe
-        confirm_pass = df['confirm_password'].values[-1]
-        email = df['email'].values[-1]
-        contact = df['contact_number'].values[-1]
-
-        if pd.notna(confirm_pass):
-            confirm_password.insert(0, confirm_pass)
-        if pd.notna(email):
-            email_address.insert(0, email)
-        if pd.notna(contact):
-            contact_number.insert(0, contact)
-
-def save_input():
-    global df
-    csv_file_path = "inputs/signup_input.csv"
-
-    # df = pd.read_csv(csv_file_path)
-
-    # Get input from the user
-    inputted_confirm_password = confirm_password.get()
-    inputted_email = email_address.get()
-    inputted_contact_number = contact_number.get()
-
-    try:
-        df = pd.read_csv(csv_file_path)
-    except FileNotFoundError:
-        # If the file doesn't exist, create a new DataFrame
-        df = pd.DataFrame(columns=['confirm_password', 'email', 'contact_number'])
-
-    # Create a new DataFrame with the inputted data
-    new_data = pd.DataFrame({
-        'confirm_password': [inputted_confirm_password],
-        'email': [inputted_email],
-        'contact_number': [inputted_contact_number],
-    })
-
-    # Append the new data to the existing DataFrame
-    # df = pd.concat([df, new_data], ignore_index=True)
-
-    # Save the updated DataFrame to the CSV file
-    df.to_csv(csv_file_path, index=False, mode='w')
-
-
-def submit_input():
-        # save the dataframe to the profile_data.csv file
-    df.to_csv("data/profile_data.csv", mode='a', index=False, header=False)
-
-def reset_input():
-    csv_file_path = "inputs/signup_input.csv"
-
-    # Read the CSV file to get the column names and data types
-    df_default = pd.read_csv(csv_file_path)
-
-    # Create a DataFrame for the default values with the same column names and data types
-    df_default = pd.DataFrame({
-        'first_name': [""],
-        'mid_name': [""],
-        'last_name': [""],
-        'username': [""],
-        'password': [""],
-        'confirm_password': [""],
-        'email': [""],
-        'contact_number': [""],
-    }, columns=df_default.columns)
-
-    # Save the DataFrame as a CSV file
-    df_default.to_csv(csv_file_path, mode='w', index=False)
-
-    
 window = Tk()
 
 # Get the screen width and height
@@ -128,7 +40,6 @@ y = (screen_height - 500) // 2
 
 window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
-
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
@@ -143,140 +54,107 @@ canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    190.0,
-    250.0,
+    404.0,
+    98.0,
     image=image_image_1
 )
 
-image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
-image_2 = canvas.create_image(
-    183.0,
-    237.0,
-    image=image_image_2
-)
+# canvas.create_rectangle(
+#     259.5927734375,
+#     119.0,
+#     583.767333984375,
+#     126.0,
+#     fill="#D9D9D9",
+#     outline="")
 
-canvas.create_text(
-    410.0,
-    42.0,
-    anchor="nw",
-    text="Sign Up ",
-    fill="#000000",
-    font=("Inter SemiBold", 20 * -1)
-)
+# canvas.create_rectangle(
+#     259.5927734375,
+#     119.0,
+#     480.36370849609375,
+#     126.0,
+#     fill="#F19FB5",
+#     outline="")
+
+# canvas.create_text(
+#     319.0,
+#     235.0,
+#     anchor="nw",
+#     text="Please enter your address?",
+#     fill="#000000",
+#     font=("Inter Bold", 16 * -1)
+# )
+
+# canvas.create_text(
+#     265.0,
+#     339.0,
+#     anchor="nw",
+#     text="This is how your address will appear in the PurffectMatch",
+#     fill="#969696",
+#     font=("Inter", 12 * -1)
+# )
+
+# canvas.create_text(
+#     330.0,
+#     195.0,
+#     anchor="nw",
+#     text="MEOW, MARIE!",
+#     fill="#000000",
+#     font=("Inter Bold", 24 * -1)
+# )
 
 # entry_image_1 = PhotoImage(
 #     file=relative_to_assets("entry_1.png"))
 # entry_bg_1 = canvas.create_image(
-#     594.0,
-#     122.410400390625,
+#     410.0,
+#     303.0,
 #     image=entry_image_1
 # )
-# confirm_password = Entry(
-#     font=("Inter", 15 * -1),
-#     bd=0,
-#     bg="#FFFFFF",
-#     fg="#000716",
-#     highlightthickness=0,
-#     show='*'
-# )
-# confirm_password.place(
-#     x=415.0,
-#     y=111.0,
-#     width=356.0,
-#     height=32
-# )
-
-# entry_image_2 = PhotoImage(
-#     file=relative_to_assets("entry_2.png"))
-# entry_bg_2 = canvas.create_image(
-#     594.0,
-#     191.41039276123047,
-#     image=entry_image_2
-# )
-# email_address = Entry(
+# address_textbox = Entry(
 #     font=("Inter", 15 * -1),
 #     bd=0,
 #     bg="#FFFFFF",
 #     fg="#000716",
 #     highlightthickness=0
 # )
-# email_address.place(
-#     x=415.0,
-#     y=179.0,
-#     width=356.0,
-#     height=32
+# address_textbox.place(
+#     x=182.0,
+#     y=289.0,
+#     width=457.0,
+#     height=29.0
 # )
 
-# entry_image_3 = PhotoImage(
-#     file=relative_to_assets("entry_3.png"))
-# entry_bg_3 = canvas.create_image(
-#     594.0,
-#     259.69991302490234,
-#     image=entry_image_3
-# )
-# contact_number = Entry(
-#     font=("Inter", 15 * -1),
-#     bd=0,
-#     bg="#FFFFFF",
-#     fg="#000716",
-#     highlightthickness=0
-# )
-# contact_number.place(
-#     x=415.0,
-#     y=250.0,
-#     width=356.0,
-#     height=32
-# )
+button_image_1 = PhotoImage(
+    file=relative_to_assets("button_1.png"))
+back_button4 = Button(
+    bg="#FFFFFF",
+    image=button_image_1,
+    borderwidth=0,
+    highlightthickness=0,
+    command=signupform4_back_button,
+    relief="flat",
+    activebackground="#FFFFFF",
+)
+back_button4.place(
+    x=137.0,
+    y=111.0,
+    width=9.62713623046875,
+    height=16.506439208984375
+)
 
-# button_image_1 = PhotoImage(
-#     file=relative_to_assets("button_1.png"))
-# terms_and_conditions = Button(
-#     image=button_image_1,
-#     borderwidth=0,
-#     highlightthickness=0,
-#     command=lambda: print("button_1 clicked"),
-#     relief="flat"
-# )
-# terms_and_conditions.place(
-#     x=443.0,
-#     y=391.0,
-#     width=301.0,
-#     height=61.0
-# )
-
-# button_image_2 = PhotoImage(
-#     file=relative_to_assets("button_2.png"))
-# signupframe2_signup_button = Button(
-#     image=button_image_2,
-#     borderwidth=0,
-#     highlightthickness=0,
-#     command=signupform2_signup_button,
-#     relief="flat"
-# ) 
-# signupframe2_signup_button.place(
-#     x=619.0,
-#     y=309.0,
-#     width=159.0,
-#     height=38.57142639160156
-# )
-
-# button_image_3 = PhotoImage(
-#     file=relative_to_assets("button_3.png"))
-# signupframe2_back_button = Button(
-#     image=button_image_3,
-#     borderwidth=0,
-#     highlightthickness=0,
-#     command=signupform2_back_button,
-#     relief="flat"
-# )
-# signupframe2_back_button.place(
-#     x=410.0,
-#     y=309.0,
-#     width=112.8924560546875,
-#     height=39.0
-# )
-
-read_input()
+button_image_2 = PhotoImage(
+    file=relative_to_assets("button_2.png"))
+sign_up4_button= Button(
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=sign_up_button_clicked,
+    relief="flat"
+)
+sign_up4_button.place(
+    x=340.0,
+    y=388.0,
+    width=159.0,
+    height=39.0
+)
 window.resizable(False, False)
 window.mainloop()

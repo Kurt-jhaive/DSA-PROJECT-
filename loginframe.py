@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r'forms\login_resources\assets\frame0')
+ASSETS_PATH = OUTPUT_PATH / Path(r'forms\login_frame')
 
 
 def relative_to_assets(path: str) -> Path:
@@ -24,8 +24,12 @@ def login_button_clicked():
     user_record = df[(df['username'] == entered_username) & (df['password'] == entered_password)]
 
     if not user_record.empty:
-        # user_id = user_record['user_id'].values[0]
+        #put the username in a text file
+        with open("data/current_user.txt", "w") as file:
+            file.write(entered_username)
         messagebox.showinfo("Login Successful", "Welcome, {}!".format(entered_username))
+        window.destroy()
+        subprocess.Popen(["python", "homeframe.py"])
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
         
@@ -41,29 +45,6 @@ def forgot_password_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
-
-def persistent_input():
-    # check if there is a file called "inputs/login_input.csv"
-    if os.path.exists("inputs/login_input.csv"):
-        # if there is, then read the file using pandas
-        df = pd.read_csv("inputs/login_input.csv")
-        # get the last username and password from the csv file
-        last_username = df['username'].values[-1]
-        last_password = df['password'].values[-1]
-        # put the last username and password into the textboxes
-        username_textbox.insert(0, last_username)
-        password_textbox.insert(0, last_password)
-    else:
-        # get the username and password from the inputted textboxes
-        inputted_username = username_textbox.get()
-        inputted_password = password_textbox.get()
-
-        # put the username and password into the csv file using pandas
-        df = pd.DataFrame({
-            "username": [inputted_username],
-            "password": [inputted_password]
-        })
-        df.to_csv("inputs/login_input.csv", index=False)
 
 
 window = Tk()
@@ -212,9 +193,6 @@ image_2 = canvas.create_image(
     221.0,
     image=image_image_2
 )
-
-# to make the input persistent
-persistent_input()
 
 window.resizable(False, False)
 window.mainloop()

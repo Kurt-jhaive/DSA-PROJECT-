@@ -1,18 +1,7 @@
-import customtkinter as ctk
-import pandas as pd
-from PIL import Image, ImageTk
-from tkinter import messagebox
-import smtplib
-import random
-import shutil
-import os
-from time import sleep
-
-from pathlib import Path
-
 from tkinter import *
-import os
+from tkinter import messagebox
 import subprocess
+import pandas as pd
 
 
 from pathlib import Path
@@ -32,6 +21,23 @@ def next_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+    
+def change_profile_display():
+    #read the text file
+    with open("data/current_user.txt", "r") as file:
+        current_user = file.read().strip()
+    
+    print(current_user)
+    
+    #get the display name of the current user
+    df = pd.read_csv('data/profile_data.csv')
+    user_row = df[df['username'] == current_user]
+    display_name = user_row['display_name'].values[0]
+    display_location = user_row['address'].values[0]
+
+    #change the display name and location
+    canvas.itemconfigure(display_name_canvas, text=display_name)
+    canvas.itemconfigure(profile_location, text=display_location)
 
 
 
@@ -71,32 +77,34 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
-canvas.create_text(
+display_name_canvas = canvas.create_text(
     115.0,
-    56.0,
+    58.0,
     anchor="nw",
     text="Marie Cris Edusma",
     fill="#FFFFFF",
-    font=("Inter Bold", 14 * -1)
+    font=("Inter SemiBold", 15 * -1, "bold")
 )
 
-canvas.create_text(
+profile_location = canvas.create_text(
     115.0,
-    77.0,
+    78.0,
     anchor="nw",
     text="Taguig City",
     fill="#FFFFFF",
-    font=("Inter Bold", 12 * -1)
+    font=("Inter SemiBold", 12 * -1, "bold")
 )
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 button_1 = Button(
+    bg="#F19FB5",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_1 clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#F19FB5",
 )
 button_1.place(
     x=65.0,
@@ -250,6 +258,20 @@ address_textbox.place(
     width=315.0,
     height=23
 )
+occupation_textbox = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0,
+
+)
+occupation_textbox.place(
+    x=445.0,
+    y=289.0,
+    width=315.0,
+    height=23
+)
 email_textbox = Entry(
     font=("Inter", 15 * -1),
     bd=0,
@@ -260,6 +282,20 @@ email_textbox = Entry(
 )
 email_textbox.place(
     x=58.0,
+    y=359.0,
+    width=315.0,
+    height=23
+)
+phone_textbox = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0,
+
+)
+phone_textbox.place(
+    x=445.0,
     y=359.0,
     width=315.0,
     height=23
@@ -278,34 +314,8 @@ socialmedia_textbox.place(
     width=315.0,
     height=23
 )
-occupation_textbox = Entry(
-    font=("Inter", 15 * -1),
-    bd=0,
-    bg="#FFFFFF",
-    fg="#000716",
-    highlightthickness=0,
 
-)
-occupation_textbox.place(
-    x=445.0,
-    y=289.0,
-    width=315.0,
-    height=23
-)
-phone_textbox = Entry(
-    font=("Inter", 15 * -1),
-    bd=0,
-    bg="#FFFFFF",
-    fg="#000716",
-    highlightthickness=0,
-
-)
-phone_textbox.place(
-    x=445.0,
-    y=359.0,
-    width=315.0,
-    height=23
-)
+change_profile_display()
 
 window.resizable(False, False)
 window.mainloop()

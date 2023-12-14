@@ -8,7 +8,7 @@ import pandas as pd
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\forgetpassframe_resources\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\forgetpass_frame")
 
 
 def relative_to_assets(path: str) -> Path:

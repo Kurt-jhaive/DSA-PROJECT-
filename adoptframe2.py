@@ -1,18 +1,5 @@
-
-import customtkinter as ctk
-import pandas as pd
-from PIL import Image, ImageTk
-from tkinter import messagebox
-import smtplib
-import random
-import shutil
-import os
-from time import sleep
-
-from pathlib import Path
-
 from tkinter import *
-import os
+from tkinter import messagebox
 import subprocess
 
 
