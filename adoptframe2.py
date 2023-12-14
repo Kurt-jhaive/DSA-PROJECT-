@@ -326,6 +326,12 @@ next_button.place(
 )
 
 
+# ------------------------ dot image ------------------------ #
+dot_image = PhotoImage(file=relative_to_assets("dot.png"))
+black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
+black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"))
+pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
+
 # ------------------------- RADIO BUTTONS ------------------------- #
 # STATUS
 q1 = IntVar()
@@ -334,7 +340,11 @@ single_radio = Radiobutton(
     variable=q1,
     value=1,
     bg="#FFFFFF",
-    activebackground="#FFFFFF", 
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 single_radio.place(
     x=54,
@@ -346,6 +356,10 @@ married_radio = Radiobutton(
     value=2,
     bg="#FFFFFF",
     activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 married_radio.place(
     x=141,
@@ -356,7 +370,11 @@ others_radio = Radiobutton(
     variable=q1,
     value=3,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 others_radio.place(
     x=245,
@@ -370,7 +388,11 @@ friends_radio = Radiobutton(
     variable=q2,
     value=1,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 friends_radio.place(
     x=54,
@@ -381,7 +403,11 @@ website_radio = Radiobutton(
     variable=q2,
     value=2,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 website_radio.place(
     x=173,
@@ -392,7 +418,11 @@ social_radio = Radiobutton(
     variable=q2,
     value=3,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 social_radio.place(
     x=284,
@@ -403,7 +433,11 @@ family_radio = Radiobutton(
     variable=q2,
     value=4,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 family_radio.place(
     x=427,
@@ -414,7 +448,11 @@ partner_radio = Radiobutton(
     variable=q2,
     value=5,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 partner_radio.place(
     x=545,
@@ -425,7 +463,11 @@ others2_radio = Radiobutton(
     variable=q2,
     value=6,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 others2_radio.place(
     x=656,
@@ -439,7 +481,11 @@ apartment_radio = Radiobutton(
     variable=q3,
     value=1,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 apartment_radio.place(
     x=54,
@@ -450,7 +496,11 @@ house_radio = Radiobutton(
     variable=q3,
     value=2,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 house_radio.place(
     x=172,
@@ -461,7 +511,11 @@ condo_radio = Radiobutton(
     variable=q3,
     value=3,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 condo_radio.place(
     x=272,
@@ -472,7 +526,11 @@ others3_radio = Radiobutton(
     variable=q3,
     value=4,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 others3_radio.place(
     x=396,
@@ -484,7 +542,11 @@ yes_radio = Radiobutton(
     variable=q4,
     value=1,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 yes_radio.place(
     x=570,
@@ -494,7 +556,11 @@ no_radio = Radiobutton(
     variable=q4,
     value=2,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 no_radio.place(
     x=681,
@@ -506,7 +572,11 @@ living_radio = Radiobutton(
     variable=q5,
     value=1,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 living_radio.place(
     x=54,
@@ -516,7 +586,11 @@ spouse_radio = Radiobutton(
     variable=q5,
     value=2,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 spouse_radio.place(
     x=173,
@@ -526,7 +600,11 @@ relatives_radio = Radiobutton(
     variable=q5,
     value=3,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 relatives_radio.place(
     x=273,
@@ -536,7 +614,11 @@ parents_radio = Radiobutton(
     variable=q5,
     value=4,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 parents_radio.place(
     x=397,
@@ -546,7 +628,11 @@ roommate_radio = Radiobutton(
     variable=q5,
     value=5,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 roommate_radio.place(
     x=525,
@@ -559,7 +645,11 @@ below_radio = Radiobutton(
     variable=q6,
     value=1,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 below_radio.place(
     x=54,
@@ -569,7 +659,11 @@ over_radio = Radiobutton(
     variable=q6,
     value=2,
     bg="#FFFFFF",
-    activebackground="#FFFFFF",  
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image, 
 )
 over_radio.place(
     x=237,

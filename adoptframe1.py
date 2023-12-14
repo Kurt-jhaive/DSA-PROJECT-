@@ -82,12 +82,12 @@ display_name_canvas = canvas.create_text(
     anchor="nw",
     text="Marie Cris Edusma",
     fill="#FFFFFF",
-    font=("Inter SemiBold", 15 * -1, "bold")
+    font=("Inter SemiBold", 14 * -1, "bold")
 )
 
 profile_location = canvas.create_text(
     115.0,
-    78.0,
+    77.0,
     anchor="nw",
     text="Taguig City",
     fill="#FFFFFF",
@@ -97,13 +97,13 @@ profile_location = canvas.create_text(
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 button_1 = Button(
-    bg="#FFFFFF",
+    bg="#F19FB5",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_1 clicked"),
     relief="flat",
-    activebackground="#FFFFFF",
+    activebackground="#F19FB5",
 )
 button_1.place(
     x=65.0,

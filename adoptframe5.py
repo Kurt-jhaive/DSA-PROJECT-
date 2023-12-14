@@ -200,13 +200,24 @@ next_button.place(
     width=112.89242553710938,
     height=39.0
 )
+
+
 # Do you have other pets?
 q9 = IntVar() 
 
+dot_image = PhotoImage(file=relative_to_assets("dot.png"))
+black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
+black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"))
+pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 yes4_radio = Radiobutton(
     variable=q9,
     value=1,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 yes4_radio.place(
     x=55,
@@ -215,7 +226,12 @@ yes4_radio.place(
 no4_radio = Radiobutton(
     variable=q9,
     value=2,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 no4_radio.place(
     x=173,
@@ -226,7 +242,12 @@ q10 = IntVar()
 yes5_radio = Radiobutton(
     variable=q10,
     value=1,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 yes5_radio.place(
     x=350,
@@ -235,7 +256,12 @@ yes5_radio.place(
 no5_radio = Radiobutton(
     variable=q10,
     value=2,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 no5_radio.place(
     x=468,
