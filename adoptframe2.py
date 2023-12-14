@@ -34,6 +34,8 @@ def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
+def var1():
+    ()
 window = Tk()
 
 # Get the screen width and height
@@ -500,7 +502,9 @@ image_51 = canvas.create_image(
     399.0,
     image=image_image_51
 )
+# STATUS 
 single_radio = Radiobutton(
+    variable=x,
     value=1,
     fg="#FB7196"  
 )
@@ -510,6 +514,7 @@ single_radio.place(
 )
 
 married_radio = Radiobutton(
+    variable=x,
     value=2,
     fg="#FB7196",
 )
@@ -519,6 +524,7 @@ married_radio.place(
 )
 
 others_radio = Radiobutton(
+    variable=x,
     value=3,
     fg="#FB7196"  
 )
@@ -526,8 +532,10 @@ others_radio.place(
     x=245,
     y=116
 )
+# What prompted you to adopt from PAWS? 
 friends_radio = Radiobutton(
-    value=1.1,
+    variable=y,
+    value=1,
     fg="#FB7196"  
 )
 friends_radio.place(
@@ -535,7 +543,8 @@ friends_radio.place(
     y=188
 )
 website_radio = Radiobutton(
-    value=2.1,
+    variable=y,
+    value=2,
     fg="#FB7196"  
 )
 website_radio.place(
@@ -543,12 +552,268 @@ website_radio.place(
     y=188
 )
 social_radio = Radiobutton(
-    value=3.1,
+    variable=y,
+    value=3,
     fg="#FB7196"  
 )
 social_radio.place(
+    x=284,
+    y=188
+)
+family_radio = Radiobutton(
+    variable=y,
+    value=4,
+    fg="#FB7196"  
+)
+family_radio.place(
+    x=427,
+    y=188
+)
+partner_radio = Radiobutton(
+    variable=y,
+    value=5,
+    fg="#FB7196"  
+)
+partner_radio.place(
+    x=545,
+    y=188
+)
+others2_radio = Radiobutton(
+    variable=y,
+    value=6,
+    fg="#FB7196"  
+)
+others2_radio.place(
+    x=656,
+    y=188
+)
+# STATUS
+q1 = IntVar()
+
+single_radio = Radiobutton(
+    variable=q1,
+    value=1,
+    fg="#FB7196"  
+)
+single_radio.place(
+    x=55,
+    y=114
+)
+
+married_radio = Radiobutton(
+    variable=q1,
+    value=2,
+    fg="#FB7196",
+)
+married_radio.place(
+    x=141,
+    y=114
+)
+
+others_radio = Radiobutton(
+    variable=q1,
+    value=3,
+    fg="#FB7196"  
+)
+others_radio.place(
+    x=245,
+    y=116
+)
+
+# What prompted you to adopt from PAWS?
+q2 = IntVar()
+
+friends_radio = Radiobutton(
+    variable=q2,
+    value=1,
+    fg="#FB7196"  
+)
+friends_radio.place(
+    x=55,
+    y=188
+)
+
+website_radio = Radiobutton(
+    variable=q2,
+    value=2,
+    fg="#FB7196"  
+)
+website_radio.place(
     x=173,
     y=188
 )
+
+social_radio = Radiobutton(
+    variable=q2,
+    value=3,
+    fg="#FB7196"  
+)
+social_radio.place(
+    x=284,
+    y=188
+)
+
+family_radio = Radiobutton(
+    variable=q2,
+    value=4,
+    fg="#FB7196"  
+)
+family_radio.place(
+    x=427,
+    y=188
+)
+
+partner_radio = Radiobutton(
+    variable=q2,
+    value=5,
+    fg="#FB7196"  
+)
+partner_radio.place(
+    x=545,
+    y=188
+)
+
+others2_radio = Radiobutton(
+    variable=q2,
+    value=6,
+    fg="#FB7196"  
+)
+others2_radio.place(
+    x=656,
+    y=188
+)
+
+# What type of building do you live in?
+q3 = IntVar()
+
+apartment_radio = Radiobutton(
+    variable=q3,
+    value=1,
+    fg="#FB7196"  
+)
+apartment_radio.place(
+    x=54,
+    y=266
+)
+
+house_radio = Radiobutton(
+    variable=q3,
+    value=2,
+    fg="#FB7196"  
+)
+house_radio.place(
+    x=172,
+    y=266
+)
+
+condo_radio = Radiobutton(
+    variable=q3,
+    value=3,
+    fg="#FB7196"  
+)
+condo_radio.place(
+    x=272,
+    y=266
+)
+
+others3_radio = Radiobutton(
+    variable=q3,
+    value=4,
+    fg="#FB7196"  
+)
+others3_radio.place(
+    x=396,
+    y=266
+)
+# Do you rent?
+q4 = IntVar()
+yes_radio = Radiobutton(
+    variable=q4,
+    value=1,
+    fg="#FB7196"  
+)
+yes_radio.place(
+    x=570,
+    y=266
+)
+no_radio = Radiobutton(
+    variable=q4,
+    value=2,
+    fg="#FB7196"  
+)
+no_radio.place(
+    x=681,
+    y=266
+)
+#Who do you live with?
+q5 = IntVar()
+living_radio = Radiobutton(
+    variable=q5,
+    value=1,
+    fg="#FB7196"  
+)
+living_radio.place(
+    x=55,
+    y=351
+)
+spouse_radio = Radiobutton(
+    variable=q5,
+    value=2,
+    fg="#FB7196"  
+)
+spouse_radio.place(
+    x=173,
+    y=351
+)
+relatives_radio = Radiobutton(
+    variable=q5,
+    value=3,
+    fg="#FB7196"  
+)
+relatives_radio.place(
+    x=273,
+    y=351
+)
+parents_radio = Radiobutton(
+    variable=q5,
+    value=4,
+    fg="#FB7196"  
+)
+parents_radio.place(
+    x=397,
+    y=351
+)
+roommate_radio = Radiobutton(
+    variable=q5,
+    value=5,
+    fg="#FB7196"  
+)
+roommate_radio.place(
+    x=525,
+    y=351
+)
+# How old are they?
+q6 = IntVar()
+
+below_radio = Radiobutton(
+    variable=q6,
+    value=1,
+    fg="#FB7196"  
+)
+below_radio.place(
+    x=55,
+    y=430
+)
+over_radio = Radiobutton(
+    variable=q6,
+    value=2,
+    fg="#FB7196"  
+)
+over_radio.place(
+    x=237,
+    y=430
+)
 window.resizable(False, False)
 window.mainloop()
+
+

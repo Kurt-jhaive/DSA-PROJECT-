@@ -102,16 +102,16 @@ image_1 = canvas.create_image(
 image_image_2 = PhotoImage(
     file=relative_to_assets("image_2.png"))
 image_2 = canvas.create_image(
-    172.0,
-    95.0,
+    174.0,
+    92.0,
     image=image_image_2
 )
 
 image_image_3 = PhotoImage(
     file=relative_to_assets("image_3.png"))
 image_3 = canvas.create_image(
-    207.0,
-    201.0,
+    174.0,
+    190.0,
     image=image_image_3
 )
 
@@ -199,18 +199,38 @@ date_textbox.place(
     width=317.0,
     height=28.0
 )
-date_textbox = Entry(
+time_textbox = Entry(
     font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
     highlightthickness=0
 )
-date_textbox.place(
+time_textbox.place(
     x=67.0,
     y=230.0,
     width=317.0,
     height=28.0
+)
+# Will you be able to visit the shelter for the meet-and-greet?
+q11 = IntVar()
+yes6_radio = Radiobutton(
+    variable=q11,
+    value=1,
+    fg="#FB7196"  
+)
+yes6_radio.place(
+    x=56,
+    y=316
+)
+no6_radio = Radiobutton(
+    variable=q11,
+    value=2,
+    fg="#FB7196"  
+)
+no6_radio.place(
+    x=174,
+    y=316
 )
 window.resizable(False, False)
 window.mainloop()

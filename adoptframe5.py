@@ -213,5 +213,46 @@ next_button.place(
     width=112.89242553710938,
     height=39.0
 )
+# Do you have other pets?
+q9 = IntVar() 
+
+yes4_radio = Radiobutton(
+    variable=q9,
+    value=1,
+    fg="#FB7196"  
+)
+yes4_radio.place(
+    x=55,
+    y=83
+)
+no4_radio = Radiobutton(
+    variable=q9,
+    value=2,
+    fg="#FB7196"  
+)
+no4_radio.place(
+    x=173,
+    y=83
+)
+# Have you had pets in the past?
+q10 = IntVar()
+yes5_radio = Radiobutton(
+    variable=q10,
+    value=1,
+    fg="#FB7196"  
+)
+yes5_radio.place(
+    x=350,
+    y=83
+)
+no5_radio = Radiobutton(
+    variable=q10,
+    value=2,
+    fg="#FB7196"  
+)
+no5_radio.place(
+    x=468,
+    y=83
+)
 window.resizable(False, False)
 window.mainloop()

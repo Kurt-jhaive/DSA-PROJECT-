@@ -221,5 +221,25 @@ question3_textbox.place(
     height=31.0
 )
 
+# Are any members of your household allergic to animals? 
+q7 = IntVar()
+yes2_radio = Radiobutton(
+    variable=q7,
+    value=1,
+    fg="#FB7196"  
+)
+yes2_radio.place(
+    x=55,
+    y=83
+)
+no2_radio = Radiobutton(
+    variable=q7,
+    value=2,
+    fg="#FB7196"  
+)
+no2_radio.place(
+    x=173,
+    y=83
+)
 window.resizable(False, False)
 window.mainloop()

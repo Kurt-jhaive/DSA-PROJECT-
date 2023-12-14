@@ -220,5 +220,26 @@ question6_textbox.place(
     width=665.0,
     height=31.0
 )
+# Does everyone in the family support your decision to adopt a pet?
+q8 = IntVar() 
+
+yes3_radio = Radiobutton(
+    variable=q8,
+    value=1,
+    fg="#FB7196"  
+)
+yes3_radio.place(
+    x=55,
+    y=375
+)
+no3_radio = Radiobutton(
+    variable=q8,
+    value=2,
+    fg="#FB7196"  
+)
+no3_radio.place(
+    x=173,
+    y=375
+)
 window.resizable(False, False)
 window.mainloop()
