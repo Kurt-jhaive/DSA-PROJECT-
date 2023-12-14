@@ -5,7 +5,7 @@ import subprocess
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\adoptionform6_resources\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\adoption6_frame")
 
 
 def relative_to_assets(path: str) -> Path:

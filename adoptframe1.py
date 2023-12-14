@@ -6,7 +6,7 @@ import pandas as pd
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\adoptionform1_resources\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\adoption1_frame")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -26,8 +26,6 @@ def change_profile_display():
     #read the text file
     with open("data/current_user.txt", "r") as file:
         current_user = file.read().strip()
-    
-    print(current_user)
     
     #get the display name of the current user
     df = pd.read_csv('data/profile_data.csv')
@@ -69,6 +67,7 @@ canvas = Canvas(
 )
 
 canvas.place(x = 0, y = 0)
+
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
@@ -98,13 +97,13 @@ profile_location = canvas.create_text(
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 button_1 = Button(
-    bg="#F19FB5",
+    bg="#FFFFFF",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_1 clicked"),
     relief="flat",
-    activebackground="#F19FB5",
+    activebackground="#FFFFFF",
 )
 button_1.place(
     x=65.0,
@@ -140,7 +139,7 @@ back_button = Button(
 )
 back_button.place(
     x=535.0,
-    y=422.0,
+    y=407.0,
     width=112.89242553710938,
     height=39.0
 )
@@ -155,8 +154,8 @@ next_button = Button(
     relief="flat"
 )
 next_button.place(
-    x=659.0,
-    y=420.0,
+    x=657.0,
+    y=407.0,
     width=112.89242553710938,
     height=39.0
 )
