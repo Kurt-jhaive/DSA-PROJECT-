@@ -18,7 +18,7 @@ def relative_to_assets(path: str) -> Path:
 
 def home_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "miloframe1.py"])
+    subprocess.Popen(["python", "homeframe.py"])
 
 def donate_button_clicked():
     window.destroy()
