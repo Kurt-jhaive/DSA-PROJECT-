@@ -5,7 +5,7 @@ import subprocess
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup3_resources\assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup3_frame")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -13,13 +13,14 @@ def relative_to_assets(path: str) -> Path:
 
 def sign_up_button_clicked():
     window.withdraw()
-    # Call the signup4 function here
-    subprocess.Popen(["python", "signupframe4.py"])
+    # Go back to the login page
+    subprocess.Popen(["python", "loginframe.py"])
 
-def signupform3_back_button():
+def signupform5_back_button():
     window.withdraw()
-    # open the signupframe2.py
-    subprocess.Popen(["python", "signupframe1.py"])
+    # open the signupframe4.py
+    subprocess.Popen(["python", "signupframe2.py"])
+
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -41,7 +42,6 @@ y = (screen_height - 500) // 2
 window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
 
-
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
@@ -61,102 +61,72 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
-button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
-button_1 = Button(
-    image=button_image_1,
+loading_image_last = PhotoImage(
+    file=relative_to_assets("loading_line_full.png"))
+loading_line_button_full = Button(
+    image=loading_image_last,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: print("loading_line_button_full clicked"),
     relief="flat"
 )
-button_1.place(
+loading_line_button_full.place(
     x=259.5927734375,
     y=119.0,
-    width=324.174560546875,
+    width=324.4072265625,
     height=7.0
-)
-
-canvas.create_text(
-    273.0,
-    231.0,
-    anchor="nw",
-    text="What purrfect name do you prefer to go by?",
-    fill="#000000",
-    font=("Inter SemiBold", 16 * -1)
-)
-
-canvas.create_text(
-    275.0,
-    338.0,
-    anchor="nw",
-    text="This is how your name will appear in the PurffectMatch",
-    fill="#7C7C7C",
-    font=("Inter", 12 * -1)
-)
-
-canvas.create_text(
-    205.0,
-    186.0,
-    anchor="nw",
-    text="HEY THERE, FUTURE PURR PARENTS!",
-    fill="#000000",
-    font=("Inter Bold", 24 * -1)
-)
-
-entry_image_1 = PhotoImage(
-    file=relative_to_assets("entry_1.png"))
-entry_bg_1 = canvas.create_image(
-    431.0,
-    294.0,
-    image=entry_image_1
-)
-name_textbox = Entry(
-    font=("Inter", 15 * -1),
-    bd=0,
-    bg="#FFFFFF",
-    fg="#000716",
-    highlightthickness=0
-)
-name_textbox.place(
-    x=202.0,
-    y=280.0,
-    width=457.0,
-    height=29.0
 )
 
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
-signupframe3_back_button= Button(
+sign_up5_back_button = Button(
     bg="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=signupform3_back_button,
+    command=signupform5_back_button,
     relief="flat",
     activebackground="#FFFFFF",
 )
-signupframe3_back_button.place(
+sign_up5_back_button.place(
     x=137.0,
     y=111.0,
     width=9.62713623046875,
-    height=16.506439208984375
+    height=16.5064697265625
 )
 
-button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
-signupframe3_next_button = Button(
-    image=button_image_3,
+yes_image = PhotoImage(
+    file=relative_to_assets("yes.png"))
+yes_button = Button(
+    image=yes_image,
     borderwidth=0,
     highlightthickness=0,
-    command=sign_up_button_clicked,
+    command= sign_up_button_clicked,
     relief="flat"
 )
-signupframe3_next_button.place(
-    x=343.0,
-    y=387.0,
+yes_button.place(
+    x=327.0,
+    y=355.0,
     width=159.0,
     height=39.0
+)
+
+last_text_1 = canvas.create_text(
+    331.0,
+    222.0,
+    anchor="nw",
+    text="MEOW! ARF!",
+    fill="#000000",
+    font=("Inter Bold", 24 * -1)
+)
+
+last_text_2 = canvas.create_text(
+    265.0,
+    267.0,
+    anchor="nw",
+    text="Are you excited to find your perfect match?",
+    fill="#000000",
+    font=("Inter SemiBold", 16 * -1)
 )
 window.resizable(False, False)
 window.mainloop()

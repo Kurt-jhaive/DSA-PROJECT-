@@ -1,24 +1,12 @@
-
-import customtkinter as ctk
-import pandas as pd
-from PIL import Image, ImageTk
-from tkinter import messagebox
-import smtplib
-import random
-import shutil
-import os
-from time import sleep
-
-from pathlib import Path
-
 from tkinter import *
-import os
+from tkinter import messagebox
 import subprocess
+import pandas as pd
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\donateform_resources\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\donate_frame")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -71,6 +59,22 @@ def submit_button_clicked():
 
         # Save the updated DataFrame to the CSV file
         df.to_csv(csv_file_path, index=False)
+
+def change_profile_display():
+    #read the text file
+    with open("data/current_user.txt", "r") as file:
+        current_user = file.read().strip()
+    
+    #get the display name of the current user
+    df = pd.read_csv('data/profile_data.csv')
+    user_row = df[df['username'] == current_user]
+    display_name = user_row['display_name'].values[0]
+    display_location = user_row['address'].values[0]
+
+    #change the display name and location
+    canvas.itemconfigure(display_name_canvas, text=display_name)
+    canvas.itemconfigure(profile_location, text=display_location)
+
 
 window = Tk()
 
@@ -168,22 +172,22 @@ button_3.place(
     height=36.0
 )
 
-canvas.create_text(
-    102.0,
+display_name_canvas = canvas.create_text(
+    105.0,
     65.0,
     anchor="nw",
     text="Marie Cris Edusma",
     fill="#FFFFFF",
-    font=("Inter Bold", 14 * -1)
+    font=("Inter SemiBold", 15 * -1, "bold")
 )
 
-canvas.create_text(
-    102.0,
-    81.0,
+profile_location = canvas.create_text(
+    105.0,
+    82.0,
     anchor="nw",
     text="Taguig City",
     fill="#FFFFFF",
-    font=("Inter Bold", 12 * -1)
+    font=("Inter SemiBold", 12 * -1, "bold")
 )
 
 button_image_4 = PhotoImage(
@@ -387,5 +391,8 @@ donation_type_textbox.place(
     width=443.0,
     height=28
 )
+
+change_profile_display()
+
 window.resizable(False, False)
 window.mainloop()
