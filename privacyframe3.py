@@ -5,7 +5,7 @@ import subprocess
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\privacyform3_resources")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\privacy3_frame")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -16,6 +16,9 @@ def back_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+def i_agree_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "homeframe.py"])
 
 window = Tk()
 
@@ -81,7 +84,7 @@ submit_button = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("submit_button clicked"),
+    command=i_agree_button_clicked,
     relief="flat"
 )
 submit_button.place(

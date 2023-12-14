@@ -199,12 +199,24 @@ time_textbox.place(
     width=317.0,
     height=28.0
 )
+
+
 # Will you be able to visit the shelter for the meet-and-greet?
 q11 = IntVar()
+
+dot_image = PhotoImage(file=relative_to_assets("dot.png"))
+black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
+black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"))
+pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 yes6_radio = Radiobutton(
     variable=q11,
     value=1,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 yes6_radio.place(
     x=56,
@@ -213,7 +225,12 @@ yes6_radio.place(
 no6_radio = Radiobutton(
     variable=q11,
     value=2,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 no6_radio.place(
     x=174,

@@ -89,28 +89,12 @@ image_5 = canvas.create_image(
     image=image_image_5
 )
 
-image_image_6 = PhotoImage(
-    file=relative_to_assets("image_6.png"))
-image_6 = canvas.create_image(
-    63.0,
-    91.0,
-    image=image_image_6
-)
-
 image_image_7 = PhotoImage(
     file=relative_to_assets("image_7.png"))
 image_7 = canvas.create_image(
     100.0,
-    91.0,
+    90.0,
     image=image_image_7
-)
-
-image_image_8 = PhotoImage(
-    file=relative_to_assets("image_8.png"))
-image_8 = canvas.create_image(
-    181.0,
-    91.0,
-    image=image_image_8
 )
 
 image_image_9 = PhotoImage(
@@ -210,23 +194,39 @@ question3_textbox.place(
 
 # Are any members of your household allergic to animals? 
 q7 = IntVar()
+
+dot_image = PhotoImage(file=relative_to_assets("dot.png"))
+black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
+black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"))
+pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 yes2_radio = Radiobutton(
     variable=q7,
     value=1,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 yes2_radio.place(
     x=55,
-    y=83
+    y=79
 )
 no2_radio = Radiobutton(
     variable=q7,
     value=2,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 no2_radio.place(
     x=173,
-    y=83
+    y=79
 )
+
 window.resizable(False, False)
 window.mainloop()

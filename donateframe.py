@@ -174,11 +174,11 @@ button_3.place(
 
 display_name_canvas = canvas.create_text(
     105.0,
-    65.0,
+    66.0,
     anchor="nw",
     text="Marie Cris Edusma",
     fill="#FFFFFF",
-    font=("Inter SemiBold", 15 * -1, "bold")
+    font=("Inter SemiBold", 14 * -1, "bold")
 )
 
 profile_location = canvas.create_text(
@@ -187,7 +187,7 @@ profile_location = canvas.create_text(
     anchor="nw",
     text="Taguig City",
     fill="#FFFFFF",
-    font=("Inter SemiBold", 12 * -1, "bold")
+    font=("Inter SemiBold", 11 * -1, "bold")
 )
 
 button_image_4 = PhotoImage(
