@@ -1,9 +1,11 @@
 from tkinter import *
 from tkinter import messagebox
+from pathlib import Path
 import subprocess
+from pathlib import Path
 import pandas as pd
 
-from pathlib import Path
+
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup1_frame")
 
@@ -11,190 +13,163 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup1_frame")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def back_button_1_clicked():
+def back_button1_clicked():
     window.withdraw()
-    # open the signupframe2.py
-    subprocess.Popen(["python", "signupframe.py"])
+    subprocess.Popen(["python", "loginframe.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
-def save_input():
-    # Get input from the user
-    inputted_name = name_textbox.get()
-    inputted_address = address_textbox.get()
+def next_button_clicked():
+    canvas.itemconfigure(first_name_img, state="hidden")
+    canvas.itemconfigure(middle_name_img, state="hidden")
+    canvas.itemconfigure(last_name_img, state="hidden")
+    canvas.itemconfigure(username_img, state="hidden")
+    canvas.itemconfigure(password_img, state="hidden")
+    first_name_signup.place_forget()
+    middle_name_signup.place_forget()
+    last_name_signup.place_forget()
+    user_name_signup.place_forget()
+    password_signup.place_forget()
+    next_button1.place_forget()
+    back_button1.place_forget()
 
-    # get the data in the text file
-    with open('data/signup_data.txt', 'r') as f:
-        data = f.readlines()
-        data = [line.strip() for line in data]
-    
-    print(data)
-    #save to csv
-    csv_file_path = 'data/profile_data.csv'
-
-    df = pd.DataFrame({
-        'first_name': [data[0]],
-        'middle_name': [data[1]],
-        'last_name': [data[2]],
-        'username': [data[3]],
-        'password': [data[4]],
-        'confirm_password': [data[5]],
-        'email': [data[6]],
-        'contact_number': [data[7]],
-        'display_name': [inputted_name],
-        'address': [inputted_address]
-    })
-
-    # append the dataframe
-    df.to_csv(csv_file_path, mode='a', index=False, header=False)
-
-def continue_button_1_clicked():
-    canvas.itemconfigure(name_canvas, state="hidden")
-    canvas.itemconfigure(text1, state="hidden")
-    canvas.itemconfigure(text2, state="hidden")
-    canvas.itemconfigure(text3, state="hidden")
-    loading_button.place_forget()
-    name_textbox.place_forget()
-    continue_button_1.place_forget()
-
-    #show next 
-    canvas.itemconfigure(rectangle1, state="normal")
-    canvas.itemconfigure(rectangle2, state="normal")
-    canvas.itemconfigure(adress_text1, state="normal")
-    canvas.itemconfigure(adress_text2, state="normal")
-    canvas.itemconfigure(adress_text3, state="normal")
-    canvas.itemconfigure(address_canvas, state="normal")
-    address_textbox.place(
-        x=182.0,
-        y=289.0,
-        width=457.0,
-        height=29.0
+    # show the next part of the form
+    canvas.itemconfigure(confirm_pass_img, state="normal")
+    confirm_password.place(
+        x=415.0,
+        y=111.0,
+        width=356.0,
+        height=32
     )
-    continue_button_2.place(
-        x=343.0,
-        y=387.0,
-        width=159.0,
+
+    canvas.itemconfigure(email_img, state="normal")
+    email_address.place(
+        x=415.0,
+        y=179.0,
+        width=356.0,
+        height=32
+    )
+
+    canvas.itemconfigure(contact_no_img, state="normal")
+    contact_number.place(
+        x=415.0,
+        y=250.0,
+        width=356.0,
+        height=32
+    )
+
+    terms_and_conditions.place(
+        x=443.0,
+        y=391.0,
+        width=301.0,
+        height=61.0
+    )
+
+    back_button2.place(
+        x=410.0,
+        y=309.0,
+        width=112.8924560546875,
         height=39.0
     )
-    back_button_2.place(
-        x=137.0,
-        y=111.0,
-        width=9.62713623046875,
-        height=16.5064697265625
+
+    login_button.place(
+        x=619.0,
+        y=309.0,
+        width=159.0,
+        height=38.57142639160156
     )
 
-def continue_button_2_clicked():
-    canvas.itemconfigure(rectangle1, state="hidden")
-    canvas.itemconfigure(rectangle2, state="hidden")
-    canvas.itemconfigure(adress_text1, state="hidden")
-    canvas.itemconfigure(adress_text2, state="hidden")
-    canvas.itemconfigure(adress_text3, state="hidden")
-    canvas.itemconfigure(address_canvas, state="hidden")
-    address_textbox.place_forget()
-    continue_button_2.place_forget()
-    
-    #show next
-    canvas.itemconfigure(last_text_1, state="normal")
-    canvas.itemconfigure(last_text_2, state="normal")
-    loading_line_button_full.place(
-        x=259.5927734375,
-        y=119.0,
-        width=324.4072265625,
-        height=7.0
+def back_button2_clicked():
+    canvas.itemconfigure(confirm_pass_img, state="hidden")
+    canvas.itemconfigure(email_img, state="hidden")
+    canvas.itemconfigure(contact_no_img, state="hidden")
+    confirm_password.place_forget()
+    email_address.place_forget()
+    contact_number.place_forget()
+    terms_and_conditions.place_forget()
+    back_button2.place_forget()
+    login_button.place_forget()
+
+    canvas.itemconfigure(first_name_img, state="normal")
+    canvas.itemconfigure(middle_name_img, state="normal")
+    canvas.itemconfigure(last_name_img, state="normal")
+    canvas.itemconfigure(username_img, state="normal")
+    canvas.itemconfigure(password_img, state="normal")
+    first_name_signup.place(
+        x=419.0,
+        y=106.0,
+        width=353.0,
+        height=34.0
     )
-    yes_button.place(
-        x=327.0,
-        y=355.0,
-        width=159.0,
+    middle_name_signup.place(
+        x=419.0,
+        y=174.0,
+        width=353.0,
+        height=34.0
+    )
+    last_name_signup.place(
+        x=419.0,
+        y=241.0,
+        width=353.0,
+        height=34
+    )
+    user_name_signup.place(
+        x=419.0,
+        y=309.0,
+        width=353.0,
+        height=34
+    )
+    password_signup.place(
+        x=419.0,
+        y=383.0,
+        width=353.0,
+        height=34
+    )
+    next_button1.place(
+        x=665.0,
+        y=441.0,
+        width=112.89242553710938,
         height=39.0
     )
-    back_button_3.place(
-        x=137.0,
-        y=111.0,
-        width=9.62713623046875,
-        height=16.5064697265625
-    )
-
-def back_button_2_clicked():
-    canvas.itemconfigure(rectangle1, state="hidden")
-    canvas.itemconfigure(rectangle2, state="hidden")
-    canvas.itemconfigure(adress_text1, state="hidden")
-    canvas.itemconfigure(adress_text2, state="hidden")
-    canvas.itemconfigure(adress_text3, state="hidden")
-    canvas.itemconfigure(address_canvas, state="hidden")
-    address_textbox.place_forget()
-    continue_button_2.place_forget()
-    back_button_2.place_forget()
-
-    #show previous
-    canvas.itemconfigure(name_canvas, state="normal")
-    canvas.itemconfigure(text1, state="normal")
-    canvas.itemconfigure(text2, state="normal")
-    canvas.itemconfigure(text3, state="normal")
-    loading_button.place(
-        x=259.5927734375,
-        y=119.0,
-        width=324.174560546875,
-        height=7.0
-    )
-    name_textbox.place(
-        x=202.0,
-        y=280.0,
-        width=457.0,
-        height=29.0
-    )
-    continue_button_1.place(
-        x=343.0,
-        y=387.0,
-        width=159.0,
+    back_button1.place(
+        x=410.0,
+        y=441.0,
+        width=112.8924560546875,
         height=39.0
     )
-    back_button_1.place(
-        x=137.0,
-        y=111.0,
-        width=9.62713623046875,
-        height=16.506439208984375
-    )
 
-def back_button_3_clicked():
-    canvas.itemconfigure(last_text_1, state="hidden")
-    canvas.itemconfigure(last_text_2, state="hidden")
-    loading_line_button_full.place_forget()
-    yes_button.place_forget()
-    back_button_3.place_forget()
-
-    #show previous
-    canvas.itemconfigure(rectangle1, state="normal")
-    canvas.itemconfigure(rectangle2, state="normal")
-    canvas.itemconfigure(adress_text1, state="normal")
-    canvas.itemconfigure(adress_text2, state="normal")
-    canvas.itemconfigure(adress_text3, state="normal")
-    canvas.itemconfigure(address_canvas, state="normal")
-    address_textbox.place(
-        x=182.0,
-        y=289.0,
-        width=457.0,
-        height=29.0
-    )
-    continue_button_2.place(
-        x=343.0,
-        y=387.0,
-        width=159.0,
-        height=39.0
-    )
-    back_button_2.place(
-        x=137.0,
-        y=111.0,
-        width=9.62713623046875,
-        height=16.5064697265625
-    )
-
-def yes_button_clicked():
+def login_button_clicked():
     save_input()
     window.withdraw()
-    subprocess.Popen(["python", "loginframe.py"])
+    subprocess.Popen(["python", "signupframe2.py"])
+
+def save_input():
+    csv_file_path = "data/profile_data.csv"
+    df = pd.read_csv(csv_file_path)
+
+    # get the user input
+    inputted_first_name = first_name_signup.get()
+    inputted_middle_name = middle_name_signup.get()
+    inputted_last_name = last_name_signup.get()
+    inputted_username = user_name_signup.get()
+    inputted_password = password_signup.get()
+    inputted_confirm_pass = confirm_password.get()
+    inputted_email = email_address.get()
+    inputted_contact = contact_number.get()
+
+    # Save the inputted data to a file
+    with open("data/signup_data.txt", "w") as f:
+        f.write(inputted_first_name + "\n")
+        f.write(inputted_middle_name + "\n")
+        f.write(inputted_last_name + "\n")
+        f.write(inputted_username + "\n")
+        f.write(inputted_password + "\n")
+        f.write(inputted_confirm_pass + "\n")   
+        f.write(inputted_email + "\n")
+        f.write(inputted_contact + "\n")
+
 
 
 window = Tk()
@@ -213,6 +188,7 @@ y = (screen_height - 500) // 2
 window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
 
+
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
@@ -222,250 +198,262 @@ canvas = Canvas(
     highlightthickness = 0,
     relief = "ridge"
 )
+
 canvas.place(x = 0, y = 0)
-
-purrfect_image = PhotoImage(
-    file=relative_to_assets("purrfectmatch.png"))
-title_canvas = canvas.create_image(
-    404.0,
-    98.0,
-    image=purrfect_image
+image_image_1 = PhotoImage(
+    file=relative_to_assets("image_1.png"))
+image_1 = canvas.create_image(
+    190.0,
+    250.0,
+    image=image_image_1
 )
 
-loading_image = PhotoImage(
-    file=relative_to_assets("loading_line.png"))
-loading_button = Button(
-    image=loading_image,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("loading_button clicked"),
-    relief="flat"
-)
-loading_button.place(
-    x=259.5927734375,
-    y=119.0,
-    width=324.174560546875,
-    height=7.0
+image_image_2 = PhotoImage(
+    file=relative_to_assets("image_2.png"))
+image_2 = canvas.create_image(
+    183.0,
+    237.0,
+    image=image_image_2
 )
 
-text1 = canvas.create_text(
-    273.0,
-    231.0,
+canvas.create_text(
+    410.0,
+    49.0,
     anchor="nw",
-    text="What purrfect name do you prefer to go by?",
+    text="Sign Up ",
     fill="#000000",
-    font=("Inter SemiBold", 16 * -1)
+    font=("Inter SemiBold", 20 * -1)
 )
 
-text2 = canvas.create_text(
-    275.0,
-    338.0,
-    anchor="nw",
-    text="This is how your name will appear in the PurffectMatch",
-    fill="#7C7C7C",
-    font=("Inter", 12 * -1)
+#image for the entry boxes
+form_image_1 = PhotoImage(
+    file=relative_to_assets("first_name.png"))
+first_name_img = canvas.create_image(
+    594.0,
+    118.70454406738281,
+    image=form_image_1,
 )
 
-text3 = canvas.create_text(
-    205.0,
+form_image_2 = PhotoImage(
+    file=relative_to_assets("middle_name.png"))
+middle_name_img = canvas.create_image(
+    594.0,
     186.0,
-    anchor="nw",
-    text="HEY THERE, FUTURE PURR PARENTS!",
-    fill="#000000",
-    font=("Inter Bold", 24 * -1)
+    image=form_image_2
 )
 
-name_image = PhotoImage(
-    file=relative_to_assets("name.png"))
-name_canvas = canvas.create_image(
-    431.0,
-    294.0,
-    image=name_image
+form_image_3 = PhotoImage(
+    file=relative_to_assets("last_name.png"))
+last_name_img = canvas.create_image(
+    594.0,
+    253.52588653564453,
+    image=form_image_3
 )
-name_textbox = Entry(
+
+form_image_4 = PhotoImage(
+    file=relative_to_assets("username.png"))
+username_img = canvas.create_image(
+    594.0,
+    320.66865730285645,
+    image=form_image_4
+)
+
+form_image_5 = PhotoImage(
+    file=relative_to_assets("password.png"))
+password_img = canvas.create_image(
+    594.0,
+    395.33442878723145,
+    image=form_image_5
+)
+
+
+first_name_signup  = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0,
+    cursor="ibeam",
+)
+first_name_signup.place(
+    x=419.0,
+    y=106.0,
+    width=353.0,
+    height=34.0
+)
+first_name_signup.focus()
+
+middle_name_signup = Entry(
     font=("Inter", 15 * -1),
     bd=0,
     bg="#FFFFFF",
     fg="#000716",
     highlightthickness=0
 )
-name_textbox.place(
-    x=202.0,
-    y=280.0,
-    width=457.0,
-    height=29.0
+middle_name_signup.place(
+    x=419.0,
+    y=174.0,
+    width=353.0,
+    height=34.0
+)
+
+last_name_signup= Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+last_name_signup.place(
+    x=419.0,
+    y=241.0,
+    width=353.0,
+    height=34
+)
+
+user_name_signup  = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+user_name_signup.place(
+    x=419.0,
+    y=309.0,
+    width=353.0,
+    height=34
+)
+
+password_signup = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0,
+    show='*'
+)
+password_signup.place(
+    x=419.0,
+    y=383.0,
+    width=353.0,
+    height=34
+)
+
+
+button_image_1 = PhotoImage(
+    file=relative_to_assets("next.png"))
+next_button1 = Button(
+    image=button_image_1,
+    borderwidth=0,
+    highlightthickness=0,
+    command=next_button_clicked,
+    relief="flat",
+)
+next_button1.place(
+    x=665.0,
+    y=441.0,
+    width=112.89242553710938,
+    height=39.0
+)
+
+button_image_2 = PhotoImage(
+    file=relative_to_assets("back.png"))
+back_button1 = Button(
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=back_button1_clicked,
+    relief="flat"
+)
+back_button1.place(
+    x=410.0,
+    y=441.0,
+    width=112.8924560546875,
+    height=39.0
+)
+
+#-----------Next Form-----------------
+# image for the next form
+form_image_6 = PhotoImage(
+    file=relative_to_assets("confirm_pass.png"))
+confirm_pass_img = canvas.create_image(
+    594.0,
+    122.410400390625,
+    image=form_image_6,
+    state="hidden",
+)
+form_image_7 = PhotoImage(
+    file=relative_to_assets("email.png"))
+email_img = canvas.create_image(
+    594.0,
+    191.41039276123047,
+    image=form_image_7,
+    state="hidden",
+)
+form_image_8 = PhotoImage(
+    file=relative_to_assets("contact_no.png"))
+contact_no_img = canvas.create_image(
+    594.0,
+    259.69991302490234,
+    image=form_image_8,
+    state="hidden",
+)
+
+
+confirm_password = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0,
+    show='*'
+)
+email_address = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+contact_number = Entry(
+    font=("Inter", 15 * -1),
+    bd=0,
+    bg="#FFFFFF",
+    fg="#000716",
+    highlightthickness=0
+)
+
+terms_image = PhotoImage(
+    file=relative_to_assets("terms.png"))
+terms_and_conditions = Button(
+    image=terms_image,
+    borderwidth=0,
+    highlightthickness=0,
+    relief="flat",
+    bg="#FFFFFF",
+        
 )
 
 back_image = PhotoImage(
     file=relative_to_assets("back.png"))
-back_button_1 = Button(
-    bg="#FFFFFF",
+back_button2 = Button(
     image=back_image,
     borderwidth=0,
     highlightthickness=0,
-    command=back_button_1_clicked,
-    relief="flat",
-    activebackground="#FFFFFF",
-)
-back_button_1.place(
-    x=137.0,
-    y=111.0,
-    width=9.62713623046875,
-    height=16.506439208984375
-)
-
-continue_image = PhotoImage(
-    file=relative_to_assets("continue.png"))
-continue_button_1 = Button(
-    image=continue_image,
-    borderwidth=0,
-    highlightthickness=0,
-    command=continue_button_1_clicked,
-    relief="flat"
-)
-continue_button_1.place(
-    x=343.0,
-    y=387.0,
-    width=159.0,
-    height=39.0
-)
-
-
-# # ------------next page ----------------
-rectangle1 = canvas.create_rectangle(
-    259.5927734375,
-    119.0,
-    583.767333984375,
-    126.0,
-    fill="#D9D9D9",
-    outline="",
-    state="hidden",
-)
-
-rectangle2 = canvas.create_rectangle(
-    259.5927734375,
-    119.0,
-    480.36370849609375,
-    126.0,
-    fill="#F19FB5",
-    outline="",
-    state="hidden",
-)
-
-adress_text1 = canvas.create_text(
-    319.0,
-    235.0,
-    anchor="nw",
-    text="Please enter your address?",
-    fill="#000000",
-    font=("Inter Bold", 16 * -1),
-    state="hidden"
-)
-
-adress_text2 = canvas.create_text(
-    265.0,
-    339.0,
-    anchor="nw",
-    text="This is how your address will appear in the PurffectMatch",
-    fill="#969696",
-    font=("Inter", 12 * -1),
-    state="hidden"
-)
-
-adress_text3 = canvas.create_text(
-    330.0,
-    195.0,
-    anchor="nw",
-    text="MEOW, MARIE!",
-    fill="#000000",
-    font=("Inter Bold", 24 * -1),
-    state="hidden"
-)
-
-address_image = PhotoImage(
-    file=relative_to_assets("address.png"))
-address_canvas = canvas.create_image(
-    410.0,
-    303.0,
-    image=address_image,
-    state="hidden"
-)
-address_textbox = Entry(
-    font=("Inter", 15 * -1),
-    bd=0,
-    bg="#FFFFFF",
-    fg="#000716",
-    highlightthickness=0
-)
-
-continue_button_2 = Button(
-    image=continue_image,
-    borderwidth=0,
-    highlightthickness=0,
-    command=continue_button_2_clicked,
+    command=back_button2_clicked,
     relief="flat"
 )
 
-back_button_2 = Button(
-    bg="#FFFFFF",
-    image=back_image,
+login_image = PhotoImage(
+    file=relative_to_assets("login.png"))
+login_button = Button(
+    image=login_image,
     borderwidth=0,
     highlightthickness=0,
-    command=back_button_2_clicked,
-    relief="flat",
-    activebackground="#FFFFFF",
-)
-
-# ------------last page ----------------
-loading_image_last = PhotoImage(
-    file=relative_to_assets("loading_line_full.png"))
-loading_line_button_full = Button(
-    image=loading_image_last,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("loading_line_button_full clicked"),
+    command=login_button_clicked,
     relief="flat"
-)
-
-last_text_1 = canvas.create_text(
-    331.0,
-    222.0,
-    anchor="nw",
-    text="MEOW! ARF!",
-    fill="#000000",
-    font=("Inter Bold", 24 * -1),
-    state="hidden"
-)
-
-last_text_2 = canvas.create_text(
-    265.0,
-    267.0,
-    anchor="nw",
-    text="Are you excited to find your perfect match?",
-    fill="#000000",
-    font=("Inter SemiBold", 16 * -1),
-    state="hidden"
-)
-
-back_button_3 = Button(
-    bg="#FFFFFF",
-    image=back_image,
-    borderwidth=0,
-    highlightthickness=0,
-    command=back_button_3_clicked,
-    relief="flat",
-    activebackground="#FFFFFF",
-)
-
-yes_image = PhotoImage(
-    file=relative_to_assets("yes.png"))
-yes_button = Button(
-    image=yes_image,
-    borderwidth=0,
-    highlightthickness=0,
-    command= yes_button_clicked,
-    relief="flat"
-)
+) 
 
 window.resizable(False, False)
 window.mainloop()

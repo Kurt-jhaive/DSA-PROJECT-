@@ -13,7 +13,7 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "miloframe1.py"])
+    subprocess.Popen(["python", "homeframe.py"])
 def next_button_clicked():
     if save_input():
         window.destroy()
