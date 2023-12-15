@@ -14,15 +14,36 @@ def back_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "adoptframe1.py"])
 def next_button_clicked():
-    window.destroy()
-    subprocess.Popen(["python", "adoptframe3.py"])
-
+    if save_input():
+        window.destroy()
+        subprocess.Popen(["python", "adoptframe3.py"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
-# def var1():
-#     ()
+def save_input():
+    if not all(q.get() for q in [q1, q2, q3, q4, q5, q6]):
+        messagebox.showerror("Error", "Please fill up all fields.")
+        return False
+    else:
+        messagebox.showinfo("Success", "Please proceed to the next set of questions.")
+        with open("data/adopt2_data.txt", "w") as f:
+            f.write('\n'.join(q.get() for q in [q1, q2, q3, q4, q5, q6]))
+
+        return True
+
+def read_input():
+    try:
+        with open("data/adopt2_data.txt", "r") as f:
+            q1.set(f.readline().strip())
+            q2.set(f.readline().strip())
+            q3.set(f.readline().strip())
+            q4.set(f.readline().strip())
+            q5.set(f.readline().strip())
+            q6.set(f.readline().strip())
+    except FileNotFoundError:
+        with open("data/adopt2_data.txt", "w") as f:
+            pass
 
 window = Tk()
 
@@ -98,7 +119,7 @@ image_19 = canvas.create_image(
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    197.0,
+    227.0,
     161.0,
     image=image_image_1
 )
@@ -334,11 +355,11 @@ pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 
 # ------------------------- RADIO BUTTONS ------------------------- #
 # STATUS
-q1 = IntVar()
+q1 = StringVar()
 
 single_radio = Radiobutton(
     variable=q1,
-    value=1,
+    value='single',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -353,7 +374,7 @@ single_radio.place(
 
 married_radio = Radiobutton(
     variable=q1,
-    value=2,
+    value='married',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -368,7 +389,7 @@ married_radio.place(
 
 others_radio = Radiobutton(
     variable=q1,
-    value=3,
+    value='others',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -382,11 +403,11 @@ others_radio.place(
 )
 
 # What prompted you to adopt from PAWS?
-q2 = IntVar()
+q2 = StringVar()
 
 friends_radio = Radiobutton(
     variable=q2,
-    value=1,
+    value='friends',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -401,7 +422,7 @@ friends_radio.place(
 
 website_radio = Radiobutton(
     variable=q2,
-    value=2,
+    value='website',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -416,7 +437,7 @@ website_radio.place(
 
 social_radio = Radiobutton(
     variable=q2,
-    value=3,
+    value='social',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -431,7 +452,7 @@ social_radio.place(
 
 family_radio = Radiobutton(
     variable=q2,
-    value=4,
+    value='family',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -446,7 +467,7 @@ family_radio.place(
 
 partner_radio = Radiobutton(
     variable=q2,
-    value=5,
+    value='partner',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -461,7 +482,7 @@ partner_radio.place(
 
 others2_radio = Radiobutton(
     variable=q2,
-    value=6,
+    value='others',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -475,11 +496,11 @@ others2_radio.place(
 )
 
 # What type of building do you live in?
-q3 = IntVar()
+q3 = StringVar()
 
 apartment_radio = Radiobutton(
     variable=q3,
-    value=1,
+    value='apartment',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -494,7 +515,7 @@ apartment_radio.place(
 
 house_radio = Radiobutton(
     variable=q3,
-    value=2,
+    value='house',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -509,7 +530,7 @@ house_radio.place(
 
 condo_radio = Radiobutton(
     variable=q3,
-    value=3,
+    value='condo',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -524,7 +545,7 @@ condo_radio.place(
 
 others3_radio = Radiobutton(
     variable=q3,
-    value=4,
+    value='others',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -537,10 +558,10 @@ others3_radio.place(
     y=262
 )
 # Do you rent?
-q4 = IntVar()
+q4 = StringVar()
 yes_radio = Radiobutton(
     variable=q4,
-    value=1,
+    value='yes',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -554,7 +575,7 @@ yes_radio.place(
 )
 no_radio = Radiobutton(
     variable=q4,
-    value=2,
+    value='no',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -567,10 +588,10 @@ no_radio.place(
     y=262
 )
 #Who do you live with?
-q5 = IntVar()
-living_radio = Radiobutton(
+q5 = StringVar()
+alone_radio = Radiobutton(
     variable=q5,
-    value=1,
+    value='alone',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -578,13 +599,13 @@ living_radio = Radiobutton(
     image=dot_image,
     selectimage=pink_dot_image, 
 )
-living_radio.place(
+alone_radio.place(
     x=54,
     y=346
 )
 spouse_radio = Radiobutton(
     variable=q5,
-    value=2,
+    value='spouse',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -598,7 +619,7 @@ spouse_radio.place(
 )
 relatives_radio = Radiobutton(
     variable=q5,
-    value=3,
+    value='relatives',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -612,7 +633,7 @@ relatives_radio.place(
 )
 parents_radio = Radiobutton(
     variable=q5,
-    value=4,
+    value='parents',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -626,7 +647,7 @@ parents_radio.place(
 )
 roommate_radio = Radiobutton(
     variable=q5,
-    value=5,
+    value='roommate',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -639,11 +660,11 @@ roommate_radio.place(
     y=346
 )
 # How old are they?
-q6 = IntVar()
+q6 = StringVar()
 
 below_radio = Radiobutton(
     variable=q6,
-    value=1,
+    value='below 18',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -657,7 +678,7 @@ below_radio.place(
 )
 over_radio = Radiobutton(
     variable=q6,
-    value=2,
+    value='over 18',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -669,6 +690,8 @@ over_radio.place(
     x=237,
     y=427
 )
+
+read_input()
 
 window.resizable(False, False)
 window.mainloop()

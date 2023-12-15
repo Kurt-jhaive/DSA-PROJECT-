@@ -13,8 +13,8 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"forms\forgetpass_frame")
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
-my_email = "yasgamingofficial@gmail.com"
-email_password = "xvwi jcex gwqq zwtg"
+my_email = "purrfectmatch.python@gmail.com"
+email_password = "qlde sugx xcbw eatc"
 smtp_server = "smtp.gmail.com"
 smtp_port = 587
 typed_email = ""
@@ -33,7 +33,7 @@ def send_otp():
     global otp, typed_email
     if check_email():
         otp = str(random.randint(100000, 999999))
-        messagebox.showinfo("Pending", "Your OTP has been sent! Please wait for the email from our team.")
+        messagebox.showinfo("Pending", "Your OTP has been sent!")
 
         # replace the [OTP] with the otp variable
         with open("otp_email_letter.txt") as file:
@@ -55,9 +55,9 @@ def submit_button():
     typed_otp = otp_textbox.get()
     if typed_otp == otp:
         new_password = newpassword_textbox.get()
-        df = pd.read_csv("data/new_credentials.csv")
+        df = pd.read_csv("data/profile_data.csv")
         df.loc[df['email'] == typed_email, 'password'] = new_password
-        df.to_csv("data/new_credentials.csv", index=False)
+        df.to_csv("data/profile_data.csv", index=False)
         messagebox.showinfo("Success", "Your password has been reset successfully!")
 
         window.destroy()

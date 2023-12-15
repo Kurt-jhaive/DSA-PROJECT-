@@ -1,11 +1,16 @@
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 import subprocess
+import os
+import shutil
+
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\adoption5_frame")
+
+new_file_path = None
 
 
 def relative_to_assets(path: str) -> Path:
@@ -14,12 +19,58 @@ def back_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "adoptframe4.py"])
 def next_button_clicked():
-    window.destroy()
-    subprocess.Popen(["python", "adoptframe6.py"])
+    if save_input():
+        window.destroy()
+        subprocess.Popen(["python", "adoptframe6.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+
+def save_input():
+    if not all([q9.get(), q10.get()]):
+        messagebox.showerror("Error", "Please fill up all fields.")
+        return False
+    else:
+        messagebox.showinfo("Success", "Please proceed to the next set of questions.")
+        inputs = [q9.get(), q10.get()]
+        with open("data/adopt5_data.txt", "w") as f:
+            f.write('\n'.join(inputs) + '\n')
+            f.write(new_file_path + '\n')
+        return True
+    
+def read_input():
+    # read the inputted data from the file and display it
+    try:
+        with open("data/adopt5_data.txt", "r") as f:
+            q9.set(f.readline().strip())
+            q10.set(f.readline().strip())
+            upload_label.configure(text=f.readline().strip())
+    except FileNotFoundError:
+        with open("data/adopt5_data.txt", "w") as f:
+            pass
+    
+def upload_image_button_clicked():
+    global new_file_path
+    file_path = filedialog.askopenfilename()
+
+    if file_path:
+        # Create a new folder called "uploads" if it doesn't exist
+        if not os.path.exists("uploads"):
+            os.mkdir("uploads")
+            os.system("cd uploads && mkdir adopt_application_images")
+
+        # Get the filename of the selected image
+        filename = os.path.basename(file_path)
+
+        # Create a new path to store the image in the "uploads" folder
+        new_file_path = os.path.join("uploads/adopt_application_images", filename)
+
+        # Copy the image to the "uploads" folder
+        shutil.copy(file_path, new_file_path)
+
+        upload_label.configure(text=f"{filename}")
+
 
 window = Tk()
 
@@ -159,7 +210,7 @@ select_files_button= Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("select_files_button clicked"),
+    command=upload_image_button_clicked,
     relief="flat"
 )
 select_files_button.place(
@@ -168,6 +219,20 @@ select_files_button.place(
     width=165.0,
     height=39.0
 )
+
+upload_label = Label(
+    bg="#FFFFFF",
+    fg="#000000",
+    text="",
+    font=("Inter", 12 * -1),
+)
+upload_label.place(
+    x=232.0,
+    y=358.0,
+    width=165.0,
+    height=39.0
+)
+
 
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
@@ -203,7 +268,7 @@ next_button.place(
 
 
 # Do you have other pets?
-q9 = IntVar() 
+q9 = StringVar() 
 
 dot_image = PhotoImage(file=relative_to_assets("dot.png"))
 black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
@@ -211,7 +276,7 @@ black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"
 pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 yes4_radio = Radiobutton(
     variable=q9,
-    value=1,
+    value="yes",
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -225,7 +290,7 @@ yes4_radio.place(
 )
 no4_radio = Radiobutton(
     variable=q9,
-    value=2,
+    value="no",
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -238,10 +303,10 @@ no4_radio.place(
     y=83
 )
 # Have you had pets in the past?
-q10 = IntVar()
+q10 = StringVar()
 yes5_radio = Radiobutton(
     variable=q10,
-    value=1,
+    value="yes",
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -255,7 +320,7 @@ yes5_radio.place(
 )
 no5_radio = Radiobutton(
     variable=q10,
-    value=2,
+    value="no",
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -267,5 +332,8 @@ no5_radio.place(
     x=468,
     y=83
 )
+
+read_input()
+
 window.resizable(False, False)
 window.mainloop()

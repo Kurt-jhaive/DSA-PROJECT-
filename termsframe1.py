@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import subprocess
+import pandas as pd
 
 
 from pathlib import Path
@@ -19,6 +20,21 @@ def next_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+
+def change_profile_display():
+    #read the text file
+    with open("data/current_user.txt", "r") as file:
+        current_user = file.read().strip()
+    
+    #get the display name of the current user
+    df = pd.read_csv('data/profile_data.csv')
+    user_row = df[df['username'] == current_user]
+    display_name = user_row['display_name'].values[0]
+    display_location = user_row['address'].values[0]
+
+    #change the display name and location
+    canvas.itemconfigure(display_name_canvas, text=display_name)
+    canvas.itemconfigure(profile_location, text=display_location)
 
 window = Tk()
 
@@ -54,22 +70,22 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
-canvas.create_text(
+display_name_canvas = canvas.create_text(
     115.0,
-    56.0,
+    59.0,
     anchor="nw",
     text="Marie Cris Edusma",
     fill="#FFFFFF",
-    font=("Inter Bold", 14 * -1)
+    font=("Inter SemiBold", 14 * -1, "bold")
 )
 
-canvas.create_text(
+profile_location = canvas.create_text(
     115.0,
     77.0,
     anchor="nw",
     text="Taguig City",
     fill="#FFFFFF",
-    font=("Inter Bold", 12 * -1)
+    font=("Inter SemiBold", 12 * -1, "bold")
 )
 
 button_image_1 = PhotoImage(
@@ -137,5 +153,8 @@ image_3 = canvas.create_image(
     287.0,
     image=image_image_3
 )
+
+change_profile_display()
+
 window.resizable(False, False)
 window.mainloop()
