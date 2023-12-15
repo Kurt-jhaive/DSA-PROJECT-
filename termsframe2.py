@@ -17,6 +17,10 @@ def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
+def agree_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "homeframe.py"])
+
 window = Tk()
 
 # Get the screen width and height
@@ -65,7 +69,7 @@ agree_button = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("agree_button clicked"),
+    command=agree_button_clicked,
     relief="flat"
 )
 agree_button.place(

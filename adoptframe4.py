@@ -14,12 +14,36 @@ def back_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "adoptframe3.py"])
 def next_button_clicked():
-    window.destroy()
-    subprocess.Popen(["python", "adoptframe5.py"])
+    if save_input():
+        window.destroy()
+        subprocess.Popen(["python", "adoptframe5.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+
+def save_input():
+    if not all([question4_textbox.get(), question5_textbox.get(), question6_textbox.get(), q8.get()]):
+        messagebox.showerror("Error", "Please fill up all fields.")
+        return False
+    else:
+        messagebox.showinfo("Success", "Please proceed to the next set of questions.")
+        inputs = [question4_textbox.get(), question5_textbox.get(), question6_textbox.get(), q8.get()]
+        with open("data/adopt4_data.txt", "w") as f:
+            f.write('\n'.join(inputs) + '\n')
+        return True
+    
+def read_input():
+    # read the inputted data from the file and display it
+    try:
+        with open("data/adopt4_data.txt", "r") as f:
+            question4_textbox.insert(0, f.readline().strip())
+            question5_textbox.insert(0, f.readline().strip())
+            question6_textbox.insert(0, f.readline().strip())
+            q8.set(f.readline().strip())
+    except FileNotFoundError:
+        with open("data/adopt4_data.txt", "w") as f:
+            pass
 
 window = Tk()
 
@@ -208,7 +232,7 @@ question6_textbox.place(
     height=31.0
 )
 # Does everyone in the family support your decision to adopt a pet?
-q8 = IntVar() 
+q8 = StringVar() 
 
 dot_image = PhotoImage(file=relative_to_assets("dot.png"))
 black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
@@ -216,7 +240,7 @@ black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"
 pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 yes3_radio = Radiobutton(
     variable=q8,
-    value=1,
+    value='yes',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -230,7 +254,7 @@ yes3_radio.place(
 )
 no3_radio = Radiobutton(
     variable=q8,
-    value=2,
+    value='no',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -242,5 +266,8 @@ no3_radio.place(
     x=173,
     y=375
 )
+
+read_input()
+
 window.resizable(False, False)
 window.mainloop()

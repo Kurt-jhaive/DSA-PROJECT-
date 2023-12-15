@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-import random
 import subprocess
 import pandas as pd
 
@@ -31,6 +30,21 @@ def donate_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+
+def change_profile_display():
+    #read the text file
+    with open("data/current_user.txt", "r") as file:
+        current_user = file.read().strip()
+    
+    #get the display name of the current user
+    df = pd.read_csv('data/profile_data.csv')
+    user_row = df[df['username'] == current_user]
+    display_name = user_row['display_name'].values[0]
+    display_location = user_row['address'].values[0]
+
+    #change the display name and location
+    canvas.itemconfigure(display_name_canvas, text=display_name)
+    canvas.itemconfigure(profile_location, text=display_location)
         
 window = Tk()
 
@@ -83,7 +97,8 @@ favorites_button = Button(
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("favorites_button clicked"),
-    relief="flat"
+    relief="flat",
+    bg="#FFFFFF",
 )
 favorites_button.place(
     x=705.0,
@@ -110,22 +125,22 @@ menu_button.place(
     height=35.0
 )
 
-canvas.create_text(
-    102.0,
-    65.0,
+display_name_canvas = canvas.create_text(
+    105.0,
+    66.0,
     anchor="nw",
     text="Marie Cris Edusma",
     fill="#FFFFFF",
-    font=("Inter Bold", 14 * -1)
+    font=("Inter SemiBold", 14 * -1, "bold")
 )
 
-canvas.create_text(
-    102.0,
-    81.0,
+profile_location = canvas.create_text(
+    105.0,
+    82.0,
     anchor="nw",
     text="Taguig City",
     fill="#FFFFFF",
-    font=("Inter Bold", 12 * -1)
+    font=("Inter SemiBold", 11 * -1, "bold")
 )
 
 button_image_3 = PhotoImage(
@@ -431,5 +446,8 @@ image_22 = canvas.create_image(
     423.0,
     image=image_image_22
 )
+
+change_profile_display()
+
 window.resizable(False, False)
 window.mainloop()

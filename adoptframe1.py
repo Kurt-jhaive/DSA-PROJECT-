@@ -15,9 +15,9 @@ def back_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "miloframe1.py"])
 def next_button_clicked():
-    window.destroy()
-    subprocess.Popen(["python", "adoptframe2.py"])
-
+    if save_input():
+        window.destroy()
+        subprocess.Popen(["python", "adoptframe2.py"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
@@ -37,7 +37,31 @@ def change_profile_display():
     canvas.itemconfigure(display_name_canvas, text=display_name)
     canvas.itemconfigure(profile_location, text=display_location)
 
+def save_input():
+    if not all([name_textbox.get(), birthdate_textbox.get(), address_textbox.get(), occupation_textbox.get(), email_textbox.get(), phone_textbox.get(), socialmedia_textbox.get()]):
+        messagebox.showerror("Error", "Please fill up all fields.")
+        return False
+    else:
+        messagebox.showinfo("Success", "Please proceed to the next set of questions.")
+        inputs = [name_textbox.get(), birthdate_textbox.get(), address_textbox.get(), occupation_textbox.get(), email_textbox.get(), phone_textbox.get(), socialmedia_textbox.get()]
+        with open("data/adopt1_data.txt", "w") as f:
+            f.write('\n'.join(inputs) + '\n')
+        return True
 
+def read_input():
+    # read the inputted data from the file and display it
+    try:
+        with open("data/adopt1_data.txt", "r") as f:
+            name_textbox.insert(0, f.readline().strip())
+            birthdate_textbox.insert(0, f.readline().strip())
+            address_textbox.insert(0, f.readline().strip())
+            occupation_textbox.insert(0, f.readline().strip())
+            email_textbox.insert(0, f.readline().strip())
+            phone_textbox.insert(0, f.readline().strip())
+            socialmedia_textbox.insert(0, f.readline().strip())
+    except FileNotFoundError:
+        with open("data/adopt1_data.txt", "w") as f:
+            pass
 
 window = Tk()
 
@@ -315,6 +339,7 @@ socialmedia_textbox.place(
 )
 
 change_profile_display()
+read_input()
 
 window.resizable(False, False)
 window.mainloop()

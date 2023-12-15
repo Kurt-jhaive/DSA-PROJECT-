@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 import subprocess
-
+import os
+import pandas as pd
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
@@ -14,9 +15,79 @@ def back_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "adoptframe5.py"])
 
+def submit_button_clicked():
+    if save_input():
+        save_all_data()
+        # reset_input()
+        window.destroy()
+        subprocess.Popen(["python", "homeframe.py"])
+
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
+        # reset_input()
         window.destroy()
+
+def save_input():
+    if not all([date_textbox.get(), time_textbox.get(), q11.get()]):
+        messagebox.showerror("Error", "Please fill up all fields.")
+        return False
+    else:
+        messagebox.showinfo("Success", "Your adoption application has been submitted! Please wait for our team to contact you.")
+        inputs = [date_textbox.get(), time_textbox.get(), q11.get()]
+        with open("data/adopt6_data.txt", "w") as f:
+            f.write('\n'.join(inputs) + '\n')
+        return True
+
+def read_input():
+    # read the inputted data from the file and display it
+    try:
+        with open("data/adopt6_data.txt", "r") as f:
+            date_textbox.insert(0, f.readline().strip())
+            time_textbox.insert(0, f.readline().strip())
+            q11.set(f.readline().strip())
+    except FileNotFoundError:
+        with open("data/adopt6_data.txt", "w") as f:
+            pass
+
+def reset_input():
+    # remove the data inside the 6 files
+    try:
+        with open("data/adopt1_data.txt", "w") as f:
+            f.truncate(0)
+        with open("data/adopt2_data.txt", "w") as f:
+            f.truncate(0)
+        with open("data/adopt3_data.txt", "w") as f:
+            f.truncate(0)
+        with open("data/adopt4_data.txt", "w") as f:
+            f.truncate(0)
+        with open("data/adopt5_data.txt", "w") as f:
+            f.truncate(0)
+        with open("data/adopt6_data.txt", "w") as f:
+            f.truncate(0)
+    except FileNotFoundError:
+        pass
+
+def save_all_data():
+    # save all the data to the database
+    # read the adoptiondata from 1 to 6 and append it to the list without /n
+    with open("data/adopt1_data.txt", "r") as f:
+        data = [line.strip() for line in f.readlines()]
+    with open("data/adopt2_data.txt", "r") as f:
+        data += [line.strip() for line in f.readlines()]
+    with open("data/adopt3_data.txt", "r") as f:
+        data += [line.strip() for line in f.readlines()]
+    with open("data/adopt4_data.txt", "r") as f:
+        data += [line.strip() for line in f.readlines()]
+    with open("data/adopt5_data.txt", "r") as f:
+        data += [line.strip() for line in f.readlines()]
+    with open("data/adopt6_data.txt", "r") as f:
+        data += [line.strip() for line in f.readlines()]
+
+    # save the data to the database using pandas
+    df = pd.read_csv("data/adoption_data.csv")
+    df = pd.DataFrame([data], columns=df.columns)
+    df.to_csv("data/adoption_data.csv", mode='a', header=False, index=False)
+
 
 window = Tk()
 
@@ -65,10 +136,11 @@ back_button.place(
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 submit_button = Button(
+    bg="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("submit_button clicked"),
+    command=submit_button_clicked,
     relief="flat"
 )
 submit_button.place(
@@ -105,11 +177,12 @@ image_3 = canvas.create_image(
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 button_3 = Button(
+    bg="#FFFFFF",
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",    
 )
 button_3.place(
     x=56.0,
@@ -121,11 +194,12 @@ button_3.place(
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
 button_4 = Button(
+    bg="#FFFFFF",
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
-    relief="flat"
+    relief="flat",
+    activebackground="#FFFFFF",
 )
 button_4.place(
     x=55.0,
@@ -202,7 +276,7 @@ time_textbox.place(
 
 
 # Will you be able to visit the shelter for the meet-and-greet?
-q11 = IntVar()
+q11 = StringVar()
 
 dot_image = PhotoImage(file=relative_to_assets("dot.png"))
 black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
@@ -210,7 +284,7 @@ black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"
 pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 yes6_radio = Radiobutton(
     variable=q11,
-    value=1,
+    value='yes',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -224,7 +298,7 @@ yes6_radio.place(
 )
 no6_radio = Radiobutton(
     variable=q11,
-    value=2,
+    value='no',
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     bd=0,
@@ -236,5 +310,8 @@ no6_radio.place(
     x=174,
     y=316
 )
+
+read_input()
+
 window.resizable(False, False)
 window.mainloop()
