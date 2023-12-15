@@ -36,12 +36,13 @@ def upload_image_button_clicked():
         # Create a new folder called "uploads" if it doesn't exist
         if not os.path.exists("uploads"):
             os.mkdir("uploads")
+            os.system("cd uploads && mkdir register_application_images")
 
         # Get the filename of the selected image
         filename = os.path.basename(file_path)
 
         # Create a new path to store the image in the "uploads" folder
-        new_file_path = os.path.join("uploads", filename)
+        new_file_path = os.path.join("uploads/register_application_images", filename)
 
         # Copy the image to the "uploads" folder
         shutil.copy(file_path, new_file_path)
@@ -88,6 +89,9 @@ def submit_button_clicked():
 
         # Save the updated DataFrame to the CSV file
         df.to_csv(csv_file_path, index=False)
+
+        # refresh the window after prompting a message
+        messagebox.showinfo("Success", "Your registration of a pet has been submitted. Please wait for our team to contact you.")
 
 def change_profile_display():
     #read the text file

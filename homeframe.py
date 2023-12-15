@@ -113,6 +113,17 @@ def change_profile_display():
     canvas.itemconfigure(display_name_canvas, text=display_name)
     canvas.itemconfigure(profile_location, text=display_location)
 
+def adopt_button_clicked():
+    # put the random_pet in the current_user's adopted list
+    with open("data/current_pet.txt", "w") as file:
+        file.write(random_pet + '\n')
+
+    window.destroy()
+    subprocess.Popen(["python", "adoptframe1.py"])
+
+def home_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "homeframe.py"])
 
 
 window = Tk()
@@ -259,6 +270,7 @@ home_button = Button(
     highlightthickness=0,
     relief="flat",
     activebackground="#F19FB5",
+    command=home_button_clicked,
 )
 home_button.place(
     x=95.0,
@@ -474,8 +486,6 @@ pet_full_desc = canvas.create_image(
 )
 
 
-change_pet()
-
 button_image_11 = PhotoImage(
     file=relative_to_assets("button_11.png"))
 add_to_favorites_button = Button(
@@ -519,7 +529,7 @@ adopt_button = Button(
     image=button_image_13,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("adopt button clicked"),
+    command=adopt_button_clicked,
     relief="flat",
     activebackground="#FFFFFF",
 )
@@ -554,6 +564,7 @@ canvas.create_rectangle(
     fill="#F19FB5",
     outline="")
 
+change_pet()
 check_list()    
 change_profile_display()
 
