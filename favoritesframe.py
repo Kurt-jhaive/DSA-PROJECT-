@@ -31,10 +31,22 @@ def donate_button_clicked():
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+        
 window = Tk()
 
-window.geometry("820x500")
-window.configure(bg = "#FFFFFF")
+# Get the screen width and height
+screen_width = window.winfo_screenwidth()
+screen_height = window.winfo_screenheight()
+
+# Set the protocol for the window close event
+window.protocol("WM_DELETE_WINDOW", close_window)
+
+# Calculate the x and y coordinates for the window to be centered
+x = (screen_width - 820) // 2
+y = (screen_height - 500) // 2
+
+window.geometry(f"820x500+{x}+{y}")
+window.configure(bg="#FFFFFF")
 
 
 canvas = Canvas(

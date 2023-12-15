@@ -25,6 +25,10 @@ def donate_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "donateframe.py"])
 
+def favorites_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "favoritesframe.py"])
+
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
@@ -201,7 +205,7 @@ favorites_button= Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=favorites_button_clicked,
     relief="flat",
     activebackground="#FFFFFF",
 )
@@ -219,7 +223,7 @@ menu_button = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
+    command=lambda: print("menu_button clicked"),
     relief="flat",
     activebackground="#FFFFFF",
 )
