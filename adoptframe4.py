@@ -210,10 +210,19 @@ question6_textbox.place(
 # Does everyone in the family support your decision to adopt a pet?
 q8 = IntVar() 
 
+dot_image = PhotoImage(file=relative_to_assets("dot.png"))
+black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
+black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"))
+pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
 yes3_radio = Radiobutton(
     variable=q8,
     value=1,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 yes3_radio.place(
     x=55,
@@ -222,7 +231,12 @@ yes3_radio.place(
 no3_radio = Radiobutton(
     variable=q8,
     value=2,
-    fg="#FB7196"  
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    bd=0,
+    indicatoron=False,
+    image=dot_image,
+    selectimage=pink_dot_image,
 )
 no3_radio.place(
     x=173,
