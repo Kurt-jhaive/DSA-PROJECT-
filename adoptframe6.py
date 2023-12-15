@@ -18,13 +18,13 @@ def back_button_clicked():
 def submit_button_clicked():
     if save_input():
         save_all_data()
-        # reset_input()
+        reset_input()
         window.destroy()
         subprocess.Popen(["python", "homeframe.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
-        # reset_input()
+        reset_input()
         window.destroy()
 
 def save_input():
