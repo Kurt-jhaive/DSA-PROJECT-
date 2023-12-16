@@ -36,7 +36,7 @@ def send_otp():
         messagebox.showinfo("Pending", "Your OTP has been sent!")
 
         # replace the [OTP] with the otp variable
-        with open("otp_email_letter.txt") as file:
+        with open("data/otp_email_letter.txt") as file:
             letter = file.read().replace("[OTP]", otp)
         typed_email = email_textbox.get()
 

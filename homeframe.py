@@ -71,7 +71,7 @@ def add_to_favorites_button_clicked(dictionary):
         print("added to favorites", random_pet)
         print(favorites)
 
-        with open('inputs/favorites.txt', 'w') as file:
+        with open('data/favorites.txt', 'w') as file:
             for item in favorites:
                 file.write(item + '\n')
 
@@ -94,7 +94,7 @@ def back_to_normal():
 
 def check_list():
     # this function will update the favorites list
-    with open('inputs/favorites.txt', 'r') as file:
+    with open('data/favorites.txt', 'r') as file:
         for line in file: 
             favorites.append(line.strip())
 
