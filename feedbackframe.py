@@ -53,22 +53,22 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
-canvas.create_text(
+display_name_canvas = canvas.create_text(
     115.0,
-    56.0,
+    59.0,
     anchor="nw",
     text="Marie Cris Edusma",
     fill="#FFFFFF",
-    font=("Inter Bold", 14 * -1)
+    font=("Inter SemiBold", 14 * -1, "bold")
 )
 
-canvas.create_text(
+profile_location = canvas.create_text(
     115.0,
     77.0,
     anchor="nw",
     text="Taguig City",
     fill="#FFFFFF",
-    font=("Inter Bold", 12 * -1)
+    font=("Inter SemiBold", 12 * -1, "bold")
 )
 
 button_image_1 = PhotoImage(
@@ -135,6 +135,19 @@ image_3 = canvas.create_image(
     407.0,
     321.0,
     image=image_image_3
+)
+
+feedback_textbox = Text(
+    bd=0,
+    bg="#FFFFFF",
+    highlightthickness=0,
+    font=("Inter", 12 * -1)
+)
+feedback_textbox.place(
+    x=80.0,
+    y=275.0,
+    width=655.0,
+    height=101.0
 )
 
 button_image_4 = PhotoImage(
