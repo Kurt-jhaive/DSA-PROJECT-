@@ -1,22 +1,291 @@
 from tkinter import *
 from tkinter import messagebox
 import subprocess
+import pandas as pd
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\feedbackform_resources")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\feedback_frame")
 
+ratings = 0
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "homeframe.py"])
-
+def submit_button_clicked():
+    if save_input():
+        messagebox.showinfo("Success", "Your feedback has been submitted!")
+        window.destroy()
+        subprocess.Popen(["python", "homeframe.py"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
+
+def change_profile_display():
+    #read the text file
+    with open("data/current_user.txt", "r") as file:
+        current_user = file.read().strip()
+    
+    #get the display name of the current user
+    df = pd.read_csv('data/profile_data.csv')
+    user_row = df[df['username'] == current_user]
+    display_name = user_row['display_name'].values[0]
+    display_location = user_row['address'].values[0]
+
+    #change the display name and location
+    canvas.itemconfigure(display_name_canvas, text=display_name)
+    canvas.itemconfigure(profile_location, text=display_location)
+
+def save_input():
+    feedback = feedback_textbox.get("1.0", END).strip()
+    with open("data/current_user.txt", "r") as file:
+        current_user = file.read().strip()
+    pd.read_csv("data/feedback_data.csv")
+
+    data = pd.DataFrame({
+        "username": [current_user],
+        "star_ratings": [ratings],
+        "feedback": [feedback],
+    })
+
+    data.to_csv("data/feedback_data.csv", index=False, mode="a", header=False)
+    return True
+
+def unfilled_star_button1_clicked():
+    global ratings
+    ratings = 1
+    unfilled_star_button1.place_forget()
+    filled_star_button1.place(
+        x=289.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+def filled_star_button1_clicked():
+    global ratings
+    ratings = 0
+    filled_star_button1.place_forget()
+    filled_star_button2.place_forget()
+    filled_star_button3.place_forget()
+    filled_star_button4.place_forget()
+    filled_star_button5.place_forget()
+    unfilled_star_button1.place(
+        x=289.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    unfilled_star_button2.place(
+        x=335.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    unfilled_star_button3.place(
+        x=382.0,
+        y=176.0,
+        width=39.0,
+        height=41.0
+    )
+    unfilled_star_button4.place(
+        x=427.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    unfilled_star_button5.place(
+        x=474.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )  
+def unfilled_star_button2_clicked():
+    global ratings
+    ratings = 2
+    unfilled_star_button2.place_forget()
+    filled_star_button1.place(
+        x=289.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button2.place(
+        x=335.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+def filled_star_button2_clicked():
+    global ratings
+    ratings = 1
+    filled_star_button2.place_forget()
+    filled_star_button3.place_forget()
+    filled_star_button4.place_forget()
+    filled_star_button5.place_forget()
+    unfilled_star_button2.place(
+        x=335.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    unfilled_star_button3.place(
+        x=382.0,
+        y=176.0,
+        width=39.0,
+        height=41.0
+    )
+    unfilled_star_button4.place(
+        x=427.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    unfilled_star_button5.place(
+        x=474.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )  
+def unfilled_star_button3_clicked():
+    global ratings
+    ratings = 3
+    unfilled_star_button3.place_forget()
+    filled_star_button1.place(
+        x=289.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button2.place(
+        x=335.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button3.place(
+        x=382.0,
+        y=176.0,
+        width=39.0,
+        height=41.0
+    )
+def filled_star_button3_clicked():
+    global ratings
+    ratings = 2
+    filled_star_button3.place_forget()
+    filled_star_button4.place_forget()
+    filled_star_button5.place_forget()
+    unfilled_star_button3.place(
+        x=382.0,
+        y=176.0,
+        width=39.0,
+        height=41.0
+    )
+    unfilled_star_button4.place(
+        x=427.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    unfilled_star_button5.place(
+        x=474.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )    
+def unfilled_star_button4_clicked():
+    global ratings
+    ratings = 4
+    unfilled_star_button4.place_forget()
+    filled_star_button1.place(
+        x=289.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button2.place(
+        x=335.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button3.place(
+        x=382.0,
+        y=176.0,
+        width=39.0,
+        height=41.0
+    )
+    filled_star_button4.place(
+        x=427.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+def filled_star_button4_clicked():
+    global ratings
+    ratings = 3
+    filled_star_button4.place_forget()
+    filled_star_button5.place_forget()
+    unfilled_star_button4.place(
+        x=427.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    unfilled_star_button5.place(
+        x=474.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )    
+def unfilled_star_button5_clicked():
+    global ratings
+    ratings = 5
+    unfilled_star_button5.place_forget()
+    filled_star_button1.place(
+        x=289.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button2.place(
+        x=335.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button3.place(
+        x=382.0,
+        y=176.0,
+        width=39.0,
+        height=41.0
+    )
+    filled_star_button4.place(
+        x=427.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+    filled_star_button5.place(
+        x=474.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+def filled_star_button5_clicked():
+    global ratings
+    ratings = 4
+    filled_star_button5.place_forget()
+    unfilled_star_button5.place(
+        x=474.0,
+        y=176.0,
+        width=40.0,
+        height=41.0
+    )
+
+
 
 window = Tk()
 
@@ -119,7 +388,7 @@ submit_button = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("submit_button clicked"),
+    command=submit_button_clicked,
     relief="flat"
 )
 submit_button.place(
@@ -137,6 +406,7 @@ image_3 = canvas.create_image(
     image=image_image_3
 )
 
+
 feedback_textbox = Text(
     bd=0,
     bg="#FFFFFF",
@@ -150,94 +420,140 @@ feedback_textbox.place(
     height=101.0
 )
 
-button_image_4 = PhotoImage(
-    file=relative_to_assets("button_4.png"))
-star_button1 = Button(
+# ------------------------------ star images ------------------------------
+filled_star_image = PhotoImage(
+    file=relative_to_assets("filled_star.png"))
+unfilled_star_image = PhotoImage(
+    file=relative_to_assets("unfilled_star.png"))
+
+# ------------------------------ star buttons ------------------------------
+unfilled_star_button1 = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
-    image=button_image_4,
+    image=unfilled_star_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("star_button1 clicked"),
+    command=unfilled_star_button1_clicked,
     relief="flat"
 )
-star_button1.place(
+unfilled_star_button1.place(
     x=289.0,
     y=176.0,
     width=40.0,
     height=41.0
 )
-
-button_image_5 = PhotoImage(
-    file=relative_to_assets("button_5.png"))
-star_button2 = Button(
+filled_star_button1 = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
-    image=button_image_5,
+    image=filled_star_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("star_button2 clicked"),
+    command=filled_star_button1_clicked,
     relief="flat"
 )
-star_button2.place(
+
+
+unfilled_star_button2 = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    image=unfilled_star_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=unfilled_star_button2_clicked,
+    relief="flat"
+)
+unfilled_star_button2.place(
     x=335.0,
     y=176.0,
     width=40.0,
     height=41.0
 )
-
-button_image_6 = PhotoImage(
-    file=relative_to_assets("button_6.png"))
-star_button3 = Button(
+filled_star_button2 = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
-    image=button_image_6,
+    image=filled_star_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("star_button3 clicked"),
+    command=filled_star_button2_clicked,
     relief="flat"
 )
-star_button3.place(
+
+unfilled_star_button3 = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    image=unfilled_star_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=unfilled_star_button3_clicked,
+    relief="flat"
+)
+unfilled_star_button3.place(
     x=382.0,
     y=176.0,
     width=39.0,
     height=41.0
 )
-
-button_image_7 = PhotoImage(
-    file=relative_to_assets("button_7.png"))
-star_button4 = Button(
+filled_star_button3 = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
-    image=button_image_7,
+    image=filled_star_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("star_button4 clicked"),
+    command=filled_star_button3_clicked,
     relief="flat"
 )
-star_button4.place(
+
+unfilled_star_button4 = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    image=unfilled_star_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=unfilled_star_button4_clicked,
+    relief="flat"
+)
+unfilled_star_button4.place(
     x=427.0,
     y=176.0,
     width=40.0,
     height=41.0
 )
-
-button_image_8 = PhotoImage(
-    file=relative_to_assets("button_8.png"))
-star_button5 = Button(
+filled_star_button4 = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
-    image=button_image_8,
+    image=filled_star_image,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("star_button5 clicked"),
+    command=filled_star_button4_clicked,
     relief="flat"
 )
-star_button5.place(
+
+unfilled_star_button5 = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    image=unfilled_star_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=unfilled_star_button5_clicked,
+    relief="flat"
+)
+unfilled_star_button5.place(
     x=474.0,
     y=176.0,
     width=40.0,
     height=41.0
 )
+filled_star_button5 = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    image=filled_star_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=filled_star_button5_clicked,
+    relief="flat"
+)
+
+change_profile_display()
+
 window.resizable(False, False)
 window.mainloop()
