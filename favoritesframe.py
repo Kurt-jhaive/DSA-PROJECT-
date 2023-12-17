@@ -1,24 +1,22 @@
 from tkinter import *
 from tkinter import messagebox
+import tkinter as tk
 import subprocess
 import pandas as pd
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"forms\favoritesform_resources")
+ASSETS_PATH = OUTPUT_PATH / Path(r"forms\favorites1_frame")
 
-
-favorites = []
-random_pet = ""
 
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
-
 def home_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "homeframe.py"])
+
 def register_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "registerframe.py"])
@@ -26,6 +24,10 @@ def register_button_clicked():
 def donate_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "donateframe.py"])
+
+def favorites_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "favorites1frame.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -45,7 +47,199 @@ def change_profile_display():
     #change the display name and location
     canvas.itemconfigure(display_name_canvas, text=display_name)
     canvas.itemconfigure(profile_location, text=display_location)
+
+
+def display_favorite_pet():
+    # read the whole text file of the favorites
+    with open("data/temp_favorites.txt", "r") as file:
+        total_favorites = file.readlines()
+
+    # if there are more than 3 favorites, show the next button
+    if len(total_favorites) > 3:
+        next_button.place(  
+            x=656.0,
+            y=405.0,
+            width=112.89242553710938,
+            height=39.0
+        )
+    if len(total_favorites) < 3:
+        next_button.place_forget()
+
+    # read the text file of the favorites and get the first 3 pets if there are 3 pets and below
+    with open("data/temp_favorites.txt", "r") as file:
+        if len(total_favorites) == 0:
+            favorites = []
+            messagebox.showinfo("No Favorites", "You have no favorites yet.")
+        if len(total_favorites) == 1:
+            favorites = [file.readline().strip() for _ in range(1)]
+        elif len(total_favorites) == 2:
+            favorites = [file.readline().strip() for _ in range(2)]
+        elif len(total_favorites) > 2:
+            favorites = [file.readline().strip() for _ in range(3)]
+
+    if len(favorites) == 1:
+        # show only the first pet
+        first_pet = favorites[0].split(",")[0]
+        name = pets[first_pet]["name"]
+        breed = pets[first_pet]["breed"]
+        age = pets[first_pet]["age"]
+        picture = pets[first_pet]["picture"]
+        gender = pets[first_pet]["gender"]
+
+        canvas.itemconfigure(rectangle_1, state="normal")
+        canvas.itemconfigure(pet1_name_canvas, text=f"{name}, {gender}", state="normal")
+        canvas.itemconfigure(pet1_breed_canvas, text=breed, state="normal")
+        canvas.itemconfigure(pet1_age_canvas, text=age, state="normal")
+        canvas.itemconfigure(pet1_pic_canvas, image=picture, state="normal")
+        adopt_button1.place(
+            x=578.0,
+            y=131.0,
+            width=183.0,
+            height=37.0
+        )
+        # hide the second and third pet
+        canvas.itemconfigure(rectangle_2, state="hidden")
+        canvas.itemconfigure(rectangle_3, state="hidden")
+        canvas.itemconfigure(pet2_name_canvas, state="hidden")
+        canvas.itemconfigure(pet2_breed_canvas, state="hidden")
+        canvas.itemconfigure(pet2_age_canvas, state="hidden")
+        canvas.itemconfigure(pet2_pic_canvas, state="hidden")
+        canvas.itemconfigure(pet3_name_canvas, state="hidden")
+        canvas.itemconfigure(pet3_breed_canvas, state="hidden")
+        canvas.itemconfigure(pet3_age_canvas, state="hidden")
+        canvas.itemconfigure(pet3_pic_canvas, state="hidden")
+        adopt_button2.place_forget()
+        adopt_button3.place_forget()
+    elif len(favorites) == 2:
+        # show the first pet and the second pet
+        first_pet = favorites[0].split(",")[0]
+        name = pets[first_pet]["name"]
+        breed = pets[first_pet]["breed"]
+        age = pets[first_pet]["age"]
+        picture = pets[first_pet]["picture"]
+        gender = pets[first_pet]["gender"]
+
+        canvas.itemconfigure(rectangle_1, state="normal")
+        canvas.itemconfigure(pet1_name_canvas, text=f"{name}, {gender}", state="normal")
+        canvas.itemconfigure(pet1_breed_canvas, text=breed, state="normal")
+        canvas.itemconfigure(pet1_age_canvas, text=age, state="normal")
+        canvas.itemconfigure(pet1_pic_canvas, image=picture, state="normal")
+        adopt_button1.place(
+            x=578.0,
+            y=131.0,
+            width=183.0,
+            height=37.0
+        )
+
+        second_pet = favorites[1].split(",")[0]
+        name = pets[second_pet]["name"]
+        breed = pets[second_pet]["breed"]
+        age = pets[second_pet]["age"]
+        picture = pets[second_pet]["picture"]
+        gender = pets[second_pet]["gender"]
+
+        canvas.itemconfigure(rectangle_1, state="normal")
+        canvas.itemconfigure(rectangle_2, state="normal")
+        canvas.itemconfigure(pet2_name_canvas, text=f"{name}, {gender}", state="normal")
+        canvas.itemconfigure(pet2_breed_canvas, text=breed, state="normal")
+        canvas.itemconfigure(pet2_age_canvas, text=age, state="normal")
+        canvas.itemconfigure(pet2_pic_canvas, image=picture, state="normal")
+        adopt_button2.place(
+            x=578.0,
+            y=225.0,
+            width=183.0,
+            height=37.0
+        )
+
+        # hide the third pet
+        canvas.itemconfigure(rectangle_3, state="hidden")
+        canvas.itemconfigure(pet3_name_canvas, state="hidden")
+        canvas.itemconfigure(pet3_breed_canvas, state="hidden")
+        canvas.itemconfigure(pet3_age_canvas, state="hidden")
+        canvas.itemconfigure(pet3_pic_canvas, state="hidden")
+        adopt_button3.place_forget()
+    elif len(favorites) == 3:
+        # show the first pet, second pet, and third pet
+        first_pet = favorites[0].split(",")[0]
+        name = pets[first_pet]["name"]
+        breed = pets[first_pet]["breed"]
+        age = pets[first_pet]["age"]
+        picture = pets[first_pet]["picture"]
+        gender = pets[first_pet]["gender"]
+
+        canvas.itemconfigure(rectangle_1, state="normal")
+        canvas.itemconfigure(pet1_name_canvas, text=f"{name}, {gender}", state="normal")
+        canvas.itemconfigure(pet1_breed_canvas, text=breed, state="normal")
+        canvas.itemconfigure(pet1_age_canvas, text=age, state="normal")
+        canvas.itemconfigure(pet1_pic_canvas, image=picture, state="normal")
+        adopt_button1.place(
+            x=578.0,
+            y=131.0,
+            width=183.0,
+            height=37.0
+        )
+
+        second_pet = favorites[1].split(",")[0]
+        name = pets[second_pet]["name"]
+        breed = pets[second_pet]["breed"]
+        age = pets[second_pet]["age"]
+        picture = pets[second_pet]["picture"]
+        gender = pets[second_pet]["gender"]
+
+        canvas.itemconfigure(rectangle_1, state="normal")
+        canvas.itemconfigure(rectangle_2, state="normal")
+        canvas.itemconfigure(pet2_name_canvas, text=f"{name}, {gender}", state="normal")
+        canvas.itemconfigure(pet2_breed_canvas, text=breed, state="normal")
+        canvas.itemconfigure(pet2_age_canvas, text=age, state="normal")
+        canvas.itemconfigure(pet2_pic_canvas, image=picture, state="normal")
+        adopt_button2.place(
+            x=578.0,
+            y=225.0,
+            width=183.0,
+            height=37.0
+        )
+
+        third_pet = favorites[2].split(",")[0]
+        name = pets[third_pet]["name"]
+        breed = pets[third_pet]["breed"]
+        age = pets[third_pet]["age"]
+        picture = pets[third_pet]["picture"]
+        gender = pets[third_pet]["gender"]
+
+        canvas.itemconfigure(rectangle_1, state="normal")
+        canvas.itemconfigure(rectangle_2, state="normal")
+        canvas.itemconfigure(rectangle_3, state="normal")
+        canvas.itemconfigure(pet3_name_canvas, text=f"{name}, {gender}", state="normal")
+        canvas.itemconfigure(pet3_breed_canvas, text=breed, state="normal")
+        canvas.itemconfigure(pet3_age_canvas, text=age, state="normal")
+        canvas.itemconfigure(pet3_pic_canvas, image=picture, state="normal")
+        adopt_button3.place(
+            x=578.0,
+            y=316.0,
+            width=183.0,
+            height=37.0
+        )
+
+def delete_favorites():
+    with open("data/temp_favorites.txt", "r") as file:
+        lines = file.readlines()
+
+    new_lines = lines[3:]
+
+    with open("data/temp_favorites.txt", "w") as file:
+        file.writelines(new_lines)
+
+def next_button_clicked():   
+    delete_favorites()
+    display_favorite_pet()
+
+def copy_favorites_data():
+    with open("data/favorites.txt", "r") as file:
+        lines = file.readlines()
+    with open("data/temp_favorites.txt", "w") as file:
+        file.writelines(lines)
         
+
 window = Tk()
 
 # Get the screen width and height
@@ -61,8 +255,6 @@ y = (screen_height - 500) // 2
 
 window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
-
-
 canvas = Canvas(
     window,
     bg = "#FFFFFF",
@@ -93,12 +285,13 @@ image_2 = canvas.create_image(
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 favorites_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("favorites_button clicked"),
-    relief="flat",
-    bg="#FFFFFF",
+    command=favorites_button_clicked,
+    relief="flat"
 )
 favorites_button.place(
     x=705.0,
@@ -111,7 +304,7 @@ button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 menu_button = Button(
     bg="#FFFFFF",
-    activebackground= "#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
@@ -173,9 +366,9 @@ register_button = Button(
     relief="flat"
 )
 register_button.place(
-    x=95.0,
+    x=92.0,
     y=204.0,
-    width=120.0,
+    width=127.0,
     height=30.0
 )
 
@@ -191,9 +384,9 @@ donate_button = Button(
     relief="flat"
 )
 donate_button.place(
-    x=95.0,
+    x=93.0,
     y=253.0,
-    width=120.0,
+    width=127.0,
     height=30.0
 )
 
@@ -215,239 +408,251 @@ user_button.place(
     height=36.0
 )
 
-image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
-image_3 = canvas.create_image(
-    538.0,
-    147.0,
-    image=image_image_3
-)
+pets = {
+    "milo": {
+        "name": "MILO",
+        "gender": "Male",
+        "breed": "Aspin",
+        "age": "2 year old",
+        "picture": PhotoImage(file=relative_to_assets("milo.png")),
+    },
+    "fiona": {
+        "name": "FIONA",
+        "gender": "Female",
+        "breed": "Aspin",
+        "age": "3½ year old",
+        "picture": PhotoImage(file=relative_to_assets("fiona.png")),
+    },
+    "levis": {
+        "name": "LEVIS",
+        "gender": "Female",
+        "breed": "Aspin",
+        "age": "4 year old",
+        "picture": PhotoImage(file=relative_to_assets("levis.png")),
+    },
+    "kaira": {
+        "name": "KAIRA",
+        "gender": "Female",
+        "breed": "Aspin-Mixed",
+        "age": "2 year old",
+        "picture": PhotoImage(file=relative_to_assets("kaira.png")),
+    },
+    "pepper": {
+        "name": "PEPPER",
+        "gender": "Female",
+        "breed": "Aspin-Border Collie Mix",
+        "age": "3 year old",
+        "picture": PhotoImage(file=relative_to_assets("pepper.png")),
+    },   
+    "candy": {
+        "name": "CANDY",
+        "gender": "Female",
+        "breed": "Puspin",
+        "age": "2 year old",
+        "picture": PhotoImage(file=relative_to_assets("candy.png")),       
+    },
+    "lemon": {
+        "name": "LEMON",
+        "gender": "Male",
+        "breed": "Domestic Shorthair",
+        "age": "3 year old",
+        "picture": PhotoImage(file=relative_to_assets("lemon.png")),
+    },
+    "luna": {
+        "name": "LUNA",
+        "gender": "Male",
+        "breed": "Persian Siamese",
+        "age": "1 year old",
+        "picture": PhotoImage(file=relative_to_assets("luna.png")), 
+    },
+    "orange": {
+        "name": "ORANGE",
+        "gender": "Female",
+        "breed": "Puspin",
+        "age": "3 year old",
+        "picture": PhotoImage(file=relative_to_assets("orange.png")),
+    },
+    "sugar": {
+        "name": "SUGAR",
+        "gender": "Female",
+        "breed": "Puspin",
+        "age": "1 year old",
+        "picture": PhotoImage(file=relative_to_assets("sugar.png")),
+    },
+}
 
-image_image_4 = PhotoImage(
-    file=relative_to_assets("image_4.png"))
-image_4 = canvas.create_image(
+pink_rectangle = PhotoImage(
+    file=relative_to_assets("pink_rectangle.png"))
+rectangle_1 = canvas.create_image(
+    540.0,
+    147.0,
+    image=pink_rectangle,
+    state="hidden"
+)
+rectangle_2 = canvas.create_image(
     540.0,
     242.0,
-    image=image_image_4
+    image=pink_rectangle,
+    state="hidden"
 )
-
-image_image_5 = PhotoImage(
-    file=relative_to_assets("image_5.png"))
-image_5 = canvas.create_image(
+rectangle_3 = canvas.create_image(
     540.0,
     335.0,
-    image=image_image_5
+    image=pink_rectangle,
+    state="hidden"
 )
 
-image_image_6 = PhotoImage(
-    file=relative_to_assets("image_6.png"))
-image_6 = canvas.create_image(
-    540.0,
-    424.0,
-    image=image_image_6
-)
-
-image_image_7 = PhotoImage(
-    file=relative_to_assets("image_7.png"))
-image_7 = canvas.create_image(
-    350.0,
-    146.0,
-    image=image_image_7
-)
-
-image_image_8 = PhotoImage(
-    file=relative_to_assets("image_8.png"))
-image_8 = canvas.create_image(
-    459.0,
-    316.0,
-    image=image_image_8
-)
-
-image_image_9 = PhotoImage(
-    file=relative_to_assets("image_9.png"))
-image_9 = canvas.create_image(
-    462.0,
-    224.0,
-    image=image_image_9
-)
-
-button_image_7 = PhotoImage(
-    file=relative_to_assets("button_7.png"))
+adopt_image = PhotoImage(
+    file=relative_to_assets("adopt_me.png"))
 adopt_button1 = Button(
     bg="#F8CBD7",
     activebackground="#F8CBD7",
-    image=button_image_7,
+    image=adopt_image,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("adopt_button1 clicked"),
     relief="flat"
 )
-adopt_button1.place(
-    x=578.0,
-    y=131.0,
-    width=174.0,
-    height=37.0
-)
-
-button_image_8 = PhotoImage(
-    file=relative_to_assets("button_8.png"))
 adopt_button2 = Button(
     bg="#F8CBD7",
     activebackground="#F8CBD7",
-    image=button_image_8,
+    image=adopt_image,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("adopt_button2 clicked"),
     relief="flat"
 )
-adopt_button2.place(
-    x=578.0,
-    y=225.0,
-    width=174.0,
-    height=37.0
-)
-
-button_image_9 = PhotoImage(
-    file=relative_to_assets("button_9.png"))
 adopt_button3 = Button(
     bg="#F8CBD7",
     activebackground="#F8CBD7",
-    image=button_image_9,
+    image=adopt_image,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("adopt_button3 clicked"),
     relief="flat"
 )
-adopt_button3.place(
-    x=578.0,
-    y=316.0,
-    width=174.0,
-    height=37.0
+
+pet1_name_canvas = canvas.create_text(
+    393.0,
+    122.0,
+    anchor="nw",
+    text="MILO, Male",
+    fill="#AD206C",
+    font=("Inter Bold", 16 * -1),
+    state="hidden"
+)
+pet1_breed_canvas = canvas.create_text(
+    393.0,
+    138.0,
+    anchor="nw",
+    text="Aspin \n",
+    fill="#000000",
+    font=("Inter Bold", 16 * -1),
+    state="hidden"
+)
+pet1_age_canvas = canvas.create_text(
+    393.0,
+    156.0,
+    anchor="nw",
+    text="2 year old",
+    fill="#000000",
+    font=("Inter SemiBold", 12 * -1),
+    state="hidden"
+)
+
+pet2_name_canvas = canvas.create_text(
+    393.0,
+    215.0,
+    anchor="nw",
+    text="FIONA, Female",
+    fill="#AD206C",
+    font=("Inter Bold", 16 * -1),
+    state="hidden"
+)
+pet2_breed_canvas = canvas.create_text(
+    393.0,
+    229.0,
+    anchor="nw",
+    text="Aspin \n",
+    fill="#000000",
+    font=("Inter Bold", 16 * -1),
+    state="hidden"
+)
+pet2_age_canvas = canvas.create_text(
+    393.0,
+    248.0,
+    anchor="nw",
+    text=" 3½ year old ",
+    fill="#000000",
+    font=("Inter SemiBold", 12 * -1),
+    state="hidden"
+)
+
+pet3_name_canvas = canvas.create_text(
+    393.0,
+    307.0,
+    anchor="nw",
+    text="LEVIS, Female",
+    fill="#AD206C",
+    font=("Inter Bold", 16 * -1),
+    state="hidden"
+)
+pet3_breed_canvas = canvas.create_text(
+    393.0,
+    323.0,
+    anchor="nw",
+    text="Aspin \n",
+    fill="#000000",
+    font=("Inter Bold", 16 * -1),
+    state="hidden"
+)
+pet3_age_canvas = canvas.create_text(
+    393.0,
+    341.0,
+    anchor="nw",
+    text="4 year old",
+    fill="#000000",
+    font=("Inter SemiBold", 12 * -1),
+    state="hidden"
+)
+
+pet1_image = PhotoImage(
+    file=relative_to_assets("milo.png"))
+pet1_pic_canvas = canvas.create_image(
+    350.0,
+    146.0,
+    image=pet1_image,
+    state="hidden"
+)
+pet2_pic_canvas = canvas.create_image(
+    350.0,
+    242.0,
+    image=pet1_image,
+    state="hidden"
+)
+pet3_pic_canvas = canvas.create_image(
+    350.0,
+    335.0,
+    image=pet1_image,
+    state="hidden"
 )
 
 button_image_10 = PhotoImage(
     file=relative_to_assets("button_10.png"))
-adopt_button4 = Button(
-    bg="#F8CBD7",
-    activebackground="#F8CBD7",
+next_button = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
     image=button_image_10,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("adopt_button4 clicked"),
+    command=next_button_clicked,
     relief="flat"
 )
-adopt_button4.place(
-    x=578.0,
-    y=405.0,
-    width=174.0,
-    height=37.0
-)
 
-image_image_10 = PhotoImage(
-    file=relative_to_assets("image_10.png"))
-image_10 = canvas.create_image(
-    414.0,
-    333.0,
-    image=image_image_10
-)
 
-image_image_11 = PhotoImage(
-    file=relative_to_assets("image_11.png"))
-image_11 = canvas.create_image(
-    414.0,
-    239.0,
-    image=image_image_11
-)
-
-image_image_12 = PhotoImage(
-    file=relative_to_assets("image_12.png"))
-image_12 = canvas.create_image(
-    431.0,
-    348.0,
-    image=image_image_12
-)
-
-image_image_13 = PhotoImage(
-    file=relative_to_assets("image_13.png"))
-image_13 = canvas.create_image(
-    462.0,
-    406.0,
-    image=image_image_13
-)
-
-image_image_14 = PhotoImage(
-    file=relative_to_assets("image_14.png"))
-image_14 = canvas.create_image(
-    419.0,
-    422.0,
-    image=image_image_14
-)
-
-image_image_15 = PhotoImage(
-    file=relative_to_assets("image_15.png"))
-image_15 = canvas.create_image(
-    431.0,
-    439.0,
-    image=image_image_15
-)
-
-image_image_16 = PhotoImage(
-    file=relative_to_assets("image_16.png"))
-image_16 = canvas.create_image(
-    450.0,
-    131.0,
-    image=image_image_16
-)
-
-image_image_17 = PhotoImage(
-    file=relative_to_assets("image_17.png"))
-image_17 = canvas.create_image(
-    414.0,
-    148.0,
-    image=image_image_17
-)
-
-image_image_18 = PhotoImage(
-    file=relative_to_assets("image_18.png"))
-image_18 = canvas.create_image(
-    429.0,
-    166.0,
-    image=image_image_18
-)
-
-image_image_19 = PhotoImage(
-    file=relative_to_assets("image_19.png"))
-image_19 = canvas.create_image(
-    445.0,
-    258.0,
-    image=image_image_19
-)
-
-image_image_20 = PhotoImage(
-    file=relative_to_assets("image_20.png"))
-image_20 = canvas.create_image(
-    350.0,
-    242.0,
-    image=image_image_20
-)
-
-image_image_21 = PhotoImage(
-    file=relative_to_assets("image_21.png"))
-image_21 = canvas.create_image(
-    350.0,
-    335.0,
-    image=image_image_21
-)
-
-image_image_22 = PhotoImage(
-    file=relative_to_assets("image_22.png"))
-image_22 = canvas.create_image(
-    350.0,
-    423.0,
-    image=image_image_22
-)
-
+copy_favorites_data()
 change_profile_display()
+display_favorite_pet()
 
 window.resizable(False, False)
 window.mainloop()
