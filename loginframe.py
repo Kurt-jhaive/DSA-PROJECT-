@@ -4,10 +4,22 @@ import pandas as pd
 import os
 import subprocess
 from pathlib import Path
+import sys
 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r'forms\login_frame')
+
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 def relative_to_assets(path: str) -> Path:
@@ -16,7 +28,7 @@ def relative_to_assets(path: str) -> Path:
 def login_button_clicked():
     global user_id
 
-    df = pd.read_csv(r'data\profile_data.csv')
+    df = pd.read_csv(resource_path("data/profile_data.csv"))
 
     entered_username = username_textbox.get()
     entered_password = password_textbox.get()
@@ -25,7 +37,7 @@ def login_button_clicked():
 
     if not user_record.empty:
         #put the username in a text file
-        with open("data/current_user.txt", "w") as file:
+        with open(resource_path("data/current_user.txt"), "w") as file:
             file.write(entered_username)
         messagebox.showinfo("Login Successful", "Welcome, {}!".format(entered_username))
         window.destroy()
@@ -36,7 +48,7 @@ def login_button_clicked():
 
 def sign_up_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "signupframe.py"])
+    subprocess.Popen(["python", "signupframe1.py"])
 
 def forgot_password_button_clicked():
     window.destroy()
@@ -75,7 +87,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/login_frame/image_1.png")))
 image_1 = canvas.create_image(
     190.0,
     250.0,
@@ -92,7 +104,7 @@ canvas.create_text(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/login_frame/button_1.png")))
 login_button = Button(
     image=button_image_1,
     borderwidth=0,
@@ -108,7 +120,7 @@ login_button.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/login_frame/button_2.png")))
 forgot_password_button = Button(
     bg="#FFFFFF",
     image=button_image_2,
@@ -127,7 +139,7 @@ forgot_password_button .place(
 )
 
 entry_image_1 = PhotoImage(
-    file=relative_to_assets("entry_1.png"))
+    file=relative_to_assets(resource_path("forms/login_frame/entry_1.png")))
 entry_bg_1 = canvas.create_image(
     592.5,
     223.27298736572266,
@@ -148,7 +160,7 @@ username_textbox.place(
 )
 
 entry_image_2 = PhotoImage(
-    file=relative_to_assets("entry_2.png"))
+    file=relative_to_assets(resource_path("forms/login_frame/entry_2.png")))
 entry_bg_2 = canvas.create_image(
     592.5,
     141.29910278320312,
@@ -171,7 +183,7 @@ password_textbox.place(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets(resource_path("forms/login_frame/button_3.png")))
 sign_up_button = Button(
     image=button_image_3,
     borderwidth=0,
@@ -187,7 +199,7 @@ sign_up_button.place(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/login_frame/image_2.png")))
 image_2 = canvas.create_image(
     179.0,
     221.0,
