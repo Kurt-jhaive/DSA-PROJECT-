@@ -30,7 +30,9 @@ def submit_button_clicked():
     if not(name_textbox.get() and contactnumber_textbox.get() and address_textbox.get() and email_textbox.get() and donation_type_textbox.get()):
         messagebox.showerror("Error", "Please fill up all fields.")
     else:
-        messagebox.showinfo("Success", "Your registration for donation has been submitted! Please wait for our team to contact you.")
+        # messagebox.showinfo("Success", "Your registration for donation has been submitted! Please wait for our team to contact you.")
+        window.destroy()
+        subprocess.Popen(["python", "thankyouframe1.py"])
 
         # Get input from the user
         inputted_name = name_textbox.get()

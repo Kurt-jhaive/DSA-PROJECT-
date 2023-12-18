@@ -20,7 +20,7 @@ def submit_button_clicked():
         save_all_data()
         reset_input()
         window.destroy()
-        subprocess.Popen(["python", "homeframe.py"])
+        subprocess.Popen(["python", "thankyouframe3.py"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):

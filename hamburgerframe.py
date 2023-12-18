@@ -32,6 +32,7 @@ x = (screen_width - 820) // 2
 y = (screen_height - 500) // 2
 window.geometry(f"820x500+{x}+{y}")
 window.configure(bg="#FFFFFF")
+
 canvas = Canvas(
     window,
     bg = "#FFFFFF",

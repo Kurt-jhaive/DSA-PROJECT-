@@ -197,7 +197,7 @@ def yes_button_clicked():
     else:
         save_input()
         window.withdraw()
-        subprocess.Popen(["python", "loginframe.py"])
+        subprocess.Popen(["python", "thankyouframe2.py"])
 
 def on_entry_click(event, entry_widget, placeholder_text):
     if entry_widget.get() == placeholder_text:
