@@ -58,7 +58,6 @@ def change_pet():
         print(random_pet)   
 
 def ekis_button_clicked():
-    back_to_normal()
     change_pet()
 
 
@@ -75,7 +74,6 @@ def add_to_favorites_button_clicked(dictionary):
             for item in favorites:
                 file.write(item + '\n')
 
-        back_to_normal()
         change_pet()
 
 def description_button_clicked(dictionary):
@@ -85,12 +83,20 @@ def description_button_clicked(dictionary):
     canvas.itemconfigure(pet_quote, state="hidden")
 
     canvas.itemconfigure(pet_full_desc, image=full_desc, state="normal")
-    canvas.after(15000, back_to_normal)
+    close_description_button.place(
+        x=718.0,
+        y=122.0,
+        width=46.0,
+        height=46.0
+    )
 
-def back_to_normal():
+def close_description_button_clicked():
     canvas.itemconfigure(pet_full_desc, state="hidden")
     canvas.itemconfigure(pet_desc, state="normal")
     canvas.itemconfigure(pet_quote, state="normal")
+ 
+    close_description_button.place_forget()
+
 
 def check_list():
     # this function will update the favorites list
@@ -124,6 +130,81 @@ def adopt_button_clicked():
 def home_button_clicked():
     window.destroy()
     subprocess.Popen(["python", "homeframe.py"])
+
+
+def hamburger_menu_clicked():
+    # show the hamburger menu
+    canvas.itemconfigure(pink_menu_rectangle_canvas, state="normal")
+    ekis_button.lower()
+    add_to_favorites_button.lower()
+    description_button.lower()
+    close_description_button.lower()
+    close_hamburger_menu.place(
+        x=750.0,
+        y=49.0,
+        width=19.0,
+        height=22.0
+    )    
+    account_settings.place(
+        x=549.0,
+        y=96.0,
+        width=205.0,
+        height=30.0
+    )
+    privacy_policy.place(
+        x=550.0,
+        y=133.0,
+        width=203.99925231933594,
+        height=32.0
+    )
+    terms_conditions.place(
+        x=549.0,
+        y=173.0,
+        width=205.0,
+        height=29.0
+    )
+    give_feedback.place(
+        x=551.0,
+        y=212.0,
+        width=202.0,
+        height=32.291259765625
+    )
+    log_out.place(
+        x=550.0,
+        y=256.0,
+        width=204.0,
+        height=31.0
+    )
+
+def close_hamburger_menu_clicked():
+    # hide the hamburger menu
+    canvas.itemconfigure(pink_menu_rectangle_canvas, state="hidden")
+    ekis_button.lift()
+    add_to_favorites_button.lift()
+    description_button.lift()
+    close_description_button.lift()
+    account_settings.place_forget()
+    privacy_policy.place_forget()
+    terms_conditions.place_forget()
+    give_feedback.place_forget()
+    log_out.place_forget()
+    close_hamburger_menu.place_forget()
+
+def privacy_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "privacyframe1.py"])
+
+def terms_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "termsframe1.py"])
+
+def feedback_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "feedbackframe.py"])
+
+def log_out_button_clicked():
+    window.destroy()
+    subprocess.Popen(["python", "loginframe.py"])
 
 
 window = Tk()
@@ -177,38 +258,6 @@ image_3 = canvas.create_image(
     image=image_image_3
 )
 
-button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
-dogs_filter_button = Button(
-    image=button_image_1,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("dogs filter button clicked"),
-    relief="flat"
-)
-dogs_filter_button.place(
-    x=416.0,
-    y=90.0,
-    width=79.0,
-    height=30.0
-)
-
-button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
-cats_filter_button = Button(
-    image=button_image_2,
-    borderwidth=0,
-    highlightthickness=0,
-    command=lambda: print("cats filter button clicked"),
-    relief="flat"
-)
-cats_filter_button.place(
-    x=521.0,
-    y=90.0,
-    width=79.0,
-    height=30.0
-)
-
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 favorites_button= Button(
@@ -234,7 +283,7 @@ menu_button = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("menu_button clicked"),
+    command=hamburger_menu_clicked,
     relief="flat",
     activebackground="#FFFFFF",
 )
@@ -244,6 +293,18 @@ menu_button.place(
     width=19.0,
     height=22.0
 )
+
+# second menu button to be displayed when the first menu button is clicked
+close_hamburger_menu = Button(
+    bg="#FFFFFF",
+    image=button_image_4,
+    borderwidth=0,
+    highlightthickness=0,
+    command=close_hamburger_menu_clicked,
+    relief="flat",
+    activebackground="#FFFFFF",
+)
+
 
 button_image_5 = PhotoImage(
     file=relative_to_assets("button_5.png"))
@@ -444,12 +505,6 @@ pets = {
 
 }
 
-# pet_name = canvas.create_image(
-#     644.0,
-#     189.0,
-#     image=dogs["milo"]["name"]
-# )
-
 pet_name  = canvas.create_text(
     582.0,
     176.0,
@@ -458,7 +513,6 @@ pet_name  = canvas.create_text(
     fill="#000000",
     font=("Inter", 22 * -1, "bold")
 )
-
 
 pet_pic = canvas.create_image(
     448.0,
@@ -522,6 +576,16 @@ description_button.place(
     height=46.0
 )
 
+close_description_button = Button(
+    bg="#FFFFFF",
+    image=button_image_12,
+    borderwidth=0,
+    highlightthickness=0,
+    command=close_description_button_clicked,
+    relief="flat",
+    activebackground="#FFFFFF",
+)
+
 button_image_13 = PhotoImage(
     file=relative_to_assets("button_13.png"))
 adopt_button = Button(
@@ -563,6 +627,74 @@ canvas.create_rectangle(
     289.3240229487419,
     fill="#F19FB5",
     outline="")
+
+
+#----------------------- Hamburger Menu------------------
+# HAMBURGER FRAME
+pink_menu_rectangle_image = PhotoImage(
+    file=relative_to_assets("pink_menu.png"))
+pink_menu_rectangle_canvas = canvas.create_image(
+    654.0,
+    194.0,
+    image=pink_menu_rectangle_image,
+    state="hidden",
+)
+
+account_image = PhotoImage(
+    file=relative_to_assets("account.png"))
+account_settings = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=account_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("account_settings clicked"),
+    relief="flat"
+)
+privacy_image = PhotoImage(
+    file=relative_to_assets("privacy.png"))
+privacy_policy = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=privacy_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=privacy_button_clicked,
+    relief="flat"
+)
+terms_image = PhotoImage(
+    file=relative_to_assets("terms.png"))
+terms_conditions = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=terms_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=terms_button_clicked,
+    relief="flat"
+)
+feedback_image = PhotoImage(
+    file=relative_to_assets("feedback.png"))
+give_feedback = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=feedback_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=feedback_button_clicked,
+    relief="flat"
+)
+logout_image = PhotoImage(
+    file=relative_to_assets("logout.png"))
+log_out = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=logout_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=log_out_button_clicked,
+    relief="flat"
+)
 
 change_pet()
 check_list()    

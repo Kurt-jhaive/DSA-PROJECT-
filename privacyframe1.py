@@ -16,7 +16,8 @@ def back_button_clicked():
     subprocess.Popen(["python", "homeframe.py"])
 def next_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "privacyframe2.py"])
+    exe_path = "loginframe.exe"
+    subprocess.Popen([exe_path])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):

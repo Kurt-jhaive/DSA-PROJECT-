@@ -62,9 +62,9 @@ def continue_button_1_clicked():
     #show next 
     canvas.itemconfigure(rectangle1, state="normal")
     canvas.itemconfigure(rectangle2, state="normal")
-    canvas.itemconfigure(adress_text1, state="normal")
-    canvas.itemconfigure(adress_text2, state="normal")
-    canvas.itemconfigure(adress_text3, state="normal")
+    canvas.itemconfigure(address_text1, state="normal")
+    canvas.itemconfigure(address_text2, state="normal")
+    canvas.itemconfigure(address_text3, state="normal")
     canvas.itemconfigure(address_canvas, state="normal")
     address_textbox.place(
         x=182.0,
@@ -88,9 +88,9 @@ def continue_button_1_clicked():
 def continue_button_2_clicked():
     canvas.itemconfigure(rectangle1, state="hidden")
     canvas.itemconfigure(rectangle2, state="hidden")
-    canvas.itemconfigure(adress_text1, state="hidden")
-    canvas.itemconfigure(adress_text2, state="hidden")
-    canvas.itemconfigure(adress_text3, state="hidden")
+    canvas.itemconfigure(address_text1, state="hidden")
+    canvas.itemconfigure(address_text2, state="hidden")
+    canvas.itemconfigure(address_text3, state="hidden")
     canvas.itemconfigure(address_canvas, state="hidden")
     address_textbox.place_forget()
     continue_button_2.place_forget()
@@ -120,9 +120,9 @@ def continue_button_2_clicked():
 def back_button_2_clicked():
     canvas.itemconfigure(rectangle1, state="hidden")
     canvas.itemconfigure(rectangle2, state="hidden")
-    canvas.itemconfigure(adress_text1, state="hidden")
-    canvas.itemconfigure(adress_text2, state="hidden")
-    canvas.itemconfigure(adress_text3, state="hidden")
+    canvas.itemconfigure(address_text1, state="hidden")
+    canvas.itemconfigure(address_text2, state="hidden")
+    canvas.itemconfigure(address_text3, state="hidden")
     canvas.itemconfigure(address_canvas, state="hidden")
     address_textbox.place_forget()
     continue_button_2.place_forget()
@@ -168,9 +168,9 @@ def back_button_3_clicked():
     #show previous
     canvas.itemconfigure(rectangle1, state="normal")
     canvas.itemconfigure(rectangle2, state="normal")
-    canvas.itemconfigure(adress_text1, state="normal")
-    canvas.itemconfigure(adress_text2, state="normal")
-    canvas.itemconfigure(adress_text3, state="normal")
+    canvas.itemconfigure(address_text1, state="normal")
+    canvas.itemconfigure(address_text2, state="normal")
+    canvas.itemconfigure(address_text3, state="normal")
     canvas.itemconfigure(address_canvas, state="normal")
     address_textbox.place(
         x=182.0,
@@ -209,6 +209,14 @@ def on_focus_out(event, entry_widget, placeholder_text):
     if entry_widget.get() == '':
         entry_widget.insert(0, placeholder_text)
         entry_widget.config(fg='grey')  # Change text color to grey
+
+def edit_name():
+    # get the data in the text file
+    with open('data/signup_data.txt', 'r') as f:
+        data = f.readlines()
+        data = [line.strip() for line in data]
+    
+    canvas.itemconfigure(address_text3, text=f"MEOW, {data[0]}!")
 
 
 window = Tk()
@@ -371,7 +379,7 @@ rectangle2 = canvas.create_rectangle(
     state="hidden",
 )
 
-adress_text1 = canvas.create_text(
+address_text1 = canvas.create_text(
     319.0,
     235.0,
     anchor="nw",
@@ -381,7 +389,7 @@ adress_text1 = canvas.create_text(
     state="hidden"
 )
 
-adress_text2 = canvas.create_text(
+address_text2 = canvas.create_text(
     265.0,
     339.0,
     anchor="nw",
@@ -391,7 +399,7 @@ adress_text2 = canvas.create_text(
     state="hidden"
 )
 
-adress_text3 = canvas.create_text(
+address_text3 = canvas.create_text(
     330.0,
     195.0,
     anchor="nw",
@@ -491,6 +499,8 @@ yes_button = Button(
     command= yes_button_clicked,
     relief="flat"
 )
+
+edit_name()
 
 window.resizable(False, False)
 window.mainloop()
