@@ -5,11 +5,22 @@ import subprocess
 import smtplib
 import random
 import pandas as pd
-
+import os
+import sys
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\forgetpass_frame")
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -23,7 +34,7 @@ otp = None
 def check_email():
     global typed_email
     typed_email = email_textbox.get()
-    df = pd.read_csv("data/new_credentials.csv")
+    df = pd.read_csv(resource_path("data/new_credentials.csv"))
     if typed_email in df['email'].values:
         return True
     else:
@@ -36,7 +47,7 @@ def send_otp():
         messagebox.showinfo("Pending", "Your OTP has been sent!")
 
         # replace the [OTP] with the otp variable
-        with open("data/otp_email_letter.txt") as file:
+        with open(resource_path("data/otp_email_letter.txt")) as file:
             letter = file.read().replace("[OTP]", otp)
         typed_email = email_textbox.get()
 
@@ -55,13 +66,13 @@ def submit_button():
     typed_otp = otp_textbox.get()
     if typed_otp == otp:
         new_password = newpassword_textbox.get()
-        df = pd.read_csv("data/profile_data.csv")
+        df = pd.read_csv(resource_path("data/profile_data.csv"))
         df.loc[df['email'] == typed_email, 'password'] = new_password
-        df.to_csv("data/profile_data.csv", index=False)
+        df.to_csv(resource_path("data/profile_data.csv"), index=False)
         messagebox.showinfo("Success", "Your password has been reset successfully!")
 
         window.destroy()
-        subprocess.Popen(["python", "loginframe.py"])
+        subprocess.Popen(["purrfectmatch.exe"])
     else:
         messagebox.showerror("Error", "The OTP you entered is invalid. Please try again.")
 
@@ -71,11 +82,11 @@ def close_window():
 
 def login_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "loginframe.py"])
+    subprocess.Popen(["purrfectmatch.exe"])
 
 def sign_up_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "signupframe.py"])
+    subprocess.Popen(["signupframe1/signupframe1.exe"])
 
 window = Tk()
 
@@ -106,7 +117,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/image_1.png")))
 image_1 = canvas.create_image(
     190.0,
     250.0,
@@ -123,7 +134,7 @@ canvas.create_text(
 )
 
 email_image = PhotoImage(
-    file=relative_to_assets("label_1.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/label_1.png")))
 email_image_label = Label(
     bg="#FFFFFF",
     image=email_image,
@@ -139,7 +150,7 @@ email_image_label.place(
 )
 
 otp_image = PhotoImage(
-    file=relative_to_assets("label_2.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/label_2.png")))
 otp_image_label = Label(
     bg="#FFFFFF",
     image=otp_image,
@@ -155,7 +166,7 @@ otp_image_label.place(
 )
 
 newpass_image = PhotoImage(
-    file=relative_to_assets("label_3.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/label_3.png")))
 newpass_image_label = Label(
     bg="#FFFFFF",
     image=newpass_image,
@@ -171,7 +182,7 @@ newpass_image_label.place(
 )
 
 login_btn_img = PhotoImage(
-    file=relative_to_assets("button_4.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/button_4.png")))
 login_button = Button(
     image=login_btn_img,
     borderwidth=0,
@@ -187,7 +198,7 @@ login_button.place(
 )
 
 submit_btn_img = PhotoImage(
-    file=relative_to_assets("button_5.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/button_5.png")))
 submit_button = Button(
     image=submit_btn_img,
     borderwidth=0,
@@ -203,7 +214,7 @@ submit_button.place(
 )
 
 signup_btn_img = PhotoImage(
-    file=relative_to_assets("button_6.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/button_6.png")))
 signup_button = Button(
     image=signup_btn_img,
     borderwidth=0,
@@ -219,7 +230,7 @@ signup_button.place(
 )
 
 otp_btn_img = PhotoImage(
-    file=relative_to_assets("button_7.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/button_7.png")))
 otp_button = Button(
     bg="#FFFFFF",
     image=otp_btn_img,
@@ -236,7 +247,7 @@ otp_button.place(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/forgetpass_frame/image_2.png")))
 image_2 = canvas.create_image(
     189.0,
     241.0,

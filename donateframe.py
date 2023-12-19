@@ -2,21 +2,34 @@ from tkinter import *
 from tkinter import messagebox
 import subprocess
 import pandas as pd
+import os
+import sys
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\donate_frame")
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def home_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "homeframe.py"])
+    subprocess.Popen(["homeframe/homeframe.exe"])
 def register_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "registerframe.py"])
+    subprocess.Popen(["registerframe/registerframe.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -24,7 +37,7 @@ def close_window():
 
 
 def submit_button_clicked(): 
-    csv_file_path = 'data/donate_data.csv'
+    csv_file_path = resource_path("data/donate_data.csv")
 
     # check if all fields are filled up
     if not(name_textbox.get() and contactnumber_textbox.get() and address_textbox.get() and email_textbox.get() and donation_type_textbox.get()):
@@ -32,7 +45,7 @@ def submit_button_clicked():
     else:
         # messagebox.showinfo("Success", "Your registration for donation has been submitted! Please wait for our team to contact you.")
         window.destroy()
-        subprocess.Popen(["python", "thankyouframe1.py"])
+        subprocess.Popen(["thankyouframe1/thankyouframe1.exe"])
 
         # Get input from the user
         inputted_name = name_textbox.get()
@@ -64,11 +77,11 @@ def submit_button_clicked():
 
 def change_profile_display():
     #read the text file
-    with open("data/current_user.txt", "r") as file:
+    with open(resource_path("data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv('data/profile_data.csv')
+    df = pd.read_csv(resource_path('data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -105,7 +118,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_1.png")))
 image_1 = canvas.create_image(
     158.0,
     251.0,
@@ -113,7 +126,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_2.png")))
 image_2 = canvas.create_image(
     352.0,
     72.0,
@@ -121,7 +134,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_1.png")))
 favorites_button = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
@@ -139,7 +152,7 @@ favorites_button.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_2.png")))
 menu_button = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
@@ -157,7 +170,7 @@ menu_button.place(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_3.png")))
 button_3 = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -193,7 +206,7 @@ profile_location = canvas.create_text(
 )
 
 button_image_4 = PhotoImage(
-    file=relative_to_assets("button_4.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_4.png")))
 home_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -211,7 +224,7 @@ home_button.place(
 )
 
 button_image_5 = PhotoImage(
-    file=relative_to_assets("button_5.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_5.png")))
 register_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -229,7 +242,7 @@ register_button.place(
 )
 
 button_image_6 = PhotoImage(
-    file=relative_to_assets("button_6.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_6.png")))
 donate_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -246,7 +259,7 @@ donate_button.place(
 )
 
 button_image_7 = PhotoImage(
-    file=relative_to_assets("button_7.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_7.png")))
 button_7 = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -264,7 +277,7 @@ button_7.place(
 )
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_3.png")))
 image_3 = canvas.create_image(
     540.0,
     323.0,
@@ -272,7 +285,7 @@ image_3 = canvas.create_image(
 )
 
 image_image_4 = PhotoImage(
-    file=relative_to_assets("image_4.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_4.png")))
 image_4 = canvas.create_image(
     540.0,
     259.0,
@@ -280,7 +293,7 @@ image_4 = canvas.create_image(
 )
 
 image_image_5 = PhotoImage(
-    file=relative_to_assets("image_5.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_5.png")))
 image_5 = canvas.create_image(
     540.0,
     194.0,
@@ -288,7 +301,7 @@ image_5 = canvas.create_image(
 )
 
 image_image_6 = PhotoImage(
-    file=relative_to_assets("image_6.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_6.png")))
 image_6 = canvas.create_image(
     415.0,
     133.0,
@@ -296,7 +309,7 @@ image_6 = canvas.create_image(
 )
 
 button_image_8 = PhotoImage(
-    file=relative_to_assets("button_8.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/button_8.png")))
 submit_button = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
@@ -314,7 +327,7 @@ submit_button.place(
 )
 
 image_image_7 = PhotoImage(
-    file=relative_to_assets("image_7.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_7.png")))
 image_7 = canvas.create_image(
     663.0,
     133.0,
@@ -322,7 +335,7 @@ image_7 = canvas.create_image(
 )
 
 image_image_8 = PhotoImage(
-    file=relative_to_assets("image_8.png"))
+    file=relative_to_assets(resource_path("forms/donate_frame/image_8.png")))
 image_8 = canvas.create_image(
     540.0,
     387.0,

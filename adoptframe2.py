@@ -1,22 +1,34 @@
 from tkinter import *
 from tkinter import messagebox
 import subprocess
-
+import os
+import sys
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\adoption2_frame")
+
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "adoptframe1.py"])
+    subprocess.Popen(["adoptframe1/adoptframe1.exe"])
 def next_button_clicked():
     if save_input():
         window.destroy()
-        subprocess.Popen(["python", "adoptframe3.py"])
+        subprocess.Popen(["adoptframe3/adoptframe3.exe"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
@@ -27,14 +39,14 @@ def save_input():
         return False
     else:
         messagebox.showinfo("Success", "Please proceed to the next set of questions.")
-        with open("data/adopt2_data.txt", "w") as f:
+        with open(resource_path("data/adopt2_data.txt"), "w") as f:
             f.write('\n'.join(q.get() for q in [q1, q2, q3, q4, q5, q6]))
 
         return True
 
 def read_input():
     try:
-        with open("data/adopt2_data.txt", "r") as f:
+        with open(resource_path("data/adopt2_data.txt"), "r") as f:
             q1.set(f.readline().strip())
             q2.set(f.readline().strip())
             q3.set(f.readline().strip())
@@ -42,7 +54,7 @@ def read_input():
             q5.set(f.readline().strip())
             q6.set(f.readline().strip())
     except FileNotFoundError:
-        with open("data/adopt2_data.txt", "w") as f:
+        with open(resource_path("data/adopt2_data.txt"), "w") as f:
             pass
 
 window = Tk()
@@ -75,7 +87,7 @@ canvas.place(x = 0, y = 0)
 
 # ------------------------- questionnaire title ------------------------- #
 image_image_21 = PhotoImage(
-    file=relative_to_assets("image_21.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_21.png")))
 image_21 = canvas.create_image(
     126.0,
     47.0,
@@ -84,7 +96,7 @@ image_21 = canvas.create_image(
 
 # ------------------------- first question ------------------------- #
 image_image_14 = PhotoImage(
-    file=relative_to_assets("image_14.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_14.png")))
 image_14 = canvas.create_image(
     76.0,
     82.0,
@@ -92,7 +104,7 @@ image_14 = canvas.create_image(
 )
 
 image_image_15 = PhotoImage(
-    file=relative_to_assets("image_15.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_15.png")))
 image_15 = canvas.create_image(
     108.0,
     124.0,
@@ -100,7 +112,7 @@ image_15 = canvas.create_image(
 )
 
 image_image_17 = PhotoImage(
-    file=relative_to_assets("image_17.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_17.png")))
 image_17 = canvas.create_image(
     200.0,
     122.0,
@@ -108,7 +120,7 @@ image_17 = canvas.create_image(
 )
 
 image_image_19 = PhotoImage(
-    file=relative_to_assets("image_19.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_19.png")))
 image_19 = canvas.create_image(
     299.0,
     122.0,
@@ -117,7 +129,7 @@ image_19 = canvas.create_image(
 
 # ------------------------- second question ------------------------- #
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_1.png")))
 image_1 = canvas.create_image(
     227.0,
     161.0,
@@ -126,7 +138,7 @@ image_1 = canvas.create_image(
 
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_3.png")))
 image_3 = canvas.create_image(
     114.0,
     196.0,
@@ -134,7 +146,7 @@ image_3 = canvas.create_image(
 )
 
 image_image_5 = PhotoImage(
-    file=relative_to_assets("image_5.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_5.png")))
 image_5 = canvas.create_image(
     233.0,
     196.0,
@@ -142,7 +154,7 @@ image_5 = canvas.create_image(
 )
 
 image_image_7 = PhotoImage(
-    file=relative_to_assets("image_7.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_7.png")))
 image_7 = canvas.create_image(
     359.0,
     196.0,
@@ -150,7 +162,7 @@ image_7 = canvas.create_image(
 )
 
 image_image_9 = PhotoImage(
-    file=relative_to_assets("image_9.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_9.png")))
 image_9 = canvas.create_image(
     481.0,
     198.0,
@@ -158,7 +170,7 @@ image_9 = canvas.create_image(
 )
 
 image_image_11 = PhotoImage(
-    file=relative_to_assets("image_11.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_11.png")))
 image_11 = canvas.create_image(
     603.0,
     196.0,
@@ -166,7 +178,7 @@ image_11 = canvas.create_image(
 )
 
 image_image_13 = PhotoImage(
-    file=relative_to_assets("image_13.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_13.png")))
 image_13 = canvas.create_image(
     711.0,
     196.0,
@@ -175,7 +187,7 @@ image_13 = canvas.create_image(
 
 # ------------------------- third question ------------------------- #
 image_image_22 = PhotoImage(
-    file=relative_to_assets("image_22.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_22.png")))
 image_22 = canvas.create_image(
     182.0,
     237.0,
@@ -183,7 +195,7 @@ image_22 = canvas.create_image(
 )
 
 image_image_24 = PhotoImage(
-    file=relative_to_assets("image_24.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_24.png")))
 image_24 = canvas.create_image(
     123.0,
     273.0,
@@ -191,7 +203,7 @@ image_24 = canvas.create_image(
 )
 
 image_image_26 = PhotoImage(
-    file=relative_to_assets("image_26.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_26.png")))
 image_26 = canvas.create_image(
     226.0,
     273.0,
@@ -199,7 +211,7 @@ image_26 = canvas.create_image(
 )
 
 image_image_28 = PhotoImage(
-    file=relative_to_assets("image_28.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_28.png")))
 image_28 = canvas.create_image(
     327.0,
     273.0,
@@ -207,7 +219,7 @@ image_28 = canvas.create_image(
 )
 
 image_image_30 = PhotoImage(
-    file=relative_to_assets("image_30.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_30.png")))
 image_30 = canvas.create_image(
     451.0,
     273.0,
@@ -216,7 +228,7 @@ image_30 = canvas.create_image(
 
 # ------------------------- fourth question ------------------------- #
 image_image_31 = PhotoImage(
-    file=relative_to_assets("image_31.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_31.png")))
 image_31 = canvas.create_image(
     614.0,
     237.0,
@@ -224,7 +236,7 @@ image_31 = canvas.create_image(
 )
 
 image_image_33 = PhotoImage(
-    file=relative_to_assets("image_33.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_33.png")))
 image_33 = canvas.create_image(
     615.0,
     273.0,
@@ -232,7 +244,7 @@ image_33 = canvas.create_image(
 )
 
 image_image_35 = PhotoImage(
-    file=relative_to_assets("image_35.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_35.png")))
 image_35 = canvas.create_image(
     723.0,
     273.0,
@@ -241,7 +253,7 @@ image_35 = canvas.create_image(
 
 # ------------------------- fifth question ------------------------- #
 image_image_36 = PhotoImage(
-    file=relative_to_assets("image_36.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_36.png")))
 image_36 = canvas.create_image(
     132.0,
     321.0,
@@ -249,7 +261,7 @@ image_36 = canvas.create_image(
 )
 
 image_image_38 = PhotoImage(
-    file=relative_to_assets("image_38.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_38.png")))
 image_38 = canvas.create_image(
     124.0,
     358.0,
@@ -257,7 +269,7 @@ image_38 = canvas.create_image(
 )
 
 image_image_40 = PhotoImage(
-    file=relative_to_assets("image_40.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_40.png")))
 image_40 = canvas.create_image(
     228.0,
     358.0,
@@ -265,7 +277,7 @@ image_40 = canvas.create_image(
 )
 
 image_image_42 = PhotoImage(
-    file=relative_to_assets("image_42.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_42.png")))
 image_42 = canvas.create_image(
     337.0,
     357.0,
@@ -273,7 +285,7 @@ image_42 = canvas.create_image(
 )
 
 image_image_44 = PhotoImage(
-    file=relative_to_assets("image_44.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_44.png")))
 image_44 = canvas.create_image(
     456.0,
     357.0,
@@ -281,7 +293,7 @@ image_44 = canvas.create_image(
 )
 
 image_image_46 = PhotoImage(
-    file=relative_to_assets("image_46.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_46.png")))
 image_46 = canvas.create_image(
     602.0,
     357.0,
@@ -290,7 +302,7 @@ image_46 = canvas.create_image(
 
 # ------------------------- sixth question ------------------------- #
 image_image_51 = PhotoImage(
-    file=relative_to_assets("image_51.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_51.png")))
 image_51 = canvas.create_image(
     117.0,
     399.0,
@@ -298,7 +310,7 @@ image_51 = canvas.create_image(
 )
 
 image_image_48 = PhotoImage(
-    file=relative_to_assets("image_48.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_48.png")))
 image_48 = canvas.create_image(
     146.0,
     438.0,
@@ -306,7 +318,7 @@ image_48 = canvas.create_image(
 )
 
 image_image_50 = PhotoImage(
-    file=relative_to_assets("image_50.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/image_50.png")))
 image_50 = canvas.create_image(
     325.0,
     438.0,
@@ -315,7 +327,7 @@ image_50 = canvas.create_image(
 
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/button_1.png")))
 back_button = Button(
     image=button_image_1,
     borderwidth=0,
@@ -331,7 +343,7 @@ back_button.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/adoption2_frame/button_2.png")))
 next_button = Button(
     image=button_image_2,
     borderwidth=0,
@@ -348,10 +360,10 @@ next_button.place(
 
 
 # ------------------------ dot image ------------------------ #
-dot_image = PhotoImage(file=relative_to_assets("dot.png"))
-black_dot_image = PhotoImage(file=relative_to_assets("black_dot.png"))
-black_dot_small_image = PhotoImage(file=relative_to_assets("black_dot_small.png"))
-pink_dot_image = PhotoImage(file=relative_to_assets("pink_dot.png"))
+dot_image = PhotoImage(file=relative_to_assets(resource_path("forms/adoption2_frame/dot.png")))
+black_dot_image = PhotoImage(file=relative_to_assets(resource_path("forms/adoption2_frame/black_dot.png")))
+black_dot_small_image = PhotoImage(file=relative_to_assets(resource_path("forms/adoption2_frame/black_dot_small.png")))
+pink_dot_image = PhotoImage(file=relative_to_assets(resource_path("forms/adoption2_frame/pink_dot.png")))
 
 # ------------------------- RADIO BUTTONS ------------------------- #
 # STATUS

@@ -2,32 +2,44 @@ from tkinter import *
 from tkinter import messagebox
 import subprocess
 import pandas as pd
+import os
+import sys  
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\terms1_frame")
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "homeframe.py"])
+    subprocess.Popen(["app/homeframe.exe"])
 def next_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "termsframe2.py"])
+    subprocess.Popen(["app/termsframe2.exe"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
 def change_profile_display():
     #read the text file
-    with open("data/current_user.txt", "r") as file:
+    with open(resource_path("data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv('data/profile_data.csv')
+    df = pd.read_csv(resource_path('data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -63,7 +75,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/terms1_frame/image_1.png")))
 image_1 = canvas.create_image(
     409.0,
     79.0,
@@ -89,7 +101,7 @@ profile_location = canvas.create_text(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/terms1_frame/button_1.png")))
 user_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -107,7 +119,7 @@ user_button.place(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/terms1_frame/image_2.png")))
 image_2 = canvas.create_image(
     410.0,
     135.0,
@@ -115,7 +127,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/terms1_frame/button_2.png")))
 back_button= Button(
     image=button_image_2,
     borderwidth=0,
@@ -131,7 +143,7 @@ back_button.place(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets(resource_path("forms/terms1_frame/button_3.png")))
 next_button = Button(
     image=button_image_3,
     borderwidth=0,
@@ -147,7 +159,7 @@ next_button.place(
 )
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets(resource_path("forms/terms1_frame/image_3.png")))
 image_3 = canvas.create_image(
     410.0,
     287.0,

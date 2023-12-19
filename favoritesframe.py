@@ -3,31 +3,41 @@ from tkinter import messagebox
 import tkinter as tk
 import subprocess
 import pandas as pd
-
+import os
+import sys
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\favorites1_frame")
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def home_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "homeframe.py"])
+    subprocess.Popen(["homeframe/homeframe.exe"])
 
 def register_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "registerframe.py"])
+    subprocess.Popen(["registerframe/registerframe.exe"])
 
 def donate_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "donateframe.py"])
+    subprocess.Popen(["donateframe/donateframe.exe"])
 
 def favorites_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "favorites1frame.py"])
+    subprocess.Popen(["favorites1frame/favorites1frame.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -35,11 +45,11 @@ def close_window():
 
 def change_profile_display():
     #read the text file
-    with open("data/current_user.txt", "r") as file:
+    with open(resource_path("data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv('data/profile_data.csv')
+    df = pd.read_csv(resource_path("data/profile_data.csv"))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -51,7 +61,7 @@ def change_profile_display():
 
 def display_favorite_pet():
     # read the whole text file of the favorites
-    with open("data/temp_favorites.txt", "r") as file:
+    with open(resource_path("data/temp_favorites.txt"), "r") as file:
         total_favorites = file.readlines()
 
     # if there are more than 3 favorites, show the next button
@@ -66,7 +76,7 @@ def display_favorite_pet():
         next_button.place_forget()
 
     # read the text file of the favorites and get the first 3 pets if there are 3 pets and below
-    with open("data/temp_favorites.txt", "r") as file:
+    with open(resource_path("data/temp_favorites.txt"), "r") as file:
         if len(total_favorites) == 0:
             favorites = []
             messagebox.showinfo("No Favorites", "You have no favorites yet.")
@@ -221,12 +231,12 @@ def display_favorite_pet():
         )
 
 def delete_favorites():
-    with open("data/temp_favorites.txt", "r") as file:
+    with open(resource_path("data/temp_favorites.txt"), "r") as file:
         lines = file.readlines()
 
     new_lines = lines[3:]
 
-    with open("data/temp_favorites.txt", "w") as file:
+    with open(resource_path("data/temp_favorites.txt"), "w") as file:
         file.writelines(new_lines)
 
 def next_button_clicked():   
@@ -234,9 +244,9 @@ def next_button_clicked():
     display_favorite_pet()
 
 def copy_favorites_data():
-    with open("data/favorites.txt", "r") as file:
+    with open(resource_path("data/favorites.txt"), "r") as file:
         lines = file.readlines()
-    with open("data/temp_favorites.txt", "w") as file:
+    with open(resource_path("data/temp_favorites.txt"), "w") as file:
         file.writelines(lines)
         
 
@@ -267,7 +277,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/image_1.png")))
 image_1 = canvas.create_image(
     158.0,
     251.0,
@@ -275,7 +285,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/image_2.png")))
 image_2 = canvas.create_image(
     369.0,
     72.0,
@@ -283,7 +293,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/button_1.png")))
 favorites_button = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
@@ -301,7 +311,7 @@ favorites_button.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/button_2.png")))
 menu_button = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
@@ -337,7 +347,7 @@ profile_location = canvas.create_text(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/button_3.png")))
 home_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -355,7 +365,7 @@ home_button.place(
 )
 
 button_image_4 = PhotoImage(
-    file=relative_to_assets("button_4.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/button_4.png")))
 register_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -373,7 +383,7 @@ register_button.place(
 )
 
 button_image_5 = PhotoImage(
-    file=relative_to_assets("button_5.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/button_5.png")))
 donate_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -391,7 +401,7 @@ donate_button.place(
 )
 
 button_image_6 = PhotoImage(
-    file=relative_to_assets("button_6.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/button_6.png")))
 user_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",
@@ -414,75 +424,75 @@ pets = {
         "gender": "Male",
         "breed": "Aspin",
         "age": "2 year old",
-        "picture": PhotoImage(file=relative_to_assets("milo.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/milo.png"))),
     },
     "fiona": {
         "name": "FIONA",
         "gender": "Female",
         "breed": "Aspin",
         "age": "3½ year old",
-        "picture": PhotoImage(file=relative_to_assets("fiona.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/fiona.png"))),
     },
     "levis": {
         "name": "LEVIS",
         "gender": "Female",
         "breed": "Aspin",
         "age": "4 year old",
-        "picture": PhotoImage(file=relative_to_assets("levis.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/levis.png"))),
     },
     "kaira": {
         "name": "KAIRA",
         "gender": "Female",
         "breed": "Aspin-Mixed",
         "age": "2 year old",
-        "picture": PhotoImage(file=relative_to_assets("kaira.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/kaira.png"))),
     },
     "pepper": {
         "name": "PEPPER",
         "gender": "Female",
         "breed": "Aspin-Border Collie Mix",
         "age": "3 year old",
-        "picture": PhotoImage(file=relative_to_assets("pepper.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/pepper.png"))),
     },   
     "candy": {
         "name": "CANDY",
         "gender": "Female",
         "breed": "Puspin",
         "age": "2 year old",
-        "picture": PhotoImage(file=relative_to_assets("candy.png")),       
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/candy.png"))),       
     },
     "lemon": {
         "name": "LEMON",
         "gender": "Male",
         "breed": "Domestic Shorthair",
         "age": "3 year old",
-        "picture": PhotoImage(file=relative_to_assets("lemon.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/lemon.png"))),
     },
     "luna": {
         "name": "LUNA",
         "gender": "Male",
         "breed": "Persian Siamese",
         "age": "1 year old",
-        "picture": PhotoImage(file=relative_to_assets("luna.png")), 
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/luna.png"))), 
     },
     "orange": {
         "name": "ORANGE",
         "gender": "Female",
         "breed": "Puspin",
         "age": "3 year old",
-        "picture": PhotoImage(file=relative_to_assets("orange.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/orange.png"))),
     },
     "sugar": {
         "name": "SUGAR",
         "gender": "Female",
         "breed": "Puspin",
         "age": "1 year old",
-        "picture": PhotoImage(file=relative_to_assets("sugar.png")),
+        "picture": PhotoImage(file=relative_to_assets(resource_path("forms/favorites1_frame/sugar.png"))),
     },
 }
 
 pink_rectangle = PhotoImage(
-    file=relative_to_assets("pink_rectangle.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/pink_rectangle.png")))
 rectangle_1 = canvas.create_image(
     540.0,
     147.0,
@@ -503,7 +513,7 @@ rectangle_3 = canvas.create_image(
 )
 
 adopt_image = PhotoImage(
-    file=relative_to_assets("adopt_me.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/adopt_me.png")))
 adopt_button1 = Button(
     bg="#F8CBD7",
     activebackground="#F8CBD7",
@@ -617,7 +627,7 @@ pet3_age_canvas = canvas.create_text(
 )
 
 pet1_image = PhotoImage(
-    file=relative_to_assets("milo.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/milo.png")))
 pet1_pic_canvas = canvas.create_image(
     350.0,
     146.0,
@@ -638,7 +648,7 @@ pet3_pic_canvas = canvas.create_image(
 )
 
 button_image_10 = PhotoImage(
-    file=relative_to_assets("button_10.png"))
+    file=relative_to_assets(resource_path("forms/favorites1_frame/button_10.png")))
 next_button = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
