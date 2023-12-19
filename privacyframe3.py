@@ -1,24 +1,37 @@
 from tkinter import *
 from tkinter import messagebox
 import subprocess
+import os
+import sys
 
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\privacy3_frame")
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "privacyframe2.py"])
+    subprocess.Popen(["privacyframe2/privacyframe2.exe"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 def i_agree_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "homeframe.py"])
+    subprocess.Popen(["homeframe/homeframe.exe"])
 
 window = Tk()
 
@@ -47,7 +60,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/privacy3_frame/image_1.png")))
 image_1 = canvas.create_image(
     409.0,
     129.0,
@@ -55,7 +68,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/privacy3_frame/image_2.png")))
 image_2 = canvas.create_image(
     407.0,
     287.0,
@@ -63,7 +76,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/privacy3_frame/button_1.png")))
 back_button = Button(
     image=button_image_1,
     borderwidth=0,
@@ -79,7 +92,7 @@ back_button.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/privacy3_frame/button_2.png")))
 submit_button = Button(
     image=button_image_2,
     borderwidth=0,
@@ -95,7 +108,7 @@ submit_button.place(
 )
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets(resource_path("forms/privacy3_frame/image_3.png")))
 image_3 = canvas.create_image(
     423.0,
     380.0,

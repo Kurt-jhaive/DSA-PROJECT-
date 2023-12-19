@@ -2,13 +2,23 @@ from tkinter import *
 from tkinter import messagebox
 import subprocess
 import pandas as pd
-
+import os
+import sys
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\thankyou_signup")
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
+    return os.path.join(base_path, relative_path)
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -20,7 +30,7 @@ def close_window():
 
 def continue_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "loginframe.py"])
+    subprocess.Popen(["purrfectmatch.exe"])
 window = Tk()
 
 # Get the screen width and height
@@ -49,7 +59,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/thankyou_signup/image_1.png")))
 image_1 = canvas.create_image(
     409.0,
     252.0,
@@ -57,7 +67,7 @@ image_1 = canvas.create_image(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/thankyou_signup/button_1.png")))
 continue_button = Button(
     bg="#F19FB5",
     activebackground="#F19FB5",

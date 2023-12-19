@@ -2,10 +2,24 @@ from tkinter import *
 from tkinter import messagebox
 import subprocess
 import pandas as pd
+import os
+import sys
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup2_frame")
+
+
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 def relative_to_assets(path: str) -> Path:
@@ -13,8 +27,8 @@ def relative_to_assets(path: str) -> Path:
 
 def back_button_1_clicked():
     window.withdraw()
-    # open the signupframe2.py
-    subprocess.Popen(["python", "signupframe1.py"])
+    # open the signupframe2.exe
+    subprocess.Popen(["app/signupframe1.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -26,13 +40,13 @@ def save_input():
     inputted_address = address_textbox.get()
 
     # get the data in the text file
-    with open('data/signup_data.txt', 'r') as f:
+    with open(resource_path('data/signup_data.txt'), 'r') as f:
         data = f.readlines()
         data = [line.strip() for line in data]
     
     print(data)
     #save to csv
-    csv_file_path = 'data/profile_data.csv'
+    csv_file_path = resource_path('data/profile_data.csv')
 
     df = pd.DataFrame({
         'first_name': [data[0]],
@@ -197,7 +211,7 @@ def yes_button_clicked():
     else:
         save_input()
         window.withdraw()
-        subprocess.Popen(["python", "thankyouframe2.py"])
+        subprocess.Popen(["app/thankyouframe2.exe"])
 
 def on_entry_click(event, entry_widget, placeholder_text):
     if entry_widget.get() == placeholder_text:
@@ -212,7 +226,7 @@ def on_focus_out(event, entry_widget, placeholder_text):
 
 def edit_name():
     # get the data in the text file
-    with open('data/signup_data.txt', 'r') as f:
+    with open(resource_path('data/signup_data.txt'), 'r') as f:
         data = f.readlines()
         data = [line.strip() for line in data]
     
@@ -247,7 +261,7 @@ canvas = Canvas(
 canvas.place(x = 0, y = 0)
 
 purrfect_image = PhotoImage(
-    file=relative_to_assets("purrfectmatch.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/purrfectmatch.png")))
 title_canvas = canvas.create_image(
     404.0,
     98.0,
@@ -255,7 +269,7 @@ title_canvas = canvas.create_image(
 )
 
 loading_image = PhotoImage(
-    file=relative_to_assets("loading_line.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/loading_line.png")))
 loading_button = Button(
     image=loading_image,
     borderwidth=0,
@@ -298,7 +312,7 @@ text3 = canvas.create_text(
 )
 
 name_image = PhotoImage(
-    file=relative_to_assets("name.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/name.png")))
 name_canvas = canvas.create_image(
     431.0,
     294.0,
@@ -324,7 +338,7 @@ name_textbox.bind('<FocusIn>', lambda event: on_entry_click(event, name_textbox,
 name_textbox.bind('<FocusOut>', lambda event: on_focus_out(event, name_textbox, placeholder_text_1))
 
 back_image = PhotoImage(
-    file=relative_to_assets("back.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/back.png")))
 back_button_1 = Button(
     bg="#FFFFFF",
     image=back_image,
@@ -342,7 +356,7 @@ back_button_1.place(
 )
 
 continue_image = PhotoImage(
-    file=relative_to_assets("continue.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/continue.png")))
 continue_button_1 = Button(
     image=continue_image,
     borderwidth=0,
@@ -410,7 +424,7 @@ address_text3 = canvas.create_text(
 )
 
 address_image = PhotoImage(
-    file=relative_to_assets("address.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/address.png")))  
 address_canvas = canvas.create_image(
     410.0,
     303.0,
@@ -451,7 +465,7 @@ back_button_2 = Button(
 
 # ------------last page ----------------
 loading_image_last = PhotoImage(
-    file=relative_to_assets("loading_line_full.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/loading_line_full.png")))
 loading_line_button_full = Button(
     image=loading_image_last,
     borderwidth=0,
@@ -491,7 +505,7 @@ back_button_3 = Button(
 )
 
 yes_image = PhotoImage(
-    file=relative_to_assets("yes.png"))
+    file=relative_to_assets(resource_path("forms/signup2_frame/yes.png")))
 yes_button = Button(
     image=yes_image,
     borderwidth=0,

@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 import subprocess
+import os
+import sys
 
 
 from pathlib import Path
@@ -8,14 +10,26 @@ OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\privacy2_frame")
 
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "privacyframe1.py"])
+    subprocess.Popen(["privacyframe1/privacyframe1.exe"])
 def next_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "privacyframe3.py"])
+    subprocess.Popen(["privacyframe3/privacyframe3.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -50,7 +64,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/privacy2_frame/image_1.png")))
 image_1 = canvas.create_image(
     408.0,
     129.0,
@@ -58,7 +72,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/privacy2_frame/image_2.png")))
 image_2 = canvas.create_image(
     409.0,
     306.0,
@@ -66,7 +80,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/privacy2_frame/button_1.png")))
 back_button = Button(
     image=button_image_1,
     borderwidth=0,
@@ -82,7 +96,7 @@ back_button.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/privacy2_frame/button_2.png")))
 next_button = Button(
     image=button_image_2,
     borderwidth=0,
@@ -96,5 +110,6 @@ next_button.place(
     width=112.89242553710938,
     height=39.0
 )
+
 window.resizable(False, False)
 window.mainloop()

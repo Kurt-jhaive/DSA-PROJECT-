@@ -4,10 +4,23 @@ from pathlib import Path
 import subprocess
 from pathlib import Path
 import pandas as pd
+import os
+import sys
 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\signup1_frame")
+
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 def relative_to_assets(path: str) -> Path:
@@ -15,7 +28,7 @@ def relative_to_assets(path: str) -> Path:
 
 def back_button1_clicked():
     window.withdraw()
-    subprocess.Popen(["python", "loginframe.py"])
+    subprocess.Popen(["../purrfectmatch.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -143,12 +156,9 @@ def back_button2_clicked():
 def login_button_clicked():
     save_input()
     window.withdraw()
-    subprocess.Popen(["python", "signupframe2.py"])
+    subprocess.Popen(["signupframe2\signupframe2.exe"])
 
 def save_input():
-    csv_file_path = "data/profile_data.csv"
-    df = pd.read_csv(csv_file_path)
-
     # get the user input
     inputted_first_name = first_name_signup.get()
     inputted_middle_name = middle_name_signup.get()
@@ -160,7 +170,7 @@ def save_input():
     inputted_contact = contact_number.get()
 
     # Save the inputted data to a file
-    with open("data/signup_data.txt", "w") as f:
+    with open(resource_path("data/signup_data.txt"), "w") as f:
         f.write(inputted_first_name + "\n")
         f.write(inputted_middle_name + "\n")
         f.write(inputted_last_name + "\n")
@@ -201,7 +211,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/image_1.png")))
 image_1 = canvas.create_image(
     190.0,
     250.0,
@@ -209,7 +219,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/image_2.png")))
 image_2 = canvas.create_image(
     183.0,
     237.0,
@@ -227,7 +237,7 @@ canvas.create_text(
 
 #image for the entry boxes
 form_image_1 = PhotoImage(
-    file=relative_to_assets("first_name.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/first_name.png")))
 first_name_img = canvas.create_image(
     594.0,
     118.70454406738281,
@@ -235,7 +245,7 @@ first_name_img = canvas.create_image(
 )
 
 form_image_2 = PhotoImage(
-    file=relative_to_assets("middle_name.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/middle_name.png")))
 middle_name_img = canvas.create_image(
     594.0,
     186.0,
@@ -243,7 +253,7 @@ middle_name_img = canvas.create_image(
 )
 
 form_image_3 = PhotoImage(
-    file=relative_to_assets("last_name.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/last_name.png")))
 last_name_img = canvas.create_image(
     594.0,
     253.52588653564453,
@@ -251,7 +261,7 @@ last_name_img = canvas.create_image(
 )
 
 form_image_4 = PhotoImage(
-    file=relative_to_assets("username.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/username.png")))
 username_img = canvas.create_image(
     594.0,
     320.66865730285645,
@@ -259,7 +269,7 @@ username_img = canvas.create_image(
 )
 
 form_image_5 = PhotoImage(
-    file=relative_to_assets("password.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/password.png")))
 password_img = canvas.create_image(
     594.0,
     395.33442878723145,
@@ -342,7 +352,7 @@ password_signup.place(
 
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("next.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/next.png")))
 next_button1 = Button(
     image=button_image_1,
     borderwidth=0,
@@ -358,7 +368,7 @@ next_button1.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("back.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/back.png")))
 back_button1 = Button(
     image=button_image_2,
     borderwidth=0,
@@ -376,7 +386,7 @@ back_button1.place(
 #-----------Next Form-----------------
 # image for the next form
 form_image_6 = PhotoImage(
-    file=relative_to_assets("confirm_pass.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/confirm_pass.png")))
 confirm_pass_img = canvas.create_image(
     594.0,
     122.410400390625,
@@ -384,7 +394,7 @@ confirm_pass_img = canvas.create_image(
     state="hidden",
 )
 form_image_7 = PhotoImage(
-    file=relative_to_assets("email.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/email.png")))
 email_img = canvas.create_image(
     594.0,
     191.41039276123047,
@@ -392,7 +402,7 @@ email_img = canvas.create_image(
     state="hidden",
 )
 form_image_8 = PhotoImage(
-    file=relative_to_assets("contact_no.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/contact_no.png")))
 contact_no_img = canvas.create_image(
     594.0,
     259.69991302490234,
@@ -425,7 +435,7 @@ contact_number = Entry(
 )
 
 terms_image = PhotoImage(
-    file=relative_to_assets("terms.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/terms.png")))
 terms_and_conditions = Button(
     image=terms_image,
     borderwidth=0,
@@ -436,7 +446,7 @@ terms_and_conditions = Button(
 )
 
 back_image = PhotoImage(
-    file=relative_to_assets("back.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/back.png")))
 back_button2 = Button(
     image=back_image,
     borderwidth=0,
@@ -446,7 +456,7 @@ back_button2 = Button(
 )
 
 login_image = PhotoImage(
-    file=relative_to_assets("login.png"))
+    file=relative_to_assets(resource_path("forms/signup1_frame/login.png")))
 login_button = Button(
     image=login_image,
     borderwidth=0,

@@ -2,33 +2,45 @@ from tkinter import *
 from tkinter import messagebox
 import subprocess
 import pandas as pd
-
+import os
+import sys
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\adoption1_frame")
 
 
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "homeframe.py"])
+    subprocess.Popen(["homeframe/homeframe.exe"])
 def next_button_clicked():
     if save_input():
         window.destroy()
-        subprocess.Popen(["python", "adoptframe2.py"])
+        subprocess.Popen(["adoptframe2/adoptframe2.exe"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
     
 def change_profile_display():
     #read the text file
-    with open("data/current_user.txt", "r") as file:
+    with open(resource_path("data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv('data/profile_data.csv')
+    df = pd.read_csv(resource_path("data/profile_data.csv"))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -44,14 +56,14 @@ def save_input():
     else:
         messagebox.showinfo("Success", "Please proceed to the next set of questions.")
         inputs = [name_textbox.get(), birthdate_textbox.get(), address_textbox.get(), occupation_textbox.get(), email_textbox.get(), phone_textbox.get(), socialmedia_textbox.get()]
-        with open("data/adopt1_data.txt", "w") as f:
+        with open(resource_path("data/adopt1_data.txt"), "w") as f:
             f.write('\n'.join(inputs) + '\n')
         return True
 
 def read_input():
     # read the inputted data from the file and display it
     try:
-        with open("data/adopt1_data.txt", "r") as f:
+        with open(resource_path("data/adopt1_data.txt"), "r") as f:
             name_textbox.insert(0, f.readline().strip())
             birthdate_textbox.insert(0, f.readline().strip())
             address_textbox.insert(0, f.readline().strip())
@@ -60,7 +72,7 @@ def read_input():
             phone_textbox.insert(0, f.readline().strip())
             socialmedia_textbox.insert(0, f.readline().strip())
     except FileNotFoundError:
-        with open("data/adopt1_data.txt", "w") as f:
+        with open(resource_path("data/adopt1_data.txt"), "w") as f:
             pass
 
 window = Tk()
@@ -93,7 +105,7 @@ canvas = Canvas(
 canvas.place(x = 0, y = 0)
 
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_1.png")))
 image_1 = canvas.create_image(
     409.0,
     79.0,
@@ -119,7 +131,7 @@ profile_location = canvas.create_text(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/button_1.png")))
 button_1 = Button(
     bg="#F19FB5",
     image=button_image_1,
@@ -137,7 +149,7 @@ button_1.place(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_2.png")))
 image_2 = canvas.create_image(
     425.0,
     140.0,
@@ -145,7 +157,7 @@ image_2 = canvas.create_image(
 )
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_3.png")))
 image_3 = canvas.create_image(
     111.0,
     158.0,
@@ -153,7 +165,7 @@ image_3 = canvas.create_image(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/button_2.png")))
 back_button = Button(
     image=button_image_2,
     borderwidth=0,
@@ -169,7 +181,7 @@ back_button.place(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/button_3.png")))
 next_button = Button(
     image=button_image_3,
     borderwidth=0,
@@ -185,7 +197,7 @@ next_button.place(
 )
 
 image_image_4 = PhotoImage(
-    file=relative_to_assets("image_4.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_4.png")))
 image_4 = canvas.create_image(
     216.0,
     435.0,
@@ -193,7 +205,7 @@ image_4 = canvas.create_image(
 )
 
 image_image_5 = PhotoImage(
-    file=relative_to_assets("image_5.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_5.png")))
 image_5 = canvas.create_image(
     603.0,
     367.0,
@@ -201,7 +213,7 @@ image_5 = canvas.create_image(
 )
 
 image_image_6 = PhotoImage(
-    file=relative_to_assets("image_6.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_6.png")))
 image_6 = canvas.create_image(
     216.0,
     367.0,
@@ -209,7 +221,7 @@ image_6 = canvas.create_image(
 )
 
 image_image_7 = PhotoImage(
-    file=relative_to_assets("image_7.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_7.png")))
 image_7 = canvas.create_image(
     603.0,
     295.0,
@@ -217,7 +229,7 @@ image_7 = canvas.create_image(
 )
 
 image_image_8 = PhotoImage(
-    file=relative_to_assets("image_8.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_8.png")))
 image_8 = canvas.create_image(
     216.0,
     295.0,
@@ -225,7 +237,7 @@ image_8 = canvas.create_image(
 )
 
 image_image_9 = PhotoImage(
-    file=relative_to_assets("image_9.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_9.png")))
 image_9 = canvas.create_image(
     603.0,
     221.0,
@@ -233,7 +245,7 @@ image_9 = canvas.create_image(
 )
 
 image_image_10 = PhotoImage(
-    file=relative_to_assets("image_10.png"))
+    file=relative_to_assets(resource_path("forms/adoption1_frame/image_10.png")))
 image_10 = canvas.create_image(
     216.0,
     221.0,

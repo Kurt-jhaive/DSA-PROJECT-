@@ -2,11 +2,24 @@ from tkinter import *
 from tkinter import messagebox
 import subprocess
 import pandas as pd
-
+import os   
+import sys
 
 from pathlib import Path
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"forms\feedback_frame")
+
+# ---------------------------- PATH ------------------------------- #
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 
 ratings = 0
 
@@ -14,23 +27,23 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["python", "homeframe.py"])
+    subprocess.Popen(["homeframe/homeframe.exe"])
 def submit_button_clicked():
     if save_input():
         messagebox.showinfo("Success", "Your feedback has been submitted!")
         window.destroy()
-        subprocess.Popen(["python", "homeframe.py"])
+        subprocess.Popen(["homeframe/homeframe.exe"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
 def change_profile_display():
     #read the text file
-    with open("data/current_user.txt", "r") as file:
+    with open(resource_path("data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv('data/profile_data.csv')
+    df = pd.read_csv(resource_path('data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -41,9 +54,9 @@ def change_profile_display():
 
 def save_input():
     feedback = feedback_textbox.get("1.0", END).strip()
-    with open("data/current_user.txt", "r") as file:
+    with open(resource_path("data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
-    pd.read_csv("data/feedback_data.csv")
+    pd.read_csv(resource_path("data/feedback_data.csv"))
 
     data = pd.DataFrame({
         "username": [current_user],
@@ -51,7 +64,7 @@ def save_input():
         "feedback": [feedback],
     })
 
-    data.to_csv("data/feedback_data.csv", index=False, mode="a", header=False)
+    data.to_csv(resource_path("data/feedback_data.csv"), index=False, mode="a", header=False)
     return True
 
 def unfilled_star_button1_clicked():
@@ -315,7 +328,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/image_1.png")))
 image_1 = canvas.create_image(
     409.0,
     79.0,
@@ -341,7 +354,7 @@ profile_location = canvas.create_text(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/button_1.png")))
 user_button = Button(
     bg = "#F19FB5",
     activebackground= "#F19FB5",
@@ -359,7 +372,7 @@ user_button.place(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/image_2.png")))
 image_2 = canvas.create_image(
     412.0,
     145.0,
@@ -367,7 +380,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/button_2.png")))
 back_button = Button(
     image=button_image_2,
     borderwidth=0,
@@ -383,7 +396,7 @@ back_button.place(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/button_3.png")))
 submit_button = Button(
     image=button_image_3,
     borderwidth=0,
@@ -399,7 +412,7 @@ submit_button.place(
 )
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/image_3.png")))
 image_3 = canvas.create_image(
     407.0,
     321.0,
@@ -422,9 +435,9 @@ feedback_textbox.place(
 
 # ------------------------------ star images ------------------------------
 filled_star_image = PhotoImage(
-    file=relative_to_assets("filled_star.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/filled_star.png")))
 unfilled_star_image = PhotoImage(
-    file=relative_to_assets("unfilled_star.png"))
+    file=relative_to_assets(resource_path("forms/feedback_frame/unfilled_star.png")))
 
 # ------------------------------ star buttons ------------------------------
 unfilled_star_button1 = Button(
