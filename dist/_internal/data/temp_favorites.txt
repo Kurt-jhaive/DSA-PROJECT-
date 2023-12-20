@@ -4,3 +4,7 @@ sugar
 kaira
 levis
 milo
+luna
+pepper
+lemon
+fiona
