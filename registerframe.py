@@ -104,6 +104,8 @@ def submit_button_clicked():
 
         # refresh the window after prompting a message
         messagebox.showinfo("Success", "Your registration of a pet has been submitted. Please wait for our team to contact you.")
+        window.destroy()
+        subprocess.Popen(["homeframe/homeframe.exe"])
 
 def change_profile_display():
     #read the text file
