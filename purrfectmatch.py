@@ -48,7 +48,7 @@ def login_button_clicked():
 
 def sign_up_button_clicked():
     window.destroy()
-    subprocess.Popen(["thankyou_adopt/thankyou_adopt.exe"])
+    subprocess.Popen(["signupframe1/signupframe1.exe"])
 
 def forgot_password_button_clicked():
     window.destroy()
