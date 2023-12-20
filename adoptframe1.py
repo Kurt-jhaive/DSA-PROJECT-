@@ -36,11 +36,11 @@ def close_window():
     
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path("data/profile_data.csv"))
+    df = pd.read_csv(resource_path("../../_internal/data/profile_data.csv"))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -56,14 +56,14 @@ def save_input():
     else:
         messagebox.showinfo("Success", "Please proceed to the next set of questions.")
         inputs = [name_textbox.get(), birthdate_textbox.get(), address_textbox.get(), occupation_textbox.get(), email_textbox.get(), phone_textbox.get(), socialmedia_textbox.get()]
-        with open(resource_path("data/adopt1_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt1_data.txt"), "w") as f:
             f.write('\n'.join(inputs) + '\n')
         return True
 
 def read_input():
     # read the inputted data from the file and display it
     try:
-        with open(resource_path("data/adopt1_data.txt"), "r") as f:
+        with open(resource_path("../../_internal/data/adopt1_data.txt"), "r") as f:
             name_textbox.insert(0, f.readline().strip())
             birthdate_textbox.insert(0, f.readline().strip())
             address_textbox.insert(0, f.readline().strip())
@@ -72,7 +72,7 @@ def read_input():
             phone_textbox.insert(0, f.readline().strip())
             socialmedia_textbox.insert(0, f.readline().strip())
     except FileNotFoundError:
-        with open(resource_path("data/adopt1_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt1_data.txt"), "w") as f:
             pass
 
 window = Tk()

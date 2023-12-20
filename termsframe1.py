@@ -25,10 +25,10 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["app/homeframe.exe"])
+    subprocess.Popen(["homeframe/homeframe.exe"])
 def next_button_clicked():
     window.destroy()
-    subprocess.Popen(["app/termsframe2.exe"])
+    subprocess.Popen(["termsframe2/termsframe2.exe"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()

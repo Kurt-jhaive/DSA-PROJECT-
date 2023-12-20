@@ -39,11 +39,11 @@ def close_window():
 
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path('data/profile_data.csv'))
+    df = pd.read_csv(resource_path('../../_internal/data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -54,9 +54,9 @@ def change_profile_display():
 
 def save_input():
     feedback = feedback_textbox.get("1.0", END).strip()
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
-    pd.read_csv(resource_path("data/feedback_data.csv"))
+    pd.read_csv(resource_path("../../_internal/data/feedback_data.csv"))
 
     data = pd.DataFrame({
         "username": [current_user],
@@ -64,7 +64,7 @@ def save_input():
         "feedback": [feedback],
     })
 
-    data.to_csv(resource_path("data/feedback_data.csv"), index=False, mode="a", header=False)
+    data.to_csv(resource_path("../../_internal/data/feedback_data.csv"), index=False, mode="a", header=False)
     return True
 
 def unfilled_star_button1_clicked():

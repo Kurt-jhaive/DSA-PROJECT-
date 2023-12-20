@@ -45,11 +45,11 @@ def close_window():
 
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path("data/profile_data.csv"))
+    df = pd.read_csv(resource_path("../../_internal/data/profile_data.csv"))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -61,7 +61,7 @@ def change_profile_display():
 
 def display_favorite_pet():
     # read the whole text file of the favorites
-    with open(resource_path("data/temp_favorites.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/temp_favorites.txt"), "r") as file:
         total_favorites = file.readlines()
 
     # if there are more than 3 favorites, show the next button
@@ -76,7 +76,7 @@ def display_favorite_pet():
         next_button.place_forget()
 
     # read the text file of the favorites and get the first 3 pets if there are 3 pets and below
-    with open(resource_path("data/temp_favorites.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/temp_favorites.txt"), "r") as file:
         if len(total_favorites) == 0:
             favorites = []
             messagebox.showinfo("No Favorites", "You have no favorites yet.")
@@ -231,12 +231,12 @@ def display_favorite_pet():
         )
 
 def delete_favorites():
-    with open(resource_path("data/temp_favorites.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/temp_favorites.txt"), "r") as file:
         lines = file.readlines()
 
     new_lines = lines[3:]
 
-    with open(resource_path("data/temp_favorites.txt"), "w") as file:
+    with open(resource_path("../../_internal/data/temp_favorites.txt"), "w") as file:
         file.writelines(new_lines)
 
 def next_button_clicked():   
@@ -244,9 +244,9 @@ def next_button_clicked():
     display_favorite_pet()
 
 def copy_favorites_data():
-    with open(resource_path("data/favorites.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/favorites.txt"), "r") as file:
         lines = file.readlines()
-    with open(resource_path("data/temp_favorites.txt"), "w") as file:
+    with open(resource_path("../../_internal/data/temp_favorites.txt"), "w") as file:
         file.writelines(lines)
         
 

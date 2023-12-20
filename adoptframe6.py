@@ -32,7 +32,7 @@ def submit_button_clicked():
         save_all_data()
         reset_input()
         window.destroy()
-        subprocess.Popen(["thankyouframe3/thankyouframe3.exe"])
+        subprocess.Popen(["thankyou_adopt/thankyou_adopt.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -46,35 +46,35 @@ def save_input():
     else:
         messagebox.showinfo("Success", "Your adoption application has been submitted! Please wait for our team to contact you.")
         inputs = [date_textbox.get(), time_textbox.get(), q11.get()]
-        with open(resource_path("data/adopt6_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt6_data.txt"), "w") as f:
             f.write('\n'.join(inputs) + '\n')
         return True
 
 def read_input():
     # read the inputted data from the file and display it
     try:
-        with open(resource_path("data/adopt6_data.txt"), "r") as f:
+        with open(resource_path("../../_internal/data/adopt6_data.txt"), "r") as f:
             date_textbox.insert(0, f.readline().strip())
             time_textbox.insert(0, f.readline().strip())
             q11.set(f.readline().strip())
     except FileNotFoundError:
-        with open(resource_path("data/adopt6_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt6_data.txt"), "w") as f:
             pass
 
 def reset_input():
     # remove the data inside the 6 files
     try:
-        with open(resource_path("data/adopt1_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt1_data.txt"), "w") as f:
             f.truncate(0)
-        with open(resource_path("data/adopt2_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt2_data.txt"), "w") as f:
             f.truncate(0)
-        with open(resource_path("data/adopt3_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt3_data.txt"), "w") as f:
             f.truncate(0)
-        with open(resource_path("data/adopt4_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt4_data.txt"), "w") as f:
             f.truncate(0)
-        with open(resource_path("data/adopt5_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt5_data.txt"), "w") as f:
             f.truncate(0)
-        with open(resource_path("data/adopt6_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt6_data.txt"), "w") as f:
             f.truncate(0)
     except FileNotFoundError:
         pass
@@ -82,23 +82,23 @@ def reset_input():
 def save_all_data():
     # save all the data to the database
     # read the adoptiondata from 1 to 6 and append it to the list without /n
-    with open(resource_path("data/adopt1_data.txt"), "r") as f:
+    with open(resource_path("../../_internal/data/adopt1_data.txt"), "r") as f:
         data = [line.strip() for line in f.readlines()]
-    with open(resource_path("data/adopt2_data.txt"), "r") as f:
+    with open(resource_path("../../_internal/data/adopt2_data.txt"), "r") as f:
         data += [line.strip() for line in f.readlines()]
-    with open(resource_path("data/adopt3_data.txt"), "r") as f:
+    with open(resource_path("../../_internal/data/adopt3_data.txt"), "r") as f:
         data += [line.strip() for line in f.readlines()]
-    with open(resource_path("data/adopt4_data.txt"), "r") as f:
+    with open(resource_path("../../_internal/data/adopt4_data.txt"), "r") as f:
         data += [line.strip() for line in f.readlines()]
-    with open(resource_path("data/adopt5_data.txt"), "r") as f:
+    with open(resource_path("../../_internal/data/adopt5_data.txt"), "r") as f:
         data += [line.strip() for line in f.readlines()]
-    with open(resource_path("data/adopt6_data.txt"), "r") as f:
+    with open(resource_path("../../_internal/data/adopt6_data.txt"), "r") as f:
         data += [line.strip() for line in f.readlines()]
 
     # save the data to the database using pandas
-    df = pd.read_csv(resource_path("data/adoption_data.csv"))
+    df = pd.read_csv(resource_path("../../_internal/data/adoption_data.csv"))
     df = pd.DataFrame([data], columns=df.columns)
-    df.to_csv(resource_path("data/adoption_data.csv"), mode='a', header=False, index=False)
+    df.to_csv(resource_path("../../_internal/data/adoption_data.csv"), mode='a', header=False, index=False)
 
 
 window = Tk()

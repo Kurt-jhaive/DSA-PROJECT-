@@ -82,7 +82,7 @@ def add_to_favorites_button_clicked(dictionary):
         print("added to favorites", random_pet)
         print(favorites)
 
-        with open(resource_path('data/favorites.txt'), 'w') as file:
+        with open(resource_path('../../_internal/data/favorites.txt'), 'w') as file:
             for item in favorites:
                 file.write(item + '\n')
 
@@ -112,17 +112,17 @@ def close_description_button_clicked():
 
 def check_list():
     # this function will update the favorites list
-    with open(resource_path('data/favorites.txt'), 'r') as file:
+    with open(resource_path('../../_internal/data/favorites.txt'), 'r') as file:
         for line in file: 
             favorites.append(line.strip())
 
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path('data/profile_data.csv'))
+    df = pd.read_csv(resource_path('../../_internal/data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -133,7 +133,7 @@ def change_profile_display():
 
 def adopt_button_clicked():
     # put the random_pet in the current_user's adopted list
-    with open(resource_path("data/current_pet.txt"), "w") as file:
+    with open(resource_path("../../_internal/data/current_pet.txt"), "w") as file:
         file.write(random_pet + '\n')
 
     window.destroy()

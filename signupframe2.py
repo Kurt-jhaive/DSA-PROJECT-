@@ -28,7 +28,7 @@ def relative_to_assets(path: str) -> Path:
 def back_button_1_clicked():
     window.withdraw()
     # open the signupframe2.exe
-    subprocess.Popen(["app/signupframe1.exe"])
+    subprocess.Popen(["signupframe1/signupframe1.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -40,13 +40,13 @@ def save_input():
     inputted_address = address_textbox.get()
 
     # get the data in the text file
-    with open(resource_path('data/signup_data.txt'), 'r') as f:
+    with open(resource_path('../../_internal/data/signup_data.txt'), 'r') as f:
         data = f.readlines()
         data = [line.strip() for line in data]
     
     print(data)
     #save to csv
-    csv_file_path = resource_path('data/profile_data.csv')
+    csv_file_path = resource_path('../../_internal/data/profile_data.csv')
 
     df = pd.DataFrame({
         'first_name': [data[0]],
@@ -211,7 +211,7 @@ def yes_button_clicked():
     else:
         save_input()
         window.withdraw()
-        subprocess.Popen(["app/thankyouframe2.exe"])
+        subprocess.Popen(["thankyou_signup/thankyou_signup.exe"])
 
 def on_entry_click(event, entry_widget, placeholder_text):
     if entry_widget.get() == placeholder_text:
@@ -226,7 +226,7 @@ def on_focus_out(event, entry_widget, placeholder_text):
 
 def edit_name():
     # get the data in the text file
-    with open(resource_path('data/signup_data.txt'), 'r') as f:
+    with open(resource_path('../../_internal/data/signup_data.txt'), 'r') as f:
         data = f.readlines()
         data = [line.strip() for line in data]
     

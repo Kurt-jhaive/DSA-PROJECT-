@@ -170,7 +170,7 @@ def save_input():
     inputted_contact = contact_number.get()
 
     # Save the inputted data to a file
-    with open(resource_path("data/signup_data.txt"), "w") as f:
+    with open(resource_path("../../_internal/data/signup_data.txt"), "w") as f:
         f.write(inputted_first_name + "\n")
         f.write(inputted_middle_name + "\n")
         f.write(inputted_last_name + "\n")

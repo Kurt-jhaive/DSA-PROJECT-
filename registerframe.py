@@ -63,7 +63,7 @@ def upload_image_button_clicked():
 
 
 def submit_button_clicked(): 
-    csv_file_path = resource_path('data/register_data.csv')
+    csv_file_path = resource_path('../../_internal/data/register_data.csv')
 
     # check if all fields are filled up
     if not(petname_textbox.get() and breed_textbox.get() and age_textbox.get() and gender_textbox.get() and color_textbox.get() and size_textbox.get() and description_textbox.get("1.0", END).strip() and new_file_path):
@@ -107,11 +107,11 @@ def submit_button_clicked():
 
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path('data/profile_data.csv'))
+    df = pd.read_csv(resource_path('../../_internal/data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]

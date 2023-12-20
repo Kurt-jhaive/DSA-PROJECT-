@@ -45,7 +45,7 @@ def save_input():
     else:
         messagebox.showinfo("Success", "Please proceed to the next set of questions.")
         inputs = [q9.get(), q10.get()]
-        with open(resource_path("data/adopt5_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt5_data.txt"), "w") as f:
             f.write('\n'.join(inputs) + '\n')
             f.write(new_file_path + '\n')
         return True
@@ -53,12 +53,12 @@ def save_input():
 def read_input():
     # read the inputted data from the file and display it
     try:
-        with open(resource_path("data/adopt5_data.txt"), "r") as f:
+        with open(resource_path("../../_internal/data/adopt5_data.txt"), "r") as f:
             q9.set(f.readline().strip())
             q10.set(f.readline().strip())
             upload_label.configure(text=f.readline().strip())
     except FileNotFoundError:
-        with open(resource_path("data/adopt5_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt5_data.txt"), "w") as f:
             pass
     
 def upload_image_button_clicked():

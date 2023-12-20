@@ -37,15 +37,13 @@ def close_window():
 
 
 def submit_button_clicked(): 
-    csv_file_path = resource_path("data/donate_data.csv")
+    csv_file_path = resource_path("../../_internal/data/donate_data.csv")
 
     # check if all fields are filled up
     if not(name_textbox.get() and contactnumber_textbox.get() and address_textbox.get() and email_textbox.get() and donation_type_textbox.get()):
         messagebox.showerror("Error", "Please fill up all fields.")
     else:
         # messagebox.showinfo("Success", "Your registration for donation has been submitted! Please wait for our team to contact you.")
-        window.destroy()
-        subprocess.Popen(["thankyouframe1/thankyouframe1.exe"])
 
         # Get input from the user
         inputted_name = name_textbox.get()
@@ -75,13 +73,16 @@ def submit_button_clicked():
         # Save the updated DataFrame to the CSV file
         df.to_csv(csv_file_path, index=False)
 
+        window.destroy()
+        subprocess.Popen(["thankyou_donate/thankyou_donate.exe"])
+
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path('data/profile_data.csv'))
+    df = pd.read_csv(resource_path('../../_internal/data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]

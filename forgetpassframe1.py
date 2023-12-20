@@ -34,7 +34,7 @@ otp = None
 def check_email():
     global typed_email
     typed_email = email_textbox.get()
-    df = pd.read_csv(resource_path("data/new_credentials.csv"))
+    df = pd.read_csv(resource_path("../../_internal/data/new_credentials.csv"))
     if typed_email in df['email'].values:
         return True
     else:
@@ -47,7 +47,7 @@ def send_otp():
         messagebox.showinfo("Pending", "Your OTP has been sent!")
 
         # replace the [OTP] with the otp variable
-        with open(resource_path("data/otp_email_letter.txt")) as file:
+        with open(resource_path("../../_internal/data/otp_email_letter.txt")) as file:
             letter = file.read().replace("[OTP]", otp)
         typed_email = email_textbox.get()
 
@@ -66,9 +66,9 @@ def submit_button():
     typed_otp = otp_textbox.get()
     if typed_otp == otp:
         new_password = newpassword_textbox.get()
-        df = pd.read_csv(resource_path("data/profile_data.csv"))
+        df = pd.read_csv(resource_path("../../_internal/data/profile_data.csv"))
         df.loc[df['email'] == typed_email, 'password'] = new_password
-        df.to_csv(resource_path("data/profile_data.csv"), index=False)
+        df.to_csv(resource_path("../../_internal/data/profile_data.csv"), index=False)
         messagebox.showinfo("Success", "Your password has been reset successfully!")
 
         window.destroy()

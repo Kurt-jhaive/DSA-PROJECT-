@@ -41,7 +41,7 @@ def login_button_clicked():
             file.write(entered_username)
         messagebox.showinfo("Login Successful", "Welcome, {}!".format(entered_username))
         window.destroy()
-        subprocess.Popen(["app/homeframe.exe"])
+        subprocess.Popen(["homeframe/homeframe.exe"])
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
         

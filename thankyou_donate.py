@@ -30,7 +30,7 @@ def close_window():
 
 def continue_button_clicked():
     window.destroy()
-    subprocess.Popen(["donateframe/donateframe.exe"])
+    subprocess.Popen(["thankyou_donate/thankyou_donate.exe"])
 
 window = Tk()
 
