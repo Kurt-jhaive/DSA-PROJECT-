@@ -45,6 +45,7 @@ def login_button_clicked():
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
         
+# function that opens a defined exe file when clicked
 
 def sign_up_button_clicked():
     window.destroy()

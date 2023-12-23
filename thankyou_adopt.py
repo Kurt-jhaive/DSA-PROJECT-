@@ -23,7 +23,7 @@ def resource_path(relative_path):
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-
+# function that opens a defined exe file when clicked
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()

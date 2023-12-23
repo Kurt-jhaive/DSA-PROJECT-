@@ -25,6 +25,7 @@ ratings = 0
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
 def back_button_clicked():
     window.destroy()
     subprocess.Popen(["homeframe/homeframe.exe"])

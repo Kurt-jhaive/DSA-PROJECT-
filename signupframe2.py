@@ -24,10 +24,10 @@ def resource_path(relative_path):
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
 
 def back_button_1_clicked():
     window.withdraw()
-    # open the signupframe2.exe
     subprocess.Popen(["signupframe1/signupframe1.exe"])
 
 def close_window():

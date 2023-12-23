@@ -24,6 +24,8 @@ def resource_path(relative_path):
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
+
 def back_button_clicked():
     window.destroy()
     subprocess.Popen(["privacyframe1/privacyframe1.exe"])

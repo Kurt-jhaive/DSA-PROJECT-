@@ -28,6 +28,8 @@ new_file_path = ''
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+# function that opens a defined exe file when clicked
+
 def home_button_clicked():
     window.destroy()
     subprocess.Popen(["homeframe/homeframe.exe"])
@@ -105,7 +107,7 @@ def submit_button_clicked():
         # refresh the window after prompting a message
         messagebox.showinfo("Success", "Your registration of a pet has been submitted. Please wait for our team to contact you.")
         window.destroy()
-        subprocess.Popen(["homeframe/homeframe.exe"])
+        subprocess.Popen(["thankyou_signup/thankyou_signup.exe"])
 
 def change_profile_display():
     #read the text file

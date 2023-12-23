@@ -26,9 +26,10 @@ def resource_path(relative_path):
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+# function that opens a defined exe file when clicked
 def back_button1_clicked():
     window.withdraw()
-    subprocess.Popen(["../purrfectmatch.exe"])
+    subprocess.Popen(["purrfectmatch.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -87,7 +88,7 @@ def next_button_clicked():
         height=39.0
     )
 
-    login_button.place(
+    signup_button.place(
         x=619.0,
         y=309.0,
         width=159.0,
@@ -103,7 +104,7 @@ def back_button2_clicked():
     contact_number.place_forget()
     terms_and_conditions.place_forget()
     back_button2.place_forget()
-    login_button.place_forget()
+    signup_button.place_forget()
 
     canvas.itemconfigure(first_name_img, state="normal")
     canvas.itemconfigure(middle_name_img, state="normal")
@@ -153,7 +154,7 @@ def back_button2_clicked():
         height=39.0
     )
 
-def login_button_clicked():
+def signup_button_clicked():
     save_input()
     window.withdraw()
     subprocess.Popen(["signupframe2\signupframe2.exe"])
@@ -455,13 +456,13 @@ back_button2 = Button(
     relief="flat"
 )
 
-login_image = PhotoImage(
-    file=relative_to_assets(resource_path("forms/signup1_frame/login.png")))
-login_button = Button(
-    image=login_image,
+signup_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/signup1_frame/signup.png")))
+signup_button = Button(
+    image=signup_image,
     borderwidth=0,
     highlightthickness=0,
-    command=login_button_clicked,
+    command=signup_button_clicked,
     relief="flat"
 ) 
 

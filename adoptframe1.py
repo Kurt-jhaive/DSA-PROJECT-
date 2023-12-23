@@ -23,6 +23,7 @@ def resource_path(relative_path):
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
 def back_button_clicked():
     window.destroy()
     subprocess.Popen(["homeframe/homeframe.exe"])
@@ -49,6 +50,7 @@ def change_profile_display():
     canvas.itemconfigure(display_name_canvas, text=display_name)
     canvas.itemconfigure(profile_location, text=display_location)
 
+# function to save the data inputted by the user
 def save_input():
     if not all([name_textbox.get(), birthdate_textbox.get(), address_textbox.get(), occupation_textbox.get(), email_textbox.get(), phone_textbox.get(), socialmedia_textbox.get()]):
         messagebox.showerror("Error", "Please fill up all fields.")
@@ -59,7 +61,7 @@ def save_input():
         with open(resource_path("../../_internal/data/adopt1_data.txt"), "w") as f:
             f.write('\n'.join(inputs) + '\n')
         return True
-
+#function to read the data inputted by the user
 def read_input():
     # read the inputted data from the file and display it
     try:
