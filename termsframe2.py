@@ -23,16 +23,17 @@ def resource_path(relative_path):
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
 def back_button_clicked():
     window.destroy()
-    subprocess.Popen(["app/termsframe1.exe"])
+    subprocess.Popen(["termsframe1/termsframe1.exe"])
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
 
 def agree_button_clicked():
     window.destroy()
-    subprocess.Popen(["app/homeframe.exe"])
+    subprocess.Popen(["homeframe/homeframe.exe"])
 
 window = Tk()
 

@@ -22,6 +22,7 @@ def resource_path(relative_path):
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
 def back_button_clicked():
     window.destroy()
     subprocess.Popen(["adoptframe3/adoptframe3.exe"])
@@ -41,20 +42,20 @@ def save_input():
     else:
         messagebox.showinfo("Success", "Please proceed to the next set of questions.")
         inputs = [question4_textbox.get(), question5_textbox.get(), question6_textbox.get(), q8.get()]
-        with open(resource_path("data/adopt4_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt4_data.txt"), "w") as f:
             f.write('\n'.join(inputs) + '\n')
         return True
     
 def read_input():
     # read the inputted data from the file and display it
     try:
-        with open(resource_path("data/adopt4_data.txt"), "r") as f:
+        with open(resource_path("../../_internal/data/adopt4_data.txt"), "r") as f:
             question4_textbox.insert(0, f.readline().strip())
             question5_textbox.insert(0, f.readline().strip())
             question6_textbox.insert(0, f.readline().strip())
             q8.set(f.readline().strip())
     except FileNotFoundError:
-        with open(resource_path("data/adopt4_data.txt"), "w") as f:
+        with open(resource_path("../../_internal/data/adopt4_data.txt"), "w") as f:
             pass
 
 window = Tk()

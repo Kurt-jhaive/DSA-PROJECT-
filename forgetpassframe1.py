@@ -31,15 +31,17 @@ smtp_port = 587
 typed_email = ""
 otp = None
 
+# function to check if the email entered by the user is in the data.csv file
 def check_email():
     global typed_email
     typed_email = email_textbox.get()
-    df = pd.read_csv(resource_path("data/new_credentials.csv"))
+    df = pd.read_csv(resource_path("../../_internal/data/profile_data.csv"))
     if typed_email in df['email'].values:
         return True
     else:
         return False
 
+# function to send one time pin to email to set a new password
 def send_otp():
     global otp, typed_email
     if check_email():
@@ -47,7 +49,7 @@ def send_otp():
         messagebox.showinfo("Pending", "Your OTP has been sent!")
 
         # replace the [OTP] with the otp variable
-        with open(resource_path("data/otp_email_letter.txt")) as file:
+        with open(resource_path("../../_internal/data/otp_email_letter.txt")) as file:
             letter = file.read().replace("[OTP]", otp)
         typed_email = email_textbox.get()
 
@@ -62,13 +64,13 @@ def send_otp():
 def submit_button():
     global otp, typed_email
 
-    # if the typed otp is same w the otp variable, then change the password go to loginframe.py
+    # if the typed otp is same w the otp variable, then change the password go to purrfectframe.py
     typed_otp = otp_textbox.get()
     if typed_otp == otp:
         new_password = newpassword_textbox.get()
-        df = pd.read_csv(resource_path("data/profile_data.csv"))
+        df = pd.read_csv(resource_path("../../_internal/data/profile_data.csv"))
         df.loc[df['email'] == typed_email, 'password'] = new_password
-        df.to_csv(resource_path("data/profile_data.csv"), index=False)
+        df.to_csv(resource_path("../../_internal/data/profile_data.csv"), index=False)
         messagebox.showinfo("Success", "Your password has been reset successfully!")
 
         window.destroy()
@@ -76,10 +78,12 @@ def submit_button():
     else:
         messagebox.showerror("Error", "The OTP you entered is invalid. Please try again.")
 
+
+
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
         window.destroy()
-
+# function that opens a defined exe file when clicked
 def login_button_clicked():
     window.destroy()
     subprocess.Popen(["purrfectmatch.exe"])

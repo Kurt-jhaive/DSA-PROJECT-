@@ -41,14 +41,15 @@ def login_button_clicked():
             file.write(entered_username)
         messagebox.showinfo("Login Successful", "Welcome, {}!".format(entered_username))
         window.destroy()
-        subprocess.Popen(["app/homeframe.exe"])
+        subprocess.Popen(["homeframe/homeframe.exe"])
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
         
+# function that opens a defined exe file when clicked
 
 def sign_up_button_clicked():
     window.destroy()
-    subprocess.Popen(["thankyou_adopt/thankyou_adopt.exe"])
+    subprocess.Popen(["signupframe1/signupframe1.exe"])
 
 def forgot_password_button_clicked():
     window.destroy()

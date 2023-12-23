@@ -23,13 +23,14 @@ def resource_path(relative_path):
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
+
 def back_button_clicked():
     window.destroy()
     subprocess.Popen(["homeframe/homeframe.exe"])
 def next_button_clicked():
     window.destroy()
-    exe_path = "loginframe.exe"
-    subprocess.Popen([exe_path])
+    subprocess.Popen(["privacyframe2/privacyframe2.exe"])
 
 def close_window():
     if messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -37,11 +38,11 @@ def close_window():
 
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path('data/profile_data.csv'))
+    df = pd.read_csv(resource_path('../../_internal/data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]

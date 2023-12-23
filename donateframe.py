@@ -24,6 +24,7 @@ def resource_path(relative_path):
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
+# function that opens a defined exe file when clicked
 def home_button_clicked():
     window.destroy()
     subprocess.Popen(["homeframe/homeframe.exe"])
@@ -37,15 +38,13 @@ def close_window():
 
 
 def submit_button_clicked(): 
-    csv_file_path = resource_path("data/donate_data.csv")
+    csv_file_path = resource_path("../../_internal/data/donate_data.csv")
 
     # check if all fields are filled up
     if not(name_textbox.get() and contactnumber_textbox.get() and address_textbox.get() and email_textbox.get() and donation_type_textbox.get()):
         messagebox.showerror("Error", "Please fill up all fields.")
     else:
         # messagebox.showinfo("Success", "Your registration for donation has been submitted! Please wait for our team to contact you.")
-        window.destroy()
-        subprocess.Popen(["thankyouframe1/thankyouframe1.exe"])
 
         # Get input from the user
         inputted_name = name_textbox.get()
@@ -75,13 +74,16 @@ def submit_button_clicked():
         # Save the updated DataFrame to the CSV file
         df.to_csv(csv_file_path, index=False)
 
+        window.destroy()
+        subprocess.Popen(["thankyou_donate/thankyou_donate.exe"])
+
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path('data/profile_data.csv'))
+    df = pd.read_csv(resource_path('../../_internal/data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -90,6 +92,77 @@ def change_profile_display():
     canvas.itemconfigure(display_name_canvas, text=display_name)
     canvas.itemconfigure(profile_location, text=display_location)
 
+def hamburger_menu_clicked():
+    # show the hamburger menu
+    canvas.itemconfigure(pink_menu_rectangle_canvas, state="normal")
+    contactnumber_textbox.lower()
+    address_textbox.lower()
+    email_textbox.lower()
+    close_hamburger_menu.place(
+        x=750.0,
+        y=49.0,
+        width=19.0,
+        height=22.0
+    )    
+    account_settings.place(
+        x=549.0,
+        y=96.0,
+        width=205.0,
+        height=30.0
+    )
+    privacy_policy.place(
+        x=550.0,
+        y=133.0,
+        width=203.99925231933594,
+        height=32.0
+    )
+    terms_conditions.place(
+        x=549.0,
+        y=173.0,
+        width=205.0,
+        height=29.0
+    )
+    give_feedback.place(
+        x=551.0,
+        y=212.0,
+        width=202.0,
+        height=32.291259765625
+    )
+    log_out.place(
+        x=550.0,
+        y=256.0,
+        width=204.0,
+        height=31.0
+    )
+
+def close_hamburger_menu_clicked():
+    # hide the hamburger menu
+    canvas.itemconfigure(pink_menu_rectangle_canvas, state="hidden")
+    contactnumber_textbox.lift()
+    address_textbox.lift()
+    email_textbox.lift()
+    account_settings.place_forget()
+    privacy_policy.place_forget()
+    terms_conditions.place_forget()
+    give_feedback.place_forget()
+    log_out.place_forget()
+    close_hamburger_menu.place_forget()
+
+def privacy_button_clicked():
+    window.destroy()
+    subprocess.Popen(["privacyframe1/privacyframe1.exe"])
+
+def terms_button_clicked():
+    window.destroy()
+    subprocess.Popen(["termsframe1/termsframe1.exe"])
+
+def feedback_button_clicked():
+    window.destroy()
+    subprocess.Popen(["feedbackframe/feedbackframe.exe"])
+
+def log_out_button_clicked():
+    window.destroy()
+    subprocess.Popen(["purrfectmatch.exe"])
 
 window = Tk()
 
@@ -153,21 +226,32 @@ favorites_button.place(
 
 button_image_2 = PhotoImage(
     file=relative_to_assets(resource_path("forms/donate_frame/button_2.png")))
-menu_button = Button(
+hamburger_menu = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("menu_button clicked"),
+    command=hamburger_menu_clicked,
     relief="flat"
 )
-menu_button.place(
+hamburger_menu.place(
     x=749.0,
     y=42.0,
     width=23.0,
     height=35.0
 )
+close_hamburger_menu = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=close_hamburger_menu_clicked,
+    relief="flat"
+)
+
+
 
 button_image_3 = PhotoImage(
     file=relative_to_assets(resource_path("forms/donate_frame/button_3.png")))
@@ -405,6 +489,73 @@ donation_type_textbox.place(
     y=315.0,
     width=443.0,
     height=28
+)
+
+#----------------------- Hamburger Menu------------------
+# HAMBURGER FRAME
+pink_menu_rectangle_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/donate_frame/pink_menu.png")))
+pink_menu_rectangle_canvas = canvas.create_image(
+    654.0,
+    194.0,
+    image=pink_menu_rectangle_image,
+    state="hidden",
+)
+
+account_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/donate_frame/account.png")))
+account_settings = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=account_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("account_settings clicked"),
+    relief="flat"
+)
+privacy_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/donate_frame/privacy.png")))
+privacy_policy = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=privacy_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=privacy_button_clicked,
+    relief="flat"
+)
+terms_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/donate_frame/terms.png")))
+terms_conditions = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=terms_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=terms_button_clicked,
+    relief="flat"
+)
+feedback_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/donate_frame/feedback.png")))
+give_feedback = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=feedback_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=feedback_button_clicked,
+    relief="flat"
+)
+logout_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/donate_frame/logout.png")))
+log_out = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=logout_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=log_out_button_clicked,
+    relief="flat"
 )
 
 change_profile_display()

@@ -28,6 +28,8 @@ new_file_path = ''
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+# function that opens a defined exe file when clicked
+
 def home_button_clicked():
     window.destroy()
     subprocess.Popen(["homeframe/homeframe.exe"])
@@ -63,7 +65,7 @@ def upload_image_button_clicked():
 
 
 def submit_button_clicked(): 
-    csv_file_path = resource_path('data/register_data.csv')
+    csv_file_path = resource_path('../../_internal/data/register_data.csv')
 
     # check if all fields are filled up
     if not(petname_textbox.get() and breed_textbox.get() and age_textbox.get() and gender_textbox.get() and color_textbox.get() and size_textbox.get() and description_textbox.get("1.0", END).strip() and new_file_path):
@@ -104,14 +106,16 @@ def submit_button_clicked():
 
         # refresh the window after prompting a message
         messagebox.showinfo("Success", "Your registration of a pet has been submitted. Please wait for our team to contact you.")
+        window.destroy()
+        subprocess.Popen(["thankyou_signup/thankyou_signup.exe"])
 
 def change_profile_display():
     #read the text file
-    with open(resource_path("data/current_user.txt"), "r") as file:
+    with open(resource_path("../../_internal/data/current_user.txt"), "r") as file:
         current_user = file.read().strip()
     
     #get the display name of the current user
-    df = pd.read_csv(resource_path('data/profile_data.csv'))
+    df = pd.read_csv(resource_path('../../_internal/data/profile_data.csv'))
     user_row = df[df['username'] == current_user]
     display_name = user_row['display_name'].values[0]
     display_location = user_row['address'].values[0]
@@ -120,7 +124,79 @@ def change_profile_display():
     canvas.itemconfigure(display_name_canvas, text=display_name)
     canvas.itemconfigure(profile_location, text=display_location)
 
+def hamburger_menu_clicked():
+    # show the hamburger menu
+    canvas.itemconfigure(pink_menu_rectangle_canvas, state="normal")
+    breed_textbox.lower()
+    gender_textbox.lower()
+    size_textbox.lower()
+    description_textbox.lower()
+    close_hamburger_menu.place(
+        x=750.0,
+        y=49.0,
+        width=19.0,
+        height=22.0
+    )    
+    account_settings.place(
+        x=549.0,
+        y=96.0,
+        width=205.0,
+        height=30.0
+    )
+    privacy_policy.place(
+        x=550.0,
+        y=133.0,
+        width=203.99925231933594,
+        height=32.0
+    )
+    terms_conditions.place(
+        x=549.0,
+        y=173.0,
+        width=205.0,
+        height=29.0
+    )
+    give_feedback.place(
+        x=551.0,
+        y=212.0,
+        width=202.0,
+        height=32.291259765625
+    )
+    log_out.place(
+        x=550.0,
+        y=256.0,
+        width=204.0,
+        height=31.0
+    )
 
+def close_hamburger_menu_clicked():
+    # hide the hamburger menu
+    canvas.itemconfigure(pink_menu_rectangle_canvas, state="hidden")
+    breed_textbox.lift()
+    gender_textbox.lift()
+    size_textbox.lift()
+    description_textbox.lift()  
+    account_settings.place_forget()
+    privacy_policy.place_forget()
+    terms_conditions.place_forget()
+    give_feedback.place_forget()
+    log_out.place_forget()
+    close_hamburger_menu.place_forget()
+
+def privacy_button_clicked():
+    window.destroy()
+    subprocess.Popen(["privacyframe1/privacyframe1.exe"])
+
+def terms_button_clicked():
+    window.destroy()
+    subprocess.Popen(["termsframe1/termsframe1.exe"])
+
+def feedback_button_clicked():
+    window.destroy()
+    subprocess.Popen(["feedbackframe/feedbackframe.exe"])
+
+def log_out_button_clicked():
+    window.destroy()
+    subprocess.Popen(["purrfectmatch.exe"])
 
 window = Tk()
 
@@ -185,20 +261,29 @@ favorites_button.place(
 
 button_image_2 = PhotoImage(
     file=relative_to_assets(resource_path("forms/register_frame/button_2.png")))
-menu_button = Button(
+hamburger_menu = Button(
     bg="#FFFFFF",
     activebackground="#FFFFFF",
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("menu_button clicked"),
+    command=hamburger_menu_clicked,
     relief="flat"
 )
-menu_button.place(
+hamburger_menu.place(
     x=749.0,
     y=42.0,
     width=23.0,
     height=35.0
+)
+close_hamburger_menu = Button(
+    bg="#FFFFFF",
+    activebackground="#FFFFFF",
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=close_hamburger_menu_clicked,
+    relief="flat"
 )
 
 display_name_canvas = canvas.create_text(
@@ -484,6 +569,73 @@ description_textbox.place(
     y=295.0,
     width=447.0,
     height=91
+)
+
+#----------------------- Hamburger Menu------------------
+# HAMBURGER FRAME
+pink_menu_rectangle_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/register_frame/pink_menu.png")))
+pink_menu_rectangle_canvas = canvas.create_image(
+    654.0,
+    194.0,
+    image=pink_menu_rectangle_image,
+    state="hidden",
+)
+
+account_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/register_frame/account.png")))
+account_settings = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=account_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("account_settings clicked"),
+    relief="flat"
+)
+privacy_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/register_frame/privacy.png")))
+privacy_policy = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=privacy_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=privacy_button_clicked,
+    relief="flat"
+)
+terms_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/register_frame/terms.png")))
+terms_conditions = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=terms_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=terms_button_clicked,
+    relief="flat"
+)
+feedback_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/register_frame/feedback.png")))
+give_feedback = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=feedback_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=feedback_button_clicked,
+    relief="flat"
+)
+logout_image = PhotoImage(
+    file=relative_to_assets(resource_path("forms/register_frame/logout.png")))
+log_out = Button(
+    bg="#F19FB5",
+    activebackground="#F19FB5",
+    image=logout_image,
+    borderwidth=0,
+    highlightthickness=0,
+    command=log_out_button_clicked,
+    relief="flat"
 )
 
 change_profile_display()
