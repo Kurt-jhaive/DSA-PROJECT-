@@ -86,7 +86,7 @@ class ForgetPassFrame(tk.Canvas):
             image=self.images["button_submit"],
             borderwidth=0,
             highlightthickness=0,
-            command=self.submit_button,
+            command=self.submit_button_clicked,
             relief="flat"
         )
         submit_button.place(
@@ -185,4 +185,4 @@ class ForgetPassFrame(tk.Canvas):
         self.main_app.show_login()
 
     def sign_up_button_clicked(self):
-        self.main_app.show_signup()
+        self.main_app.show_signup_1()

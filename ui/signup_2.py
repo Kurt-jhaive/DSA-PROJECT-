@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import Button, Entry, Radiobutton, StringVar, Text, Label
+from data_handler import save_input, read_input, append_input   
 
 class SignupFrame2(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -17,20 +18,20 @@ class SignupFrame2(tk.Canvas):
             image=self.images["purrfect_image"]
         )
 
-        loading_button = Button(
+        self.loading_button = Button(
             image=self.images["loading_image"],
             borderwidth=0,
             highlightthickness=0,
             relief="flat"
         )
-        loading_button.place(
+        self.loading_button.place(
             x=259.5927734375,
             y=119.0,
             width=324.174560546875,
             height=7.0
         )
 
-        text1 = self.create_text(
+        self.text1 = self.create_text(
             273.0,
             231.0,
             anchor="nw",
@@ -39,7 +40,7 @@ class SignupFrame2(tk.Canvas):
             font=("Inter SemiBold", 16 * -1)
         )
 
-        text2 = self.create_text(
+        self.text2 = self.create_text(
             275.0,
             338.0,
             anchor="nw",
@@ -48,7 +49,7 @@ class SignupFrame2(tk.Canvas):
             font=("Inter", 12 * -1)
         )
 
-        text3 = self.create_text(
+        self.text3 = self.create_text(
             205.0,
             186.0,
             anchor="nw",
@@ -57,19 +58,20 @@ class SignupFrame2(tk.Canvas):
             font=("Inter Bold", 24 * -1)
         )
 
-        name_canvas = self.create_image(
+        self.name_canvas = self.create_image(
             431.0,
             294.0,
             image=self.images["name_image"]
         )
-        name_textbox = Entry(
+        self.name_textbox = Entry(
+            self,
             font=("Inter", 15 * -1),
             bd=0,
             bg="#FFFFFF",
             fg="grey",
             highlightthickness=0,
         )
-        name_textbox.place(
+        self.name_textbox.place(
             x=202.0,
             y=280.0,
             width=457.0,
@@ -77,11 +79,11 @@ class SignupFrame2(tk.Canvas):
         )
 
         # placeholder_text_1= "Your name"
-        # name_textbox.insert(0, placeholder_text_1)
-        # name_textbox.bind('<FocusIn>', lambda event: on_entry_click(event, name_textbox, placeholder_text_1))
-        # name_textbox.bind('<FocusOut>', lambda event: on_focus_out(event, name_textbox, placeholder_text_1))
+        # self.name_textbox.insert(0, placeholder_text_1)
+        # self.name_textbox.bind('<FocusIn>', lambda event: on_entry_click(event, self.name_textbox, placeholder_text_1))
+        # self.name_textbox.bind('<FocusOut>', lambda event: on_focus_out(event, self.name_textbox, placeholder_text_1))
 
-        back_button_1 = Button(
+        self.back_button_1 = Button(
             bg="#FFFFFF",
             image=self.images["back_image"],
             borderwidth=0,
@@ -90,21 +92,21 @@ class SignupFrame2(tk.Canvas):
             relief="flat",
             activebackground="#FFFFFF",
         )
-        back_button_1.place(
+        self.back_button_1.place(
             x=137.0,
             y=111.0,
             width=9.62713623046875,
             height=16.506439208984375
         )
 
-        continue_button_1 = Button(
+        self.continue_button_1 = Button(
             image=self.images["continue_image"],
             borderwidth=0,
             highlightthickness=0,
             command=self.continue_button_1_clicked,
             relief="flat"
         )
-        continue_button_1.place(
+        self.continue_button_1.place(
             x=343.0,
             y=387.0,
             width=159.0,
@@ -112,7 +114,7 @@ class SignupFrame2(tk.Canvas):
         )
 
         # # ------------next page ----------------
-        rectangle1 = self.create_rectangle(
+        self.rectangle1 = self.create_rectangle(
             259.5927734375,
             119.0,
             583.767333984375,
@@ -122,7 +124,7 @@ class SignupFrame2(tk.Canvas):
             state="hidden",
         )
 
-        rectangle2 = self.create_rectangle(
+        self.rectangle2 = self.create_rectangle(
             259.5927734375,
             119.0,
             480.36370849609375,
@@ -132,7 +134,7 @@ class SignupFrame2(tk.Canvas):
             state="hidden",
         )
 
-        address_text1 = self.create_text(
+        self.address_text1 = self.create_text(
             319.0,
             235.0,
             anchor="nw",
@@ -142,7 +144,7 @@ class SignupFrame2(tk.Canvas):
             state="hidden"
         )
 
-        address_text2 = self.create_text(
+        self.address_text2 = self.create_text(
             265.0,
             339.0,
             anchor="nw",
@@ -152,7 +154,7 @@ class SignupFrame2(tk.Canvas):
             state="hidden"
         )
 
-        address_text3 = self.create_text(
+        self.address_text3 = self.create_text(
             330.0,
             195.0,
             anchor="nw",
@@ -162,13 +164,14 @@ class SignupFrame2(tk.Canvas):
             state="hidden"
         )
 
-        address_canvas = self.create_image(
+        self.address_canvas = self.create_image(
             410.0,
             303.0,
             image=self.images["address_image"],
             state="hidden"
         )
-        address_textbox = Entry(
+        self.address_textbox = Entry(
+            self,
             font=("Inter", 15 * -1),
             bd=0,
             bg="#FFFFFF",
@@ -177,11 +180,11 @@ class SignupFrame2(tk.Canvas):
         )
 
         # placeholder_text_2= "Your address"
-        # address_textbox.insert(0, placeholder_text_2)
-        # address_textbox.bind('<FocusIn>', lambda event: on_entry_click(event, address_textbox, placeholder_text_2))
-        # address_textbox.bind('<FocusOut>', lambda event: on_focus_out(event, address_textbox, placeholder_text_2))
+        # self.address_textbox.insert(0, placeholder_text_2)
+        # self.address_textbox.bind('<FocusIn>', lambda event: on_entry_click(event, self.address_textbox, placeholder_text_2))
+        # self.address_textbox.bind('<FocusOut>', lambda event: on_focus_out(event, self.address_textbox, placeholder_text_2))
 
-        continue_button_2 = Button(
+        self.continue_button_2 = Button(
             image=self.images["continue_image"],
             borderwidth=0,
             highlightthickness=0,
@@ -189,7 +192,7 @@ class SignupFrame2(tk.Canvas):
             relief="flat"
         )
 
-        back_button_2 = Button(
+        self.back_button_2 = Button(
             bg="#FFFFFF",
             image=self.images["back_image"],
             borderwidth=0,
@@ -200,14 +203,14 @@ class SignupFrame2(tk.Canvas):
         )
 
         # ------------last page ----------------
-        loading_line_button_full = Button(
+        self.loading_line_button_full = Button(
             image=self.images["loading_image_last"],
             borderwidth=0,
             highlightthickness=0,
             relief="flat"
         )
 
-        last_text_1 = self.create_text(
+        self.last_text_1 = self.create_text(
             331.0,
             222.0,
             anchor="nw",
@@ -217,7 +220,7 @@ class SignupFrame2(tk.Canvas):
             state="hidden"
         )
 
-        last_text_2 = self.create_text(
+        self.last_text_2 = self.create_text(
             265.0,
             267.0,
             anchor="nw",
@@ -227,7 +230,7 @@ class SignupFrame2(tk.Canvas):
             state="hidden"
         )
 
-        back_button_3 = Button(
+        self.back_button_3 = Button(
             bg="#FFFFFF",
             image=self.images["back_image"],
             borderwidth=0,
@@ -237,7 +240,7 @@ class SignupFrame2(tk.Canvas):
             activebackground="#FFFFFF",
         )
 
-        yes_button = Button(
+        self.yes_button = Button(
             image=self.images["yes_image"],
             borderwidth=0,
             highlightthickness=0,
@@ -249,21 +252,88 @@ class SignupFrame2(tk.Canvas):
         self.main_app.show_signup_1()
     
     def continue_button_1_clicked(self):
-        pass
-        # add the functionality of going to the next form
+        self.itemconfigure(self.name_canvas, state="hidden")
+        self.itemconfigure(self.text1, state="hidden")
+        self.itemconfigure(self.text2, state="hidden")
+        self.itemconfigure(self.text3, state="hidden")
+        self.loading_button.place_forget()
+        self.name_textbox.place_forget()
+        self.continue_button_1.place_forget()
+
+        #show next 
+        self.itemconfigure(self.rectangle1, state="normal")
+        self.itemconfigure(self.rectangle2, state="normal")
+        self.itemconfigure(self.address_text1, state="normal")
+        self.itemconfigure(self.address_text2, state="normal")
+        self.itemconfigure(self.address_text3, state="normal")
+        self.itemconfigure(self.address_canvas, state="normal")
+        self.address_textbox.place(x=182.0, y=289.0, width=457.0, height=29.0)
+        self.continue_button_2.place(x=343.0, y=387.0, width=159.0, height=39.0)
+        self.back_button_2.place(x=137.0, y=111.0, width=9.62713623046875, height=16.5064697265625)
 
     def back_button_2_clicked(self):
-        pass 
-        # add the functionality of going back to the previous form
-    
+        self.itemconfigure(self.rectangle1, state="hidden")
+        self.itemconfigure(self.rectangle2, state="hidden")
+        self.itemconfigure(self.address_text1, state="hidden")
+        self.itemconfigure(self.address_text2, state="hidden")
+        self.itemconfigure(self.address_text3, state="hidden")
+        self.itemconfigure(self.address_canvas, state="hidden")
+        self.address_textbox.place_forget()
+        self.continue_button_2.place_forget()
+        self.back_button_2.place_forget()
+
+        #show previous
+        self.itemconfigure(self.name_canvas, state="normal")
+        self.itemconfigure(self.text1, state="normal")
+        self.itemconfigure(self.text2, state="normal")
+        self.itemconfigure(self.text3, state="normal")
+        self.loading_button.place(x=259.5927734375, y=119.0, width=324.174560546875, height=7.0)
+        self.name_textbox.place(x=202.0, y=280.0, width=457.0, height=29.0)
+        self.continue_button_1.place(x=343.0, y=387.0, width=159.0, height=39.0)
+        self.back_button_1.place(x=137.0, y=111.0, width=9.62713623046875, height=16.506439208984375)
+
     def continue_button_2_clicked(self):
-        pass
-        # add the functionality of going to the next form   
-    
+        self.itemconfigure(self.rectangle1, state="hidden")
+        self.itemconfigure(self.rectangle2, state="hidden")
+        self.itemconfigure(self.address_text1, state="hidden")
+        self.itemconfigure(self.address_text2, state="hidden")
+        self.itemconfigure(self.address_text3, state="hidden")
+        self.itemconfigure(self.address_canvas, state="hidden")
+        self.address_textbox.place_forget()
+        self.continue_button_2.place_forget()
+
+    #show next
+        self.itemconfigure(self.last_text_1, state="normal")
+        self.itemconfigure(self.last_text_2, state="normal")
+        self.loading_line_button_full.place(x=259.5927734375, y=119.0, width=324.4072265625, height=7.0)
+        self.yes_button.place(x=327.0, y=355.0, width=159.0, height=39.0)
+        self.back_button_3.place(x=137.0, y=111.0, width=9.62713623046875, height=16.5064697265625)
+
     def back_button_3_clicked(self):
-        pass
-        # add the functionality of going back to the previous form
+        self.itemconfigure(self.last_text_1, state="hidden")
+        self.itemconfigure(self.last_text_2, state="hidden")
+        self.loading_line_button_full.place_forget()
+        self.yes_button.place_forget()
+        self.back_button_3.place_forget()
+
+    #show previous
+        self.itemconfigure(self.rectangle1, state="normal")
+        self.itemconfigure(self.rectangle2, state="normal")
+        self.itemconfigure(self.address_text1, state="normal")
+        self.itemconfigure(self.address_text2, state="normal")
+        self.itemconfigure(self.address_text3, state="normal")
+        self.itemconfigure(self.address_canvas, state="normal")
+        self.address_textbox.place(x=182.0, y=289.0, width=457.0, height=29.0)
+        self.continue_button_2.place(x=343.0, y=387.0, width=159.0, height=39.0)
+        self.back_button_2.place(x=137.0, y=111.0, width=9.62713623046875, height=16.5064697265625)
 
     def yes_button_clicked(self):
-        pass
-        # add the functionality of going to the next form
+        if not(self.name_textbox.get() and self.address_textbox.get()):
+            tk.messagebox.showinfo("Error", "Please fill up all the fields.")
+        else:
+            self.append_input_data()
+            self.main_app.show_login()
+
+    def append_input_data(self):
+        append_input(self)
+

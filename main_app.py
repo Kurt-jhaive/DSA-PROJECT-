@@ -22,6 +22,7 @@ from ui.terms_2 import TermsFrame2
 from ui.adopt_thankyou import AdoptThankyouFrame
 from ui.donate_thankyou import DonateThankyouFrame
 from ui.signup_thankyou import SignupThankyouFrame
+from data_handler import delete_input
 from image_loader import *
 
 class MainApp(tk.Tk):
@@ -43,11 +44,14 @@ class MainApp(tk.Tk):
 
         # self.login = LoginFrame(self, images=load_login_images())
         # self.login.grid(row=0, column=0)
-        self.homepage = HomepageFrame(self, images=load_homepage_images(), pets=homepage_pets())
-        self.homepage.grid(row=0, column=0)
+
+        self.feedback = FeedbackFrame(self, images=load_feedback_images())
+        self.feedback.grid(row=0, column=0)
 
     def destroy_window(self):
         if tk.messagebox.askokcancel("Exit", "Do you really want to exit?"):
+            # Delete the content of the file
+            delete_input()
             self.destroy()
 
     def change_display(self, frame_class):

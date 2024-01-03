@@ -227,7 +227,7 @@ class HomepageFrame(tk.Canvas):
             image=self.images["button_11"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.add_to_favorites_button_clicked(pets),
+            command=self.add_to_favorites_button_clicked,
             relief="flat",
             activebackground="#FFFFFF",
         )
@@ -243,7 +243,7 @@ class HomepageFrame(tk.Canvas):
             image=self.images["button_12"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: self.description_button_clicked(self.pets),
+            command=self.description_button_clicked,
             relief="flat",
             activebackground="#FFFFFF",
         )
@@ -391,7 +391,7 @@ class HomepageFrame(tk.Canvas):
         self.ekis_button.lower()
         self.add_to_favorites_button.lower()
         self.description_button.lower()
-        self.self.close_description_button.lower()
+        self.close_description_button.lower()
 
         self.close_hamburger_menu.place(x=750.0, y=49.0, width=19.0, height=22.0)
         self.account_settings.place(x=549.0, y=96.0, width=205.0, height=30.0)
@@ -421,7 +421,7 @@ class HomepageFrame(tk.Canvas):
         self.ekis_button.lift()
         self.add_to_favorites_button.lift()
         self.description_button.lift()
-        self.self.close_description_button.lift()
+        self.close_description_button.lift()
         
         self.close_hamburger_menu.place_forget()
         self.account_settings.place_forget()
@@ -441,11 +441,11 @@ class HomepageFrame(tk.Canvas):
         self.close_description_button.place_forget()
         self.change_pet()
 
-    def add_to_favorites_button_clicked(self, pets):
+    def add_to_favorites_button_clicked(self):
         # a to favorites
         pass
 
-    def description_button_clicked(self, pets):
+    def description_button_clicked(self):
         full_desc = self.pets[self.random_pet]["full_desc"]   
         self.itemconfigure(self.pet_desc, state="hidden")
         self.itemconfigure(self.pet_quote, state="hidden")
@@ -479,5 +479,3 @@ class HomepageFrame(tk.Canvas):
             self.itemconfigure(self.pet_pic, image=picture)
             self.itemconfigure(self.pet_desc, image=description)
             self.itemconfigure(self.pet_quote, image=quote)
-        print(self.random_pet)
-    

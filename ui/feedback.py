@@ -10,6 +10,7 @@ class FeedbackFrame(tk.Canvas):
         self.main_app = master
         
         self.images = images
+        self.ratings = None
 
         image_1 = self.create_image(
             409.0,
@@ -109,7 +110,7 @@ class FeedbackFrame(tk.Canvas):
         unfilled_star_image = self.images["unfilled_star"]
 
         # ------------------------------ star buttons ------------------------------
-        unfilled_star_button1 = Button(
+        self.unfilled_star_button1 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=unfilled_star_image,
@@ -118,13 +119,13 @@ class FeedbackFrame(tk.Canvas):
             command=self.unfilled_star_button1_clicked,
             relief="flat"
         )
-        unfilled_star_button1.place(
+        self.unfilled_star_button1.place(
             x=289.0,
             y=176.0,
             width=40.0,
             height=41.0
         )
-        filled_star_button1 = Button(
+        self.filled_star_button1 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=filled_star_image,
@@ -134,7 +135,7 @@ class FeedbackFrame(tk.Canvas):
             relief="flat"
         )
 
-        unfilled_star_button2 = Button(
+        self.unfilled_star_button2 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=unfilled_star_image,
@@ -143,13 +144,13 @@ class FeedbackFrame(tk.Canvas):
             command=self.unfilled_star_button2_clicked,
             relief="flat"
         )
-        unfilled_star_button2.place(
+        self.unfilled_star_button2.place(
             x=335.0,
             y=176.0,
             width=40.0,
             height=41.0
         )
-        filled_star_button2 = Button(
+        self.filled_star_button2 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=filled_star_image,
@@ -159,7 +160,7 @@ class FeedbackFrame(tk.Canvas):
             relief="flat"
         )
 
-        unfilled_star_button3 = Button(
+        self.unfilled_star_button3 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=unfilled_star_image,
@@ -168,13 +169,13 @@ class FeedbackFrame(tk.Canvas):
             command=self.unfilled_star_button3_clicked,
             relief="flat"
         )
-        unfilled_star_button3.place(
+        self.unfilled_star_button3.place(
             x=382.0,
             y=176.0,
             width=39.0,
             height=41.0
         )
-        filled_star_button3 = Button(
+        self.filled_star_button3 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=filled_star_image,
@@ -184,7 +185,7 @@ class FeedbackFrame(tk.Canvas):
             relief="flat"
         )
 
-        unfilled_star_button4 = Button(
+        self.unfilled_star_button4 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=unfilled_star_image,
@@ -193,13 +194,13 @@ class FeedbackFrame(tk.Canvas):
             command=self.unfilled_star_button4_clicked,
             relief="flat"
         )
-        unfilled_star_button4.place(
+        self.unfilled_star_button4.place(
             x=427.0,
             y=176.0,
             width=40.0,
             height=41.0
         )
-        filled_star_button4 = Button(
+        self.filled_star_button4 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=filled_star_image,
@@ -209,7 +210,7 @@ class FeedbackFrame(tk.Canvas):
             relief="flat"
         )
 
-        unfilled_star_button5 = Button(
+        self.unfilled_star_button5 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=unfilled_star_image,
@@ -218,13 +219,13 @@ class FeedbackFrame(tk.Canvas):
             command=self.unfilled_star_button5_clicked,
             relief="flat"
         )
-        unfilled_star_button5.place(
+        self.unfilled_star_button5.place(
             x=474.0,
             y=176.0,
             width=40.0,
             height=41.0
         )
-        filled_star_button5 = Button(
+        self.filled_star_button5 = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=filled_star_image,
@@ -233,6 +234,96 @@ class FeedbackFrame(tk.Canvas):
             command=self.filled_star_button5_clicked,
             relief="flat"
         )
+
+    def unfilled_star_button1_clicked(self):
+        self.ratings = 1
+        print(self.ratings)
+        self.unfilled_star_button1.place_forget()
+        self.filled_star_button1.place(x=289.0, y=176.0, width=40.0, height=41.0)
+
+    def filled_star_button1_clicked(self):
+        self.ratings = 0
+        print(self.ratings)
+        self.filled_star_button1.place_forget()
+        self.filled_star_button2.place_forget()
+        self.filled_star_button3.place_forget()
+        self.filled_star_button4.place_forget()
+        self.filled_star_button5.place_forget()
+        self.unfilled_star_button1.place(x=289.0, y=176.0, width=40.0, height=41.0)
+        self.unfilled_star_button2.place(x=335.0, y=176.0, width=40.0, height=41.0)
+        self.unfilled_star_button3.place(x=382.0, y=176.0, width=39.0, height=41.0)
+        self.unfilled_star_button4.place(x=427.0, y=176.0, width=40.0, height=41.0)
+        self.unfilled_star_button5.place(x=474.0, y=176.0, width=40.0, height=41.0)
+
+    def unfilled_star_button2_clicked(self):
+        self.ratings = 2
+        print(self.ratings)
+        self.unfilled_star_button2.place_forget()
+        self.filled_star_button1.place(x=289.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button2.place(x=335.0, y=176.0, width=40.0, height=41.0)
+
+    def filled_star_button2_clicked(self):
+        self.ratings = 1
+        print(self.ratings)
+        self.filled_star_button2.place_forget()
+        self.filled_star_button3.place_forget()
+        self.filled_star_button4.place_forget()
+        self.filled_star_button5.place_forget()
+        self.unfilled_star_button2.place(x=335.0, y=176.0, width=40.0, height=41.0)
+        self.unfilled_star_button3.place(x=382.0, y=176.0, width=39.0, height=41.0)
+        self.unfilled_star_button4.place(x=427.0, y=176.0, width=40.0, height=41.0)
+        self.unfilled_star_button5.place(x=474.0, y=176.0, width=40.0, height=41.0)
+
+    def unfilled_star_button3_clicked(self):
+        self.ratings = 3
+        print(self.ratings)
+        self.unfilled_star_button3.place_forget()
+        self.filled_star_button1.place(x=289.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button2.place(x=335.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button3.place(x=382.0, y=176.0, width=39.0, height=41.0)
+
+    def filled_star_button3_clicked(self):
+        self.ratings = 2
+        print(self.ratings)
+        self.filled_star_button3.place_forget()
+        self.filled_star_button4.place_forget()
+        self.filled_star_button5.place_forget()
+        self.unfilled_star_button3.place(x=382.0, y=176.0, width=39.0, height=41.0)
+        self.unfilled_star_button4.place(x=427.0, y=176.0, width=40.0, height=41.0)
+        self.unfilled_star_button5.place(x=474.0, y=176.0, width=40.0, height=41.0)
+
+    def unfilled_star_button4_clicked(self):
+        self.ratings = 4
+        print(self.ratings)
+        self.unfilled_star_button4.place_forget()
+        self.filled_star_button1.place(x=289.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button2.place(x=335.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button3.place(x=382.0, y=176.0, width=39.0, height=41.0)
+        self.filled_star_button4.place(x=427.0, y=176.0, width=40.0, height=41.0)
+
+    def filled_star_button4_clicked(self):
+        self.ratings = 3
+        print(self.ratings)
+        self.filled_star_button4.place_forget()
+        self.filled_star_button5.place_forget()
+        self.unfilled_star_button4.place(x=427.0, y=176.0, width=40.0, height=41.0)
+        self.unfilled_star_button5.place(x=474.0, y=176.0, width=40.0, height=41.0)
+
+    def unfilled_star_button5_clicked(self):
+        self.ratings = 5
+        print(self.ratings)
+        self.unfilled_star_button5.place_forget()
+        self.filled_star_button1.place(x=289.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button2.place(x=335.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button3.place(x=382.0, y=176.0, width=39.0, height=41.0)
+        self.filled_star_button4.place(x=427.0, y=176.0, width=40.0, height=41.0)
+        self.filled_star_button5.place(x=474.0, y=176.0, width=40.0, height=41.0)
+
+    def filled_star_button5_clicked(self):
+        self.ratings = 4
+        print(self.ratings)
+        self.filled_star_button5.place_forget()
+        self.unfilled_star_button5.place(x=474.0, y=176.0, width=40.0, height=41.0)
 
     def back_button_clicked(self):
         self.main_app.show_homepage()
