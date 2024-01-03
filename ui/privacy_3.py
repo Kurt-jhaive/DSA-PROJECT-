@@ -5,6 +5,10 @@ class PrivacyFrame3(tk.Canvas):
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
+
+        # To access the methods of the MainApp class
+        self.main_app = master
+
         self.images = images
 
         image_1 = self.create_image(
@@ -23,7 +27,7 @@ class PrivacyFrame3(tk.Canvas):
             image=self.images["button_1"],
             borderwidth=0,
             highlightthickness=0,
-            # command=back_button_clicked,
+            command=self.back_button_clicked,
             relief="flat"
         )
         back_button.place(
@@ -37,7 +41,7 @@ class PrivacyFrame3(tk.Canvas):
             image=self.images["button_2"],
             borderwidth=0,
             highlightthickness=0,
-            # command=i_agree_button_clicked,
+            command=self.i_agree_button_clicked,
             relief="flat"
         )
         submit_button.place(
@@ -52,3 +56,9 @@ class PrivacyFrame3(tk.Canvas):
             380.0,
             image=self.images["image_3"]
         )
+    
+    def back_button_clicked(self):
+        self.main_app.show_privacy_2()
+    
+    def i_agree_button_clicked(self):
+        self.main_app.show_homepage()

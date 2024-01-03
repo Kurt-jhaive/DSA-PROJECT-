@@ -5,6 +5,10 @@ class FavoritesFrame(tk.Canvas):
     def __init__(self, master=None, images=None, pets=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
+
+        # To access the methods of the MainApp class
+        self.main_app = master
+
         self.images = images
 
         image_1 = self.create_image(
@@ -25,12 +29,12 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["button_1"],
             borderwidth=0,
             highlightthickness=0,
-            # command=favorites_button_clicked,
+            command=self.favorites_button_clicked,
             relief="flat"
         )
         favorites_button.place(
             x=705.0,
-            y=46.0,
+            y=44.0,
             width=37.0,
             height=35.0
         )
@@ -41,7 +45,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["button_2"],
             borderwidth=0,
             highlightthickness=0,
-            # command=hamburger_menu_clicked,
+            command=self.hamburger_menu_clicked,
             relief="flat"
         )
         hamburger_menu.place(
@@ -50,13 +54,13 @@ class FavoritesFrame(tk.Canvas):
             width=23.0,
             height=35.0
         )
-        close_hamburger_menu = Button(
+        self.close_hamburger_menu = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=self.images["button_2"],
             borderwidth=0,
             highlightthickness=0,
-            # command=close_hamburger_menu_clicked,
+            command=self.close_hamburger_menu_clicked,
             relief="flat"
         )
 
@@ -84,7 +88,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["button_3"],
             borderwidth=0,
             highlightthickness=0,
-            # command=home_button_clicked,
+            command=self.home_button_clicked,
             relief="flat"
         )
         home_button.place(
@@ -100,7 +104,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["button_4"],
             borderwidth=0,
             highlightthickness=0,
-            # command=register_button_clicked,
+            command=self.register_button_clicked,
             relief="flat"
         )
         register_button.place(
@@ -116,7 +120,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["button_5"],
             borderwidth=0,
             highlightthickness=0,
-            # command=donate_button_clicked,
+            command=self.donate_button_clicked,
             relief="flat"
         )
         donate_button.place(
@@ -132,7 +136,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["button_6"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("user_button clicked"),
+            command=self.user_profile_button_clicked,
             relief="flat"
         )
         user_button.place(
@@ -167,7 +171,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["adopt_me"],
             borderwidth=0,
             highlightthickness=0,
-            # command=adopt_button_clicked,
+            command=self.adopt_button_clicked,
             relief="flat"
         )
         adopt_button2 = Button(
@@ -176,7 +180,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["adopt_me"],
             borderwidth=0,
             highlightthickness=0,
-            # command=adopt_button_clicked,
+            command=self.adopt_button_clicked,
             relief="flat"
         )
         adopt_button3 = Button(
@@ -185,7 +189,7 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["adopt_me"],
             borderwidth=0,
             highlightthickness=0,
-            # command=adopt_button_clicked,
+            command=self.adopt_button_clicked,
             relief="flat"
         )
 
@@ -298,65 +302,130 @@ class FavoritesFrame(tk.Canvas):
             image=self.images["button_10"],
             borderwidth=0,
             highlightthickness=0,
-            # command=next_button_clicked,
+            command=self.next_button_clicked,
             relief="flat"
         )
 
         #----------------------- Hamburger Menu------------------
         # HAMBURGER FRAME
-        pink_menu_rectangle_canvas = self.create_image(
+        self.pink_menu_rectangle_canvas = self.create_image(
             654.0,
             194.0,
             image=self.images["pink_menu_rectangle"],    
             state="hidden",
         )
 
-        account_settings = Button(
+        self.account_settings = Button(
             bg="#F19FB5",
             activebackground="#F19FB5",
             image=self.images["account"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("account_settings clicked"),
+            command=self.account_settings_button_clicked,
             relief="flat"
         )
 
-        privacy_policy = Button(
+        self.privacy_policy = Button(
             bg="#F19FB5",
             activebackground="#F19FB5",
             image=self.images["privacy"],
             borderwidth=0,
             highlightthickness=0,
-            # command=privacy_button_clicked,
+            command=self.privacy_button_clicked,
             relief="flat"
         )
 
-        terms_conditions = Button(
+        self.terms_conditions = Button(
             bg="#F19FB5",
             activebackground="#F19FB5",
             image=self.images["terms"],
             borderwidth=0,
             highlightthickness=0,
-            # command=terms_button_clicked,
+            command=self.terms_button_clicked,
             relief="flat"
         )
 
-        give_feedback = Button(
+        self.give_feedback = Button(
             bg="#F19FB5",
             activebackground="#F19FB5",
             image=self.images["feedback"],
             borderwidth=0,
             highlightthickness=0,
-            # command=feedback_button_clicked,
+            command=self.feedback_button_clicked,
             relief="flat"
         )
 
-        log_out = Button(
+        self.log_out = Button(
             bg="#F19FB5",
             activebackground="#F19FB5",
             image=self.images["logout"],
             borderwidth=0,
             highlightthickness=0,
-            # command=log_out_button_clicked,
+            command=self.log_out_button_clicked,
             relief="flat"
         )
+
+    def user_profile_button_clicked(self):
+        pass
+        # self.main_app.show_user_profile()
+    
+    def home_button_clicked(self):
+        self.main_app.show_homepage()
+
+    def register_button_clicked(self):
+        self.main_app.show_register()
+
+    def donate_button_clicked(self):
+        self.main_app.show_donate()
+    
+    def favorites_button_clicked(self):
+        self.main_app.show_favorites()
+    
+    # ----------------------- Hamburger Menu Functions------------------
+    def hamburger_menu_clicked(self):
+        # show the hamburger menu
+        self.itemconfigure(self.pink_menu_rectangle_canvas, state="normal")
+
+        self.close_hamburger_menu.place(x=749.0, y=45.0, width=23.0, height=35.0)
+        # x=749.0,
+        #     y=45.0,
+        #     width=23.0,   original is 19 22
+        #     height=35.0
+        # )
+        self.account_settings.place(x=549.0, y=96.0, width=205.0, height=30.0)
+        self.privacy_policy.place(x=550.0, y=133.0, width=203.99925231933594, height=32.0)
+        self.terms_conditions.place(x=549.0, y=173.0, width=205.0, height=29.0)
+        self.give_feedback.place(x=551.0, y=212.0, width=202.0, height=32.291259765625)
+        self.log_out.place(x=550.0, y=256.0, width=204.0, height=31.0)
+
+    def account_settings_button_clicked(self):
+        pass
+
+    def privacy_button_clicked(self):
+        self.main_app.show_privacy_1()
+
+    def terms_button_clicked(self):
+        self.main_app.show_terms_1()
+
+    def feedback_button_clicked(self):
+        self.main_app.show_feedback()
+    
+    def log_out_button_clicked(self):
+        self.main_app.show_login()
+    
+    def close_hamburger_menu_clicked(self): 
+        # hide the hamburger menu
+        self.itemconfigure(self.pink_menu_rectangle_canvas, state="hidden")
+        
+        self.close_hamburger_menu.place_forget()
+        self.account_settings.place_forget()
+        self.privacy_policy.place_forget()
+        self.terms_conditions.place_forget()
+        self.give_feedback.place_forget()
+        self.log_out.place_forget()     
+
+    def adopt_button_clicked(self):
+        self.main_app.show_adopt_1()
+
+    def next_button_clicked(self):
+        self.main_app.show_favorites_2()

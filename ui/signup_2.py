@@ -5,6 +5,10 @@ class SignupFrame2(tk.Canvas):
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
+
+        # To access the methods of the MainApp class
+        self.main_app = master  
+
         self.images = images
 
         title_canvas = self.create_image(
@@ -17,7 +21,6 @@ class SignupFrame2(tk.Canvas):
             image=self.images["loading_image"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("loading_button clicked"),
             relief="flat"
         )
         loading_button.place(
@@ -83,7 +86,7 @@ class SignupFrame2(tk.Canvas):
             image=self.images["back_image"],
             borderwidth=0,
             highlightthickness=0,
-            # command=back_button_1_clicked,
+            command=self.back_button_1_clicked,
             relief="flat",
             activebackground="#FFFFFF",
         )
@@ -98,7 +101,7 @@ class SignupFrame2(tk.Canvas):
             image=self.images["continue_image"],
             borderwidth=0,
             highlightthickness=0,
-            # command=continue_button_1_clicked,
+            command=self.continue_button_1_clicked,
             relief="flat"
         )
         continue_button_1.place(
@@ -182,7 +185,7 @@ class SignupFrame2(tk.Canvas):
             image=self.images["continue_image"],
             borderwidth=0,
             highlightthickness=0,
-            # command=continue_button_2_clicked,
+            command=self.continue_button_2_clicked,
             relief="flat"
         )
 
@@ -191,7 +194,7 @@ class SignupFrame2(tk.Canvas):
             image=self.images["back_image"],
             borderwidth=0,
             highlightthickness=0,
-            # command=back_button_2_clicked,
+            command=self.back_button_2_clicked,
             relief="flat",
             activebackground="#FFFFFF",
         )
@@ -201,7 +204,6 @@ class SignupFrame2(tk.Canvas):
             image=self.images["loading_image_last"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("loading_line_button_full clicked"),
             relief="flat"
         )
 
@@ -230,7 +232,7 @@ class SignupFrame2(tk.Canvas):
             image=self.images["back_image"],
             borderwidth=0,
             highlightthickness=0,
-            # command=back_button_3_clicked,
+            command=self.back_button_3_clicked,
             relief="flat",
             activebackground="#FFFFFF",
         )
@@ -239,6 +241,29 @@ class SignupFrame2(tk.Canvas):
             image=self.images["yes_image"],
             borderwidth=0,
             highlightthickness=0,
-            # command= yes_button_clicked,
+            command=self.yes_button_clicked,
             relief="flat"
         )
+
+    def back_button_1_clicked(self):
+        self.main_app.show_signup_1()
+    
+    def continue_button_1_clicked(self):
+        pass
+        # add the functionality of going to the next form
+
+    def back_button_2_clicked(self):
+        pass 
+        # add the functionality of going back to the previous form
+    
+    def continue_button_2_clicked(self):
+        pass
+        # add the functionality of going to the next form   
+    
+    def back_button_3_clicked(self):
+        pass
+        # add the functionality of going back to the previous form
+
+    def yes_button_clicked(self):
+        pass
+        # add the functionality of going to the next form

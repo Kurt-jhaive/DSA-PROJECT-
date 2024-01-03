@@ -5,6 +5,10 @@ class AdoptFrame5(tk.Canvas):
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
+
+        # To access the methods of the MainApp class
+        self.main_app = master
+
         self.images = images
 
         image_1 = self.create_image(
@@ -90,7 +94,7 @@ class AdoptFrame5(tk.Canvas):
             image=self.images["button_1"],
             borderwidth=0,
             highlightthickness=0,
-            # command=upload_image_button_clicked,
+            command=self.upload_image_button_clicked,
             relief="flat"
         )
         select_files_button.place(
@@ -119,7 +123,7 @@ class AdoptFrame5(tk.Canvas):
             image=self.images["button_2"],
             borderwidth=0,
             highlightthickness=0,
-            # command=back_button_clicked,
+            command=self.back_button_clicked,
             relief="flat"
         )
         back_button.place(
@@ -134,7 +138,7 @@ class AdoptFrame5(tk.Canvas):
             image=self.images["button_3"],
             borderwidth=0,
             highlightthickness=0,
-            # command=next_button_clicked,
+            command=self.next_button_clicked,
             relief="flat"
         )
         next_button.place(
@@ -215,3 +219,13 @@ class AdoptFrame5(tk.Canvas):
             x=468,
             y=83
         )
+
+    def upload_image_button_clicked(self):
+        pass
+        # add the functionality of the upload image button here
+
+    def back_button_clicked(self):
+        self.main_app.show_adopt_4()
+
+    def next_button_clicked(self):
+        self.main_app.show_adopt_6()

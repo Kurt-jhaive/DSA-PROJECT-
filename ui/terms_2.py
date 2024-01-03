@@ -5,13 +5,17 @@ class TermsFrame2(tk.Canvas):
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
+
+        # To access the methods of the MainApp class
+        self.main_app = master
+
         self.images = images 
 
         back_button = Button(
             image=self.images["button_1"],
             borderwidth=0,
             highlightthickness=0,
-            # command=back_button_clicked,
+            command=self.back_button_clicked,
             relief="flat"
         )
         back_button.place(
@@ -25,7 +29,7 @@ class TermsFrame2(tk.Canvas):
             image=self.images["button_2"],
             borderwidth=0,
             highlightthickness=0,
-            # command=agree_button_clicked,
+            command=self.agree_button_clicked,
             relief="flat"
         )
         agree_button.place(
@@ -46,3 +50,9 @@ class TermsFrame2(tk.Canvas):
             304.0,
             image=self.images["image_2"]
         )
+
+    def back_button_clicked(self):
+        self.main_app.show_terms_1()
+
+    def agree_button_clicked(self):
+        self.main_app.show_privacy_1()

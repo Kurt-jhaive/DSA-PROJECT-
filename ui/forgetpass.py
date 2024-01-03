@@ -5,6 +5,10 @@ class ForgetPassFrame(tk.Canvas):
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
+
+        # To access the methods of the MainApp class
+        self.main_app = master  
+
         self.images = images
 
         image_1 = self.create_image(
@@ -68,7 +72,7 @@ class ForgetPassFrame(tk.Canvas):
             image=self.images["button_login"],
             borderwidth=0,
             highlightthickness=0,
-            # command=login_button_clicked,
+            command=self.login_button_clicked,
             relief="flat"
         )
         login_button.place(
@@ -82,7 +86,7 @@ class ForgetPassFrame(tk.Canvas):
             image=self.images["button_submit"],
             borderwidth=0,
             highlightthickness=0,
-            # command=submit_button,
+            command=self.submit_button,
             relief="flat"
         )
         submit_button.place(
@@ -96,7 +100,7 @@ class ForgetPassFrame(tk.Canvas):
             image=self.images["button_signup"],
             borderwidth=0,
             highlightthickness=0,
-            # command=sign_up_button_clicked,
+            command=self.sign_up_button_clicked,
             relief="flat"
         )
         signup_button.place(
@@ -111,7 +115,7 @@ class ForgetPassFrame(tk.Canvas):
             image=self.images["button_otp"],
             borderwidth=0,
             highlightthickness=0,
-            # command=send_otp,
+            command=self.send_otp,
             relief="flat"
         )
         otp_button.place(
@@ -168,3 +172,17 @@ class ForgetPassFrame(tk.Canvas):
             width=355.0,
             height=37
         )
+    
+    def send_otp(self):
+        pass
+        # add the functionality of sending otp
+
+    def submit_button_clicked(self):
+        pass
+        # add the functionality of submitting the otp and new password
+    
+    def login_button_clicked(self):
+        self.main_app.show_login()
+
+    def sign_up_button_clicked(self):
+        self.main_app.show_signup()

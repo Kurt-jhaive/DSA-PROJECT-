@@ -40,9 +40,11 @@ class MainApp(tk.Tk):
         # Set the protocol for the window close event
         self.protocol("WM_DELETE_WINDOW", self.destroy_window)
         
-        self.login = LoginFrame(self, homepage=self.show_homepage, signup=self.show_signup_1, forget_pass=self.show_forgetpass, images=load_login_images())
-        self.login.grid(row=0, column=0)
 
+        # self.login = LoginFrame(self, images=load_login_images())
+        # self.login.grid(row=0, column=0)
+        self.homepage = HomepageFrame(self, images=load_homepage_images(), pets=homepage_pets())
+        self.homepage.grid(row=0, column=0)
 
     def destroy_window(self):
         if tk.messagebox.askokcancel("Exit", "Do you really want to exit?"):
@@ -54,7 +56,9 @@ class MainApp(tk.Tk):
             self.current_frame.destroy()
 
         # Create and display the new frame
-        if frame_class == AdoptFrame1:
+        if frame_class == LoginFrame:
+            self.current_frame = frame_class(self, images=load_login_images())
+        elif frame_class == AdoptFrame1:
             self.current_frame = frame_class(self, images=load_adopt_images())
         elif frame_class == AdoptFrame2:
             self.current_frame = frame_class(self, images=load_adopt_2_images())
@@ -75,7 +79,7 @@ class MainApp(tk.Tk):
         elif frame_class == ForgetPassFrame:
             self.current_frame = frame_class(self, images=load_forgetpass_images())
         elif frame_class == HomepageFrame:
-            self.current_frame = frame_class(self, images=load_homepage_images())
+            self.current_frame = frame_class(self, images=load_homepage_images(), pets=homepage_pets())    
         elif frame_class == PrivacyFrame1:
             self.current_frame = frame_class(self, images=load_privacy_1_images())
         elif frame_class == PrivacyFrame2:

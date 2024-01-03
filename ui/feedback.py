@@ -5,6 +5,10 @@ class FeedbackFrame(tk.Canvas):
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
+
+        # To access the methods of the MainApp class
+        self.main_app = master
+        
         self.images = images
 
         image_1 = self.create_image(
@@ -57,7 +61,7 @@ class FeedbackFrame(tk.Canvas):
             image=self.images["button_2"],
             borderwidth=0,
             highlightthickness=0,
-            # command=back_button_clicked,
+            command=self.back_button_clicked,
             relief="flat"
         )
         back_button.place(
@@ -71,7 +75,7 @@ class FeedbackFrame(tk.Canvas):
             image=self.images["button_3"],
             borderwidth=0,
             highlightthickness=0,
-            # command=submit_button_clicked,
+            command=self.submit_button_clicked,
             relief="flat"
         )
         submit_button.place(
@@ -111,7 +115,7 @@ class FeedbackFrame(tk.Canvas):
             image=unfilled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=unfilled_star_button1_clicked,
+            command=self.unfilled_star_button1_clicked,
             relief="flat"
         )
         unfilled_star_button1.place(
@@ -126,7 +130,7 @@ class FeedbackFrame(tk.Canvas):
             image=filled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=filled_star_button1_clicked,
+            command=self.filled_star_button1_clicked,
             relief="flat"
         )
 
@@ -136,7 +140,7 @@ class FeedbackFrame(tk.Canvas):
             image=unfilled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=unfilled_star_button2_clicked,
+            command=self.unfilled_star_button2_clicked,
             relief="flat"
         )
         unfilled_star_button2.place(
@@ -151,7 +155,7 @@ class FeedbackFrame(tk.Canvas):
             image=filled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=filled_star_button2_clicked,
+            command=self.filled_star_button2_clicked,
             relief="flat"
         )
 
@@ -161,7 +165,7 @@ class FeedbackFrame(tk.Canvas):
             image=unfilled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=unfilled_star_button3_clicked,
+            command=self.unfilled_star_button3_clicked,
             relief="flat"
         )
         unfilled_star_button3.place(
@@ -176,7 +180,7 @@ class FeedbackFrame(tk.Canvas):
             image=filled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=filled_star_button3_clicked,
+            command=self.filled_star_button3_clicked,
             relief="flat"
         )
 
@@ -186,7 +190,7 @@ class FeedbackFrame(tk.Canvas):
             image=unfilled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=unfilled_star_button4_clicked,
+            command=self.unfilled_star_button4_clicked,
             relief="flat"
         )
         unfilled_star_button4.place(
@@ -201,7 +205,7 @@ class FeedbackFrame(tk.Canvas):
             image=filled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=filled_star_button4_clicked,
+            command=self.filled_star_button4_clicked,
             relief="flat"
         )
 
@@ -211,7 +215,7 @@ class FeedbackFrame(tk.Canvas):
             image=unfilled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=unfilled_star_button5_clicked,
+            command=self.unfilled_star_button5_clicked,
             relief="flat"
         )
         unfilled_star_button5.place(
@@ -226,6 +230,13 @@ class FeedbackFrame(tk.Canvas):
             image=filled_star_image,
             borderwidth=0,
             highlightthickness=0,
-            # command=filled_star_button5_clicked,
+            command=self.filled_star_button5_clicked,
             relief="flat"
         )
+
+    def back_button_clicked(self):
+        self.main_app.show_homepage()
+
+    def submit_button_clicked(self):
+        # add the functionality of the submit button here
+        self.main_app.show_homepage()

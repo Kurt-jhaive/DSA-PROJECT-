@@ -4,6 +4,10 @@ class AdoptFrame2(tk.Canvas):
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.images = images
+
+        # To access the methods of the MainApp class
+        self.main_app = master
+
         self.place(x=0, y=0)
 
         # ------------------------- questionnaire title ------------------------- #
@@ -135,18 +139,8 @@ class AdoptFrame2(tk.Canvas):
         over_radio.place(x=237, y=427)
 
     def back_button_clicked(self):
-        print("back button clicked")
+        self.main_app.show_adopt_1()
 
     def next_button_clicked(self):
-        print("next button clicked")
+        self.main_app.show_adopt_3()
 
-    def hide_frame(self):
-        print("hide adopt2 frame")
-
-        # hide all the widgets
-        for widget in self.winfo_children():
-            widget.place_forget()
-        
-        # hide the radio buttons
-        
-        self.place_forget()

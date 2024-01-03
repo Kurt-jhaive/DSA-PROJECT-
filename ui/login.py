@@ -4,13 +4,13 @@ import pandas as pd
 from function_helper import resource_path
 
 class LoginFrame(tk.Canvas):
-    def __init__(self, master=None, homepage=None, signup=None, forget_pass=None, images=None):
+    def __init__(self, master=None, images=None):
         super().__init__(master, width=820, height=500, bg="#FFFFFF", bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
 
-        self.show_homepage = homepage
-        self.show_signup = signup
-        self.show_forget_pass = forget_pass
+        # To access the methods of the MainApp class
+        self.main_app = master
+        
         self.images = images
 
         self.create_image(190.0, 250.0, image=self.images["image_1"])
@@ -47,18 +47,15 @@ class LoginFrame(tk.Canvas):
             with open(resource_path("data/current_user.txt"), "w") as file:
                 file.write(entered_username)
             messagebox.showinfo("Login Successful", f"Welcome, {entered_username}!")
-            self.show_homepage()
+            self.main_app.show_homepage()
         else:
             messagebox.showerror("Login Failed", "Invalid username or password")
+            #just to test if it works
+            self.main_app.show_homepage()
 
     def sign_up_button_clicked(self):
-        self.show_signup()
+        self.main_app.show_signup_1()
 
     def forgot_password_button_clicked(self):
-        pass
-        
-    def check_user_credentials(self, entered_username, entered_password):
-        df = pd.read_csv(resource_path("data/profile_data.csv"))
-        user_record = df[(df['username'] == entered_username) & (df['password'] == entered_password)]
-        return not user_record.empty
+        self.main_app.show_forgetpass()
 

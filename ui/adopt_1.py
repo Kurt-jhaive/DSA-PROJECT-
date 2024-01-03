@@ -2,18 +2,12 @@ import tkinter as tk
 
 class AdoptFrame1(tk.Canvas):
     def __init__(self, master=None, images=None):
-        super().__init__(
-            master,
-            bg="#FFFFFF",
-            height=500,
-            width=820,
-            bd=0,
-            highlightthickness=0,
-            relief="ridge"
-        )
+        super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
+        self.place(x=0, y=0)
+
+        self.main_app = master
 
         self.images = images
-        self.place(x=0, y=0)
 
         self.create_image(409.0, 79.0, image=self.images["image_1"])
 
@@ -43,7 +37,7 @@ class AdoptFrame1(tk.Canvas):
             image=self.images["button_1"],
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=self.user_profile_button_clicked,   
             relief="flat",
             activebackground="#F19FB5",
         )
@@ -112,16 +106,12 @@ class AdoptFrame1(tk.Canvas):
             )
             entry_widget.place(x=x, y=y, width=width, height=23)
 
+    def user_profile_button_clicked(self):
+        pass    
+        # self.main_app.show_user_profile()
+
     def back_button_clicked(self):
-        print("Back button clicked")
+        self.main_app.show_homepage()
 
     def next_button_clicked(self):
-        print("Next button clicked")
-    
-    def hide_frame(self):
-        self.place_forget()
-
-    def show_frame(self):
-        pass
-        # self.place(x=0, y=0)
-
+        self.main_app.show_adopt_2()
