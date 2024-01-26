@@ -42,11 +42,10 @@ class MainApp(tk.Tk):
         self.protocol("WM_DELETE_WINDOW", self.destroy_window)
         
 
-        # self.login = LoginFrame(self, images=load_login_images())
-        # self.login.grid(row=0, column=0)
+        self.login = LoginFrame(self, images=load_login_images())
+        self.login.grid(row=0, column=0)
 
-        self.feedback = FeedbackFrame(self, images=load_feedback_images())
-        self.feedback.grid(row=0, column=0)
+
 
     def destroy_window(self):
         if tk.messagebox.askokcancel("Exit", "Do you really want to exit?"):

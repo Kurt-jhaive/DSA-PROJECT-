@@ -1,7 +1,20 @@
 import tkinter as tk
 from tkinter import Button, Radiobutton, StringVar, Entry, Label
+from function_helper import resource_path
+import random
+import smtplib
+import pandas as pd
+from tkinter import messagebox
+
 
 class ForgetPassFrame(tk.Canvas):
+    my_email = "purrfectmatch.python@gmail.com"
+    email_password = "qlde sugx xcbw eatc"
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+    typed_email = ""
+    otp = None
+
     def __init__(self, master=None, images=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
         self.place(x=0, y=0)
@@ -26,91 +39,91 @@ class ForgetPassFrame(tk.Canvas):
             font=("Inter SemiBold", 20 * -1)
         )
 
-        email_image_label = Label(
+        self.email_image_label = Label(
             bg="#FFFFFF",
             image=self.images["label_email"],
             borderwidth=0,
             highlightthickness=0,
             relief="flat"
         )
-        email_image_label.place(
+        self.email_image_label.place(
             x=410.0,
             y=95.0,
             width=376.0,
             height=62.59821701049805
         )
 
-        otp_image_label = Label(
+        self.otp_image_label = Label(
             bg="#FFFFFF",
             image=self.images["label_otp"],
             borderwidth=0,
             highlightthickness=0,
             relief="flat"
         )
-        otp_image_label.place(
+        self.otp_image_label.place(
             x=410.0,
             y=173.0,
             width=376.0,
             height=62.59821701049805
         )
 
-        newpass_image_label = Label(
+        self.newpass_image_label = Label(
             bg="#FFFFFF",
             image=self.images["label_newpass"],
             borderwidth=0,
             highlightthickness=0,
             relief="flat"
         )
-        newpass_image_label.place(
+        self.newpass_image_label.place(
             x=410.0,
             y=262.0,
             width=376.0,
             height=62.59821701049805
         )
 
-        login_button = Button(
+        self.login_button = Button(
             image=self.images["button_login"],
             borderwidth=0,
             highlightthickness=0,
             command=self.login_button_clicked,
             relief="flat"
         )
-        login_button.place(
+        self.login_button.place(
             x=413.0,
             y=404.0,
             width=159.0,
             height=39.0
         )
 
-        submit_button = Button(
+        self.submit_button = Button(
             image=self.images["button_submit"],
             borderwidth=0,
             highlightthickness=0,
             command=self.submit_button_clicked,
             relief="flat"
         )
-        submit_button.place(
+        self.submit_button.place(
             x=522.0,
             y=345.0,
             width=159.0,
             height=39.0
         )
 
-        signup_button = Button(
+        self.signup_button = Button(
             image=self.images["button_signup"],
             borderwidth=0,
             highlightthickness=0,
             command=self.sign_up_button_clicked,
             relief="flat"
         )
-        signup_button.place(
+        self.signup_button.place(
             x=627.0,
             y=404.0,
             width=159.0,
             height=39.0
         )
 
-        otp_button = Button(
+        self.otp_button = Button(
             bg="#FFFFFF",
             image=self.images["button_otp"],
             borderwidth=0,
@@ -118,47 +131,47 @@ class ForgetPassFrame(tk.Canvas):
             command=self.send_otp,
             relief="flat"
         )
-        otp_button.place(
+        self.otp_button.place(
             x=722.0,
             y=243.0,
             width=62.0,
             height=12.0
         )
 
-        image_2 = self.create_image(
+        self.image_2 = self.create_image(
             189.0,
             241.0,
             image=self.images["image_2"]
         )
 
         # Entry of email, otp, and new password
-        email_textbox = Entry(
+        self.email_textbox = Entry(
             font=("Inter", 15 * -1),
             bd=0,
             bg="#FFFFFF",
             fg="#000716",
             highlightthickness=0
         )
-        email_textbox.place(
+        self.email_textbox.place(
             x=423.0,
             y=115.0,
             width=355.0,
             height=37
         )
-        otp_textbox = Entry(
+        self.otp_textbox = Entry(
             font=("Inter", 15 * -1),
             bd=0,
             bg="#FFFFFF",
             fg="#000716",
             highlightthickness=0
         )
-        otp_textbox.place(
+        self.otp_textbox.place(
             x=423.0,
             y=190.0,
             width=355.0,
             height=37
         )
-        newpassword_textbox = Entry(
+        self.newpassword_textbox = Entry(
             font=("Inter", 15 * -1),
             bd=0,
             bg="#FFFFFF",
@@ -166,23 +179,59 @@ class ForgetPassFrame(tk.Canvas):
             highlightthickness=0,
             show='*'
         )
-        newpassword_textbox.place(
+        self.newpassword_textbox.place(
             x=423.0,
             y=279.0,
             width=355.0,
             height=37
         )
-    
+
+    def check_email(self):
+        self.typed_email = self.email_textbox.get()
+        df = pd.read_csv(resource_path("data/profile_data.csv"))
+        if self.typed_email in df['email'].values:
+            return True
+        else:
+            return False
+
     def send_otp(self):
-        pass
-        # add the functionality of sending otp
+        if self.check_email():
+            self.otp = str(random.randint(100000, 999999))
+            messagebox.showinfo("Pending", "Your OTP has been sent!")
+
+            # replace the [OTP] with the otp variable
+            with open(resource_path("data/otp_email_letter.txt")) as file:
+                letter = file.read().replace("[OTP]", self.otp)
+            self.typed_email = self.email_textbox.get()
+
+            # Send the email
+            with smtplib.SMTP(self.smtp_server, self.smtp_port) as connection:
+                connection.starttls()
+                connection.login(user=self.my_email, password=self.email_password)
+                connection.sendmail(from_addr=self.my_email, to_addrs=self.typed_email, msg=f"Subject:OTP Request\n\n{letter}")
+        else:
+            messagebox.showerror("Error", "The email you entered is not registered. Please try again.")
 
     def submit_button_clicked(self):
-        pass
-        # add the functionality of submitting the otp and new password
-    
+        typed_otp = self.otp_textbox.get()
+        if typed_otp == self.otp:
+            new_password = self.newpassword_textbox.get()
+            df = pd.read_csv(resource_path("data/profile_data.csv"))
+            df.loc[df['email'] == self.typed_email, 'password'] = new_password
+            df.to_csv(resource_path("data/profile_data.csv"), index=False)
+            messagebox.showinfo("Success", "Your password has been reset successfully!")
+
+            self.destroy()
+            self.main_app.show_login()
+        else:
+            messagebox.showerror("Error", "The OTP you entered is invalid. Please try again.")
+   
     def login_button_clicked(self):
         self.main_app.show_login()
 
     def sign_up_button_clicked(self):
         self.main_app.show_signup_1()
+
+
+
+    
