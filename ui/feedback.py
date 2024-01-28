@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import Button, Radiobutton, StringVar, Entry, Text
+from tkinter import Button, Radiobutton, StringVar, Entry, Text, messagebox
+import pandas as pd
 
 class FeedbackFrame(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -18,7 +19,7 @@ class FeedbackFrame(tk.Canvas):
             image=self.images["image_1"]
         )
 
-        display_name_canvas = self.create_text(
+        self.display_name_canvas = self.create_text(
             115.0,
             59.0,
             anchor="nw",
@@ -27,7 +28,7 @@ class FeedbackFrame(tk.Canvas):
             font=("Inter SemiBold", 14 * -1, "bold")
         )
 
-        profile_location = self.create_text(
+        self.profile_location = self.create_text(
             115.0,
             77.0,
             anchor="nw",
@@ -93,13 +94,13 @@ class FeedbackFrame(tk.Canvas):
         )
 
 
-        feedback_textbox = Text(
+        self.feedback_textbox = Text(
             bd=0,
             bg="#FFFFFF",
             highlightthickness=0,
             font=("Inter", 12 * -1)
         )
-        feedback_textbox.place(
+        self.feedback_textbox.place(
             x=80.0,
             y=275.0,
             width=655.0,
@@ -235,6 +236,8 @@ class FeedbackFrame(tk.Canvas):
             relief="flat"
         )
 
+        self.change_profile_display()
+
     def unfilled_star_button1_clicked(self):
         self.ratings = 1
         print(self.ratings)
@@ -329,5 +332,39 @@ class FeedbackFrame(tk.Canvas):
         self.main_app.show_homepage()
 
     def submit_button_clicked(self):
-        # add the functionality of the submit button here
-        self.main_app.show_homepage()
+        if self.ratings is None or self.feedback_textbox.get("1.0", tk.END).strip() == "":
+            messagebox.showerror("Error", "Please rate and provide feedback before submitting.")
+        else:
+            if self.save_input():
+                messagebox.showinfo("Success", "Feedback submitted!")
+                self.main_app.show_homepage()
+        
+    def save_input(self):
+        feedback = self.feedback_textbox.get("1.0", tk.END).strip()
+        with open("data/current_user.txt", "r") as file:
+            current_user = file.read().strip()
+        pd.read_csv("data/feedback_data.csv")
+
+        data = pd.DataFrame({
+            "username": [current_user],
+            "star_ratings": [self.ratings],
+            "feedback": [feedback],
+        })
+
+        data.to_csv("data/feedback_data.csv", index=False, mode="a", header=False)
+        return True
+
+    def change_profile_display(self):
+        #read the text file
+        with open("data/current_user.txt", "r") as file:
+            self.current_user = file.read().strip()
+        
+        #get the display name of the current user
+        df = pd.read_csv("data/profile_data.csv")
+        user_row = df[df['username'] == self.current_user]
+        display_name = user_row['display_name'].values[0]
+        display_location = user_row['address'].values[0]
+
+        #change the display name and location
+        self.itemconfigure(self.display_name_canvas, text=display_name)
+        self.itemconfigure(self.profile_location, text=display_location)

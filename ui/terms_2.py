@@ -55,4 +55,4 @@ class TermsFrame2(tk.Canvas):
         self.main_app.show_terms_1()
 
     def agree_button_clicked(self):
-        self.main_app.show_privacy_1()
+        self.main_app.show_homepage()

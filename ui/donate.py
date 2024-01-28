@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import Button, Radiobutton, StringVar, Entry
+import pandas as pd 
 
 class DonateFrame(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -64,7 +65,7 @@ class DonateFrame(tk.Canvas):
             relief="flat"
         )
 
-        display_name_canvas = self.create_text(
+        self.display_name_canvas = self.create_text(
             105.0,
             66.0,
             anchor="nw",
@@ -73,7 +74,7 @@ class DonateFrame(tk.Canvas):
             font=("Inter SemiBold", 14 * -1, "bold")
         )
 
-        profile_location = self.create_text(
+        self.profile_location = self.create_text(
             105.0,
             82.0,
             anchor="nw",
@@ -321,6 +322,8 @@ class DonateFrame(tk.Canvas):
             relief="flat"
         )
 
+        self.change_profile_display()
+
     def user_profile_button_clicked(self):
         pass
         # self.main_app.show_user_profile()
@@ -383,3 +386,18 @@ class DonateFrame(tk.Canvas):
     
     def submit_button_clicked(self):
         self.main_app.show_donate_thankyou()
+
+    def change_profile_display(self):
+        #read the text file
+        with open("data/current_user.txt", "r") as file:
+            self.current_user = file.read().strip()
+        
+        #get the display name of the current user
+        df = pd.read_csv("data/profile_data.csv")
+        user_row = df[df['username'] == self.current_user]
+        display_name = user_row['display_name'].values[0]
+        display_location = user_row['address'].values[0]
+
+        #change the display name and location
+        self.itemconfigure(self.display_name_canvas, text=display_name)
+        self.itemconfigure(self.profile_location, text=display_location)

@@ -1,6 +1,7 @@
 import tkinter as tk
-from tkinter import Button, Radiobutton, StringVar, Entry
+from tkinter import Button, Radiobutton, StringVar, Entry, messagebox
 import random
+import pandas as pd
 
 class HomepageFrame(tk.Canvas):
     def __init__(self, master=None, images=None, pets=None):
@@ -138,7 +139,7 @@ class HomepageFrame(tk.Canvas):
             height=30.0
         )
 
-        display_name_canvas = self.create_text(
+        self.display_name_canvas = self.create_text(
             105.0,
             66.0,
             anchor="nw",
@@ -147,7 +148,7 @@ class HomepageFrame(tk.Canvas):
             font=("Inter SemiBold", 14 * -1, "bold")
         )
 
-        profile_location = self.create_text(
+        self.profile_location = self.create_text(
             105.0,
             82.0,
             anchor="nw",
@@ -364,6 +365,7 @@ class HomepageFrame(tk.Canvas):
             relief="flat"
         )
 
+        self.change_profile_display()
         # to change the pet every time the user clicks homepage button
         self.change_pet()
 
@@ -442,8 +444,23 @@ class HomepageFrame(tk.Canvas):
         self.change_pet()
 
     def add_to_favorites_button_clicked(self):
-        # a to favorites
-        pass
+        with open("data/favorites.txt", "r") as file:
+            self.favorites = file.read().splitlines()
+        
+        if self.random_pet in self.favorites:
+            messagebox.showinfo("Already added", "This pet is already in your favorites!")
+            self.change_pet()
+        else:
+            self.favorites.append(self.random_pet)
+
+            print("added to favorites", self.random_pet)
+            print(self.favorites)
+
+            with open("data/favorites.txt", "w") as file:
+                for item in self.favorites:
+                    file.write(item + '\n')
+
+            self.change_pet()
 
     def description_button_clicked(self):
         full_desc = self.pets[self.random_pet]["full_desc"]   
@@ -479,3 +496,18 @@ class HomepageFrame(tk.Canvas):
             self.itemconfigure(self.pet_pic, image=picture)
             self.itemconfigure(self.pet_desc, image=description)
             self.itemconfigure(self.pet_quote, image=quote)
+    
+    def change_profile_display(self):
+        #read the text file
+        with open("data/current_user.txt", "r") as file:
+            self.current_user = file.read().strip()
+        
+        #get the display name of the current user
+        df = pd.read_csv("data/profile_data.csv")
+        user_row = df[df['username'] == self.current_user]
+        display_name = user_row['display_name'].values[0]
+        display_location = user_row['address'].values[0]
+
+        #change the display name and location
+        self.itemconfigure(self.display_name_canvas, text=display_name)
+        self.itemconfigure(self.profile_location, text=display_location)

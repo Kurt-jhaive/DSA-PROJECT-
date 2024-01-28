@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import Button, Radiobutton, StringVar, Entry
+from tkinter import Button, Radiobutton, StringVar, Entry, messagebox
+import pandas as pd
 
 class FavoritesFrame(tk.Canvas):
     def __init__(self, master=None, images=None, pets=None):
@@ -10,6 +11,8 @@ class FavoritesFrame(tk.Canvas):
         self.main_app = master
 
         self.images = images
+        self.pets = pets
+        self.favorites = []
 
         image_1 = self.create_image(
             158.0,
@@ -64,7 +67,7 @@ class FavoritesFrame(tk.Canvas):
             relief="flat"
         )
 
-        display_name_canvas = self.create_text(
+        self.display_name_canvas = self.create_text(
             105.0,
             66.0,
             anchor="nw",
@@ -73,7 +76,7 @@ class FavoritesFrame(tk.Canvas):
             font=("Inter SemiBold", 14 * -1, "bold")
         )
 
-        profile_location = self.create_text(
+        self.profile_location = self.create_text(
             105.0,
             82.0,
             anchor="nw",
@@ -146,26 +149,26 @@ class FavoritesFrame(tk.Canvas):
             height=36.0
         )
 
-        rectangle_1 = self.create_image(
+        self.rectangle_1 = self.create_image(
             540.0,
             147.0,
             image=self.images["pink_rectangle"],
             state="hidden"
         )
-        rectangle_2 = self.create_image(
+        self.rectangle_2 = self.create_image(
             540.0,
             242.0,
             image=self.images["pink_rectangle"],
             state="hidden"
         )
-        rectangle_3 = self.create_image(
+        self.rectangle_3 = self.create_image(
             540.0,
             335.0,
             image=self.images["pink_rectangle"],
             state="hidden"
         )
 
-        adopt_button1 = Button(
+        self.adopt_button1 = Button(
             bg="#F8CBD7",
             activebackground="#F8CBD7",
             image=self.images["adopt_me"],
@@ -174,7 +177,7 @@ class FavoritesFrame(tk.Canvas):
             command=self.adopt_button_clicked,
             relief="flat"
         )
-        adopt_button2 = Button(
+        self.adopt_button2 = Button(
             bg="#F8CBD7",
             activebackground="#F8CBD7",
             image=self.images["adopt_me"],
@@ -183,7 +186,7 @@ class FavoritesFrame(tk.Canvas):
             command=self.adopt_button_clicked,
             relief="flat"
         )
-        adopt_button3 = Button(
+        self.adopt_button3 = Button(
             bg="#F8CBD7",
             activebackground="#F8CBD7",
             image=self.images["adopt_me"],
@@ -193,7 +196,7 @@ class FavoritesFrame(tk.Canvas):
             relief="flat"
         )
 
-        pet1_name_canvas = self.create_text(
+        self.pet1_name_canvas = self.create_text(
             393.0,
             122.0,
             anchor="nw",
@@ -202,7 +205,7 @@ class FavoritesFrame(tk.Canvas):
             font=("Inter Bold", 16 * -1),
             state="hidden"
         )
-        pet1_breed_canvas = self.create_text(
+        self.pet1_breed_canvas = self.create_text(
             393.0,
             138.0,
             anchor="nw",
@@ -211,7 +214,7 @@ class FavoritesFrame(tk.Canvas):
             font=("Inter Bold", 16 * -1),
             state="hidden"
         )
-        pet1_age_canvas = self.create_text(
+        self.pet1_age_canvas = self.create_text(
             393.0,
             156.0,
             anchor="nw",
@@ -221,7 +224,7 @@ class FavoritesFrame(tk.Canvas):
             state="hidden"
         )
 
-        pet2_name_canvas = self.create_text(
+        self.pet2_name_canvas = self.create_text(
             393.0,
             215.0,
             anchor="nw",
@@ -230,7 +233,7 @@ class FavoritesFrame(tk.Canvas):
             font=("Inter Bold", 16 * -1),
             state="hidden"
         )
-        pet2_breed_canvas = self.create_text(
+        self.pet2_breed_canvas = self.create_text(
             393.0,
             229.0,
             anchor="nw",
@@ -239,7 +242,7 @@ class FavoritesFrame(tk.Canvas):
             font=("Inter Bold", 16 * -1),
             state="hidden"
         )
-        pet2_age_canvas = self.create_text(
+        self.pet2_age_canvas = self.create_text(
             393.0,
             248.0,
             anchor="nw",
@@ -249,7 +252,7 @@ class FavoritesFrame(tk.Canvas):
             state="hidden"
         )
 
-        pet3_name_canvas = self.create_text(
+        self.pet3_name_canvas = self.create_text(
             393.0,
             307.0,
             anchor="nw",
@@ -258,7 +261,7 @@ class FavoritesFrame(tk.Canvas):
             font=("Inter Bold", 16 * -1),
             state="hidden"
         )
-        pet3_breed_canvas = self.create_text(
+        self.pet3_breed_canvas = self.create_text(
             393.0,
             323.0,
             anchor="nw",
@@ -267,7 +270,7 @@ class FavoritesFrame(tk.Canvas):
             font=("Inter Bold", 16 * -1),
             state="hidden"
         )
-        pet3_age_canvas = self.create_text(
+        self.pet3_age_canvas = self.create_text(
             393.0,
             341.0,
             anchor="nw",
@@ -277,26 +280,26 @@ class FavoritesFrame(tk.Canvas):
             state="hidden"
         )
 
-        pet1_pic_canvas = self.create_image(
+        self.pet1_pic_canvas = self.create_image(
             350.0,
             146.0,
             image=self.images["milo"],
             state="hidden"
         )
-        pet2_pic_canvas = self.create_image(
+        self.pet2_pic_canvas = self.create_image(
             350.0,
             242.0,
             image=self.images["milo"],
             state="hidden"
         )
-        pet3_pic_canvas = self.create_image(
+        self.pet3_pic_canvas = self.create_image(
             350.0,
             335.0,
             image=self.images["milo"],
             state="hidden"
         )
 
-        next_button = Button(
+        self.next_button = Button(
             bg="#FFFFFF",
             activebackground="#FFFFFF",
             image=self.images["button_10"],
@@ -365,9 +368,13 @@ class FavoritesFrame(tk.Canvas):
             relief="flat"
         )
 
+        self.change_profile_display()
+        # to display the favorite pets
+        self.copy_favorites_data()
+        self.display_favorite_pet()
+
     def user_profile_button_clicked(self):
         pass
-        # self.main_app.show_user_profile()
     
     def home_button_clicked(self):
         self.main_app.show_homepage()
@@ -385,7 +392,8 @@ class FavoritesFrame(tk.Canvas):
     def hamburger_menu_clicked(self):
         # show the hamburger menu
         self.itemconfigure(self.pink_menu_rectangle_canvas, state="normal")
-
+        self.adopt_button1.lower()
+        self.adopt_button2.lower()
         self.close_hamburger_menu.place(x=749.0, y=45.0, width=23.0, height=35.0)
         # x=749.0,
         #     y=45.0,
@@ -416,6 +424,8 @@ class FavoritesFrame(tk.Canvas):
     def close_hamburger_menu_clicked(self): 
         # hide the hamburger menu
         self.itemconfigure(self.pink_menu_rectangle_canvas, state="hidden")
+        self.adopt_button1.lift()
+        self.adopt_button2.lift()
         
         self.close_hamburger_menu.place_forget()
         self.account_settings.place_forget()
@@ -428,4 +438,206 @@ class FavoritesFrame(tk.Canvas):
         self.main_app.show_adopt_1()
 
     def next_button_clicked(self):
-        self.main_app.show_favorites_2()
+        self.delete_favorites()
+        self.display_favorite_pet()
+
+    def display_favorite_pet(self):
+        # read the whole text file of the favorites
+        with open("data/temp_favorites.txt", "r") as file:
+            self.total_favorites = file.readlines()
+
+        # if there are more than 3 favorites, show the next button
+        if len(self.total_favorites) > 3:
+            self.next_button.place(  
+                x=656.0,
+                y=405.0,
+                width=112.89242553710938,
+                height=39.0
+            )
+        if len(self.total_favorites) < 3:
+            self.next_button.place_forget()
+
+        # read the text file of the favorites and get the first 3 pets if there are 3 pets and below
+        with open("data/temp_favorites.txt", "r") as file:
+            if len(self.total_favorites) == 0:
+                self.favorites = []
+                messagebox.showinfo("No Favorites", "You have no favorites yet.")
+            if len(self.total_favorites) == 1:
+                self.favorites = [file.readline().strip() for _ in range(1)]
+            elif len(self.total_favorites) == 2:
+                self.favorites = [file.readline().strip() for _ in range(2)]
+            elif len(self.total_favorites) > 2:
+                self.favorites = [file.readline().strip() for _ in range(3)]
+
+        if len(self.favorites) == 1:
+            # show only the first pet
+            first_pet = self.favorites[0].split(",")[0]
+            name = self.pets[first_pet]["name"]
+            breed = self.pets[first_pet]["breed"]
+            age = self.pets[first_pet]["age"]
+            picture = self.pets[first_pet]["picture"]
+            gender = self.pets[first_pet]["gender"]
+
+            self.itemconfigure(self.rectangle_1, state="normal")
+            self.itemconfigure(self.pet1_name_canvas, text=f"{name}, {gender}", state="normal")
+            self.itemconfigure(self.pet1_breed_canvas, text=breed, state="normal")
+            self.itemconfigure(self.pet1_age_canvas, text=age, state="normal")
+            self.itemconfigure(self.pet1_pic_canvas, image=picture, state="normal")
+            self.adopt_button1.place(
+                x=578.0,
+                y=131.0,
+                width=183.0,
+                height=37.0
+            )
+            # hide the second and third pet
+            self.itemconfigure(self.rectangle_2, state="hidden")
+            self.itemconfigure(self.rectangle_3, state="hidden")
+            self.itemconfigure(self.pet2_name_canvas, state="hidden")
+            self.itemconfigure(self.pet2_breed_canvas, state="hidden")
+            self.itemconfigure(self.pet2_age_canvas, state="hidden")
+            self.itemconfigure(self.pet2_pic_canvas, state="hidden")
+            self.itemconfigure(self.pet3_name_canvas, state="hidden")
+            self.itemconfigure(self.pet3_breed_canvas, state="hidden")
+            self.itemconfigure(self.pet3_age_canvas, state="hidden")
+            self.itemconfigure(self.pet3_pic_canvas, state="hidden")
+            self.adopt_button2.place_forget()
+            self.adopt_button3.place_forget()
+        elif len(self.favorites) == 2:
+            # show the first pet and the second pet
+            first_pet = self.favorites[0].split(",")[0]
+            name = self.pets[first_pet]["name"]
+            breed = self.pets[first_pet]["breed"]
+            age = self.pets[first_pet]["age"]
+            picture = self.pets[first_pet]["picture"]
+            gender = self.pets[first_pet]["gender"]
+
+            self.itemconfigure(self.rectangle_1, state="normal")
+            self.itemconfigure(self.pet1_name_canvas, text=f"{name}, {gender}", state="normal")
+            self.itemconfigure(self.pet1_breed_canvas, text=breed, state="normal")
+            self.itemconfigure(self.pet1_age_canvas, text=age, state="normal")
+            self.itemconfigure(self.pet1_pic_canvas, image=picture, state="normal")
+            self.adopt_button1.place(
+                x=578.0,
+                y=131.0,
+                width=183.0,
+                height=37.0
+            )
+
+            second_pet = self.favorites[1].split(",")[0]
+            name = self.pets[second_pet]["name"]
+            breed = self.pets[second_pet]["breed"]
+            age = self.pets[second_pet]["age"]
+            picture = self.pets[second_pet]["picture"]
+            gender = self.pets[second_pet]["gender"]
+
+            self.itemconfigure(self.rectangle_1, state="normal")
+            self.itemconfigure(self.rectangle_2, state="normal")
+            self.itemconfigure(self.pet2_name_canvas, text=f"{name}, {gender}", state="normal")
+            self.itemconfigure(self.pet2_breed_canvas, text=breed, state="normal")
+            self.itemconfigure(self.pet2_age_canvas, text=age, state="normal")
+            self.itemconfigure(self.pet2_pic_canvas, image=picture, state="normal")
+            self.adopt_button2.place(
+                x=578.0,
+                y=225.0,
+                width=183.0,
+                height=37.0
+            )
+
+            # hide the third pet
+            self.itemconfigure(self.rectangle_3, state="hidden")
+            self.itemconfigure(self.pet3_name_canvas, state="hidden")
+            self.itemconfigure(self.pet3_breed_canvas, state="hidden")
+            self.itemconfigure(self.pet3_age_canvas, state="hidden")
+            self.itemconfigure(self.pet3_pic_canvas, state="hidden")
+            self.adopt_button3.place_forget()
+        elif len(self.favorites) == 3:
+            # show the first pet, second pet, and third pet
+            first_pet = self.favorites[0].split(",")[0]
+            name = self.pets[first_pet]["name"]
+            breed = self.pets[first_pet]["breed"]
+            age = self.pets[first_pet]["age"]
+            picture = self.pets[first_pet]["picture"]
+            gender = self.pets[first_pet]["gender"]
+
+            self.itemconfigure(self.rectangle_1, state="normal")
+            self.itemconfigure(self.pet1_name_canvas, text=f"{name}, {gender}", state="normal")
+            self.itemconfigure(self.pet1_breed_canvas, text=breed, state="normal")
+            self.itemconfigure(self.pet1_age_canvas, text=age, state="normal")
+            self.itemconfigure(self.pet1_pic_canvas, image=picture, state="normal")
+            self.adopt_button1.place(
+                x=578.0,
+                y=131.0,
+                width=183.0,
+                height=37.0
+            )
+
+            second_pet = self.favorites[1].split(",")[0]
+            name = self.pets[second_pet]["name"]
+            breed = self.pets[second_pet]["breed"]
+            age = self.pets[second_pet]["age"]
+            picture = self.pets[second_pet]["picture"]
+            gender = self.pets[second_pet]["gender"]
+
+            self.itemconfigure(self.rectangle_1, state="normal")
+            self.itemconfigure(self.rectangle_2, state="normal")
+            self.itemconfigure(self.pet2_name_canvas, text=f"{name}, {gender}", state="normal")
+            self.itemconfigure(self.pet2_breed_canvas, text=breed, state="normal")
+            self.itemconfigure(self.pet2_age_canvas, text=age, state="normal")
+            self.itemconfigure(self.pet2_pic_canvas, image=picture, state="normal")
+            self.adopt_button2.place(
+                x=578.0,
+                y=225.0,
+                width=183.0,
+                height=37.0
+            )
+
+            third_pet = self.favorites[2].split(",")[0]
+            name = self.pets[third_pet]["name"]
+            breed = self.pets[third_pet]["breed"]
+            age = self.pets[third_pet]["age"]
+            picture = self.pets[third_pet]["picture"]
+            gender = self.pets[third_pet]["gender"]
+
+            self.itemconfigure(self.rectangle_1, state="normal")
+            self.itemconfigure(self.rectangle_2, state="normal")
+            self.itemconfigure(self.rectangle_3, state="normal")
+            self.itemconfigure(self.pet3_name_canvas, text=f"{name}, {gender}", state="normal")
+            self.itemconfigure(self.pet3_breed_canvas, text=breed, state="normal")
+            self.itemconfigure(self.pet3_age_canvas, text=age, state="normal")
+            self.itemconfigure(self.pet3_pic_canvas, image=picture, state="normal")
+            self.adopt_button3.place(
+                x=578.0,
+                y=316.0,
+                width=183.0,
+                height=37.0
+            )
+    
+    def delete_favorites(self):
+        with open("data/temp_favorites.txt", "r") as file:
+            lines = file.readlines()
+
+        new_lines = lines[3:]
+
+        with open("data/temp_favorites.txt", "w") as file:
+            file.writelines(new_lines)
+    
+    def copy_favorites_data(self):
+        with open("data/favorites.txt", "r") as file:
+            lines = file.readlines()
+        with open("data/temp_favorites.txt", "w") as file:
+            file.writelines(lines)
+        
+    def change_profile_display(self):
+        #read the text file
+        with open("data/current_user.txt", "r") as file:
+            self.current_user = file.read().strip()
+        
+        #get the display name of the current user
+        df = pd.read_csv("data/profile_data.csv")
+        user_row = df[df['username'] == self.current_user]
+        display_name = user_row['display_name'].values[0]
+        display_location = user_row['address'].values[0]
+
+        #change the display name and location
+        self.itemconfigure(self.display_name_canvas, text=display_name)
+        self.itemconfigure(self.profile_location, text=display_location)

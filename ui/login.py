@@ -50,8 +50,8 @@ class LoginFrame(tk.Canvas):
             self.main_app.show_homepage()
         else:
             messagebox.showerror("Login Failed", "Invalid username or password")
-            #just to test if it works
-            self.main_app.show_homepage()
+            # #just to test if it works
+            # self.main_app.show_homepage()
 
     def sign_up_button_clicked(self):
         self.main_app.show_signup_1()

@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import Button, Entry, Radiobutton, StringVar, Text, Label
+import pandas as pd
 
 class TermsFrame1(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -17,7 +18,7 @@ class TermsFrame1(tk.Canvas):
             image=self.images["image_1"]
         )
 
-        display_name_canvas = self.create_text(
+        self.display_name_canvas = self.create_text(
             115.0,
             59.0,
             anchor="nw",
@@ -26,7 +27,7 @@ class TermsFrame1(tk.Canvas):
             font=("Inter SemiBold", 14 * -1, "bold")
         )
 
-        profile_location = self.create_text(
+        self.profile_location = self.create_text(
             115.0,
             77.0,
             anchor="nw",
@@ -91,8 +92,25 @@ class TermsFrame1(tk.Canvas):
             image=self.images["image_3"]
         )
 
+        self.change_profile_display()
+
     def back_button_clicked(self):
         self.main_app.show_homepage()   
     
     def next_button_clicked(self):
         self.main_app.show_terms_2()
+
+    def change_profile_display(self):
+        #read the text file
+        with open("data/current_user.txt", "r") as file:
+            self.current_user = file.read().strip()
+        
+        #get the display name of the current user
+        df = pd.read_csv("data/profile_data.csv")
+        user_row = df[df['username'] == self.current_user]
+        display_name = user_row['display_name'].values[0]
+        display_location = user_row['address'].values[0]
+
+        #change the display name and location
+        self.itemconfigure(self.display_name_canvas, text=display_name)
+        self.itemconfigure(self.profile_location, text=display_location)
