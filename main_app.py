@@ -109,6 +109,7 @@ class MainApp(tk.Tk):
             self.current_frame = frame_class(self)
 
         self.current_frame.grid(row=0, column=0)
+        
 
     def show_login(self):
         self.change_display(LoginFrame)
