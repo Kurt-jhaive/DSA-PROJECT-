@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import messagebox
 import pandas as pd
 from function_helper import resource_path
+from FlappyPets.src.flappy import Flappy
+import asyncio
+from threading import Thread
 
 class LoginFrame(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -50,12 +53,21 @@ class LoginFrame(tk.Canvas):
             self.main_app.show_homepage()
         else:
             messagebox.showerror("Login Failed", "Invalid username or password")
-            # #just to test if it works
-            # self.main_app.show_homepage()
+            # Run the Flappy game asynchronously without blocking
+            print("Starting Flappy game...")
+            flappy_thread = Thread(target=self.run_flappy_game)
+            flappy_thread.start()
 
     def sign_up_button_clicked(self):
         self.main_app.show_signup_1()
 
     def forgot_password_button_clicked(self):
         self.main_app.show_forgetpass()
+    
+    def run_flappy_game(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        flappy_instance = Flappy()
+        loop.run_until_complete(flappy_instance.start())
 
