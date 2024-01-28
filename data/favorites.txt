@@ -1,6 +1,10 @@
+luna
+fiona
 candy
+kaira
+milo
 orange
 sugar
-kaira
+lemon
+pepper
 levis
-milo
