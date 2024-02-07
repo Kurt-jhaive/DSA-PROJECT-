@@ -153,7 +153,7 @@ class HomepageFrame(tk.Canvas):
 
         flappy_pets_button.place(
             x=95.0,
-            y=295.0,
+            y=302.0,
             width=120.0,
             height=30.0
         )
@@ -400,9 +400,6 @@ class HomepageFrame(tk.Canvas):
 
     def donate_button_clicked(self):
         self.main_app.show_donate()
-
-    def flappy_pets_button_clicked(self):
-        self.main_app.show_flappypets()
     
     def favorites_button_clicked(self):
         self.main_app.show_favorites()
