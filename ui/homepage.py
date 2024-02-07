@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import Button, Radiobutton, StringVar, Entry, messagebox
 import random
 import pandas as pd
-
+from FlappyPets.src.flappy import Flappy
+import asyncio
+from threading import Thread
 class HomepageFrame(tk.Canvas):
     def __init__(self, master=None, images=None, pets=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")
@@ -135,6 +137,23 @@ class HomepageFrame(tk.Canvas):
         donate_button.place(
             x=95.0,
             y=253.0,
+            width=120.0,
+            height=30.0
+        )
+
+        flappy_pets_button = Button( 
+            bg="#F19FB5",
+            image = self.images["flappypets"],
+            borderwidth=0,
+            highlightthickness=0,
+            relief="flat",
+            activebackground="#F19FB5",
+            command=self.flappy_pets_button_clicked
+        )
+
+        flappy_pets_button.place(
+            x=95.0,
+            y=295.0,
             width=120.0,
             height=30.0
         )
@@ -381,6 +400,9 @@ class HomepageFrame(tk.Canvas):
 
     def donate_button_clicked(self):
         self.main_app.show_donate()
+
+    def flappy_pets_button_clicked(self):
+        self.main_app.show_flappypets()
     
     def favorites_button_clicked(self):
         self.main_app.show_favorites()
@@ -477,6 +499,18 @@ class HomepageFrame(tk.Canvas):
 
     def adopt_button_clicked(self):
         self.main_app.show_adopt_1()
+
+    def flappy_pets_button_clicked(self):
+        print("Starting Flappy game...")
+        flappy_thread = Thread(target=self.run_flappy_game)
+        flappy_thread.start()
+
+    def run_flappy_game(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        flappy_instance = Flappy()
+        loop.run_until_complete(flappy_instance.start())
 
     def change_pet(self):
         if len(self.favorites) == len(self.pets):

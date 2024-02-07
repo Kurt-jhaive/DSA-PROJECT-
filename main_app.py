@@ -82,7 +82,7 @@ class MainApp(tk.Tk):
         elif frame_class == ForgetPassFrame:
             self.current_frame = frame_class(self, images=load_forgetpass_images())
         elif frame_class == HomepageFrame:
-            self.current_frame = frame_class(self, images=load_homepage_images(), pets=homepage_pets())    
+            self.current_frame = frame_class(self, images=load_homepage_images(), pets=homepage_pets())
         elif frame_class == PrivacyFrame1:
             self.current_frame = frame_class(self, images=load_privacy_1_images())
         elif frame_class == PrivacyFrame2:

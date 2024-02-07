@@ -335,6 +335,7 @@ def load_homepage_images():
         "terms": PhotoImage(file=resource_path("resources/homepage/terms.png")),
         "feedback": PhotoImage(file=resource_path("resources/homepage/feedback.png")),
         "logout": PhotoImage(file=resource_path("resources/homepage/logout.png")),
+        "flappypets": PhotoImage(file=resource_path("resources/homepage/flappypets.png"))
     }
 
 def homepage_pets():
