@@ -2,9 +2,10 @@ import tkinter as tk
 from tkinter import Button, Radiobutton, StringVar, Entry, messagebox
 import random
 import pandas as pd
-from FlappyPets.src.flappy import Flappy
 import asyncio
 from threading import Thread
+from FlappyPets.src.flappy import Flappy
+
 class HomepageFrame(tk.Canvas):
     def __init__(self, master=None, images=None, pets=None):
         super().__init__(master, bg="#FFFFFF", height=500, width=820, bd=0, highlightthickness=0, relief="ridge")

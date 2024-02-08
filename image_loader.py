@@ -181,6 +181,7 @@ def load_donate_images():
         "terms": PhotoImage(file=resource_path("resources/donate/terms.png")),
         "feedback": PhotoImage(file=resource_path("resources/donate/feedback.png")),
         "logout": PhotoImage(file=resource_path("resources/donate/logout.png")),
+        "flappypets": PhotoImage(file=resource_path("resources/homepage/flappypets.png")),
     }
 
 def load_favorites_images():
@@ -212,6 +213,7 @@ def load_favorites_images():
         "terms": PhotoImage(file=resource_path("resources/favorites/terms.png")),
         "feedback": PhotoImage(file=resource_path("resources/favorites/feedback.png")),
         "logout": PhotoImage(file=resource_path("resources/favorites/logout.png")),
+        "flappypets": PhotoImage(file=resource_path("resources/homepage/flappypets.png")),
     }
 
 def load_pets():
@@ -466,6 +468,7 @@ def load_register_images():
         "terms": PhotoImage(file=resource_path("resources/register/terms.png")),
         "feedback": PhotoImage(file=resource_path("resources/register/feedback.png")),
         "logout": PhotoImage(file=resource_path("resources/register/logout.png")),
+        "flappypets": PhotoImage(file=resource_path("resources/homepage/flappypets.png")),
     }
 
 def load_signup_1_images():

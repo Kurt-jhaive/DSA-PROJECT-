@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import Button, Radiobutton, StringVar, Entry, messagebox
 import pandas as pd
+import asyncio
+from threading import Thread
+from FlappyPets.src.flappy import Flappy
 
 class FavoritesFrame(tk.Canvas):
     def __init__(self, master=None, images=None, pets=None):
@@ -130,6 +133,23 @@ class FavoritesFrame(tk.Canvas):
             x=93.0,
             y=253.0,
             width=127.0,
+            height=30.0
+        )
+
+        flappy_pets_button = Button( 
+            bg="#F19FB5",
+            image = self.images["flappypets"],
+            borderwidth=0,
+            highlightthickness=0,
+            relief="flat",
+            activebackground="#F19FB5",
+            command=self.flappy_pets_button_clicked
+        )
+
+        flappy_pets_button.place(
+            x=95.0,
+            y=302.0,
+            width=120.0,
             height=30.0
         )
 
@@ -440,6 +460,18 @@ class FavoritesFrame(tk.Canvas):
     def next_button_clicked(self):
         self.delete_favorites()
         self.display_favorite_pet()
+
+    def flappy_pets_button_clicked(self):
+        print("Starting Flappy game...")
+        flappy_thread = Thread(target=self.run_flappy_game)
+        flappy_thread.start()
+
+    def run_flappy_game(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        flappy_instance = Flappy()
+        loop.run_until_complete(flappy_instance.start())
 
     def display_favorite_pet(self):
         # read the whole text file of the favorites

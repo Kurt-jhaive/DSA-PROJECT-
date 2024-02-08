@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import Button, Entry, Radiobutton, StringVar, Text, Label
 import pandas as pd 
+import asyncio
+from threading import Thread
+from FlappyPets.src.flappy import Flappy
 
 class RegisterFrame(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -127,6 +130,23 @@ class RegisterFrame(tk.Canvas):
         donate_button.place(
             x=95.0,
             y=253.0,
+            width=120.0,
+            height=30.0
+        )
+
+        flappy_pets_button = Button( 
+            bg="#F19FB5",
+            image = self.images["flappypets"],
+            borderwidth=0,
+            highlightthickness=0,
+            relief="flat",
+            activebackground="#F19FB5",
+            command=self.flappy_pets_button_clicked
+        )
+
+        flappy_pets_button.place(
+            x=95.0,
+            y=302.0,
             width=120.0,
             height=30.0
         )
@@ -452,6 +472,18 @@ class RegisterFrame(tk.Canvas):
 
     def submit_button_clicked(self):
         self.main_app.show_homepage()
+
+    def flappy_pets_button_clicked(self):
+        print("Starting Flappy game...")
+        flappy_thread = Thread(target=self.run_flappy_game)
+        flappy_thread.start()
+
+    def run_flappy_game(self):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        flappy_instance = Flappy()
+        loop.run_until_complete(flappy_instance.start())
 
     def change_profile_display(self):
         #read the text file
