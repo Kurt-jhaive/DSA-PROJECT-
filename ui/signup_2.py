@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import Button, Entry, Radiobutton, StringVar, Text, Label
-from data_handler import save_input, read_input, append_input   
+from data_handler import delete_input
+import pandas as pd
 
 class SignupFrame2(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -329,11 +330,36 @@ class SignupFrame2(tk.Canvas):
 
     def yes_button_clicked(self):
         if not(self.name_textbox.get() and self.address_textbox.get()):
+            print("if")
             tk.messagebox.showinfo("Error", "Please fill up all the fields.")
         else:
-            self.append_input_data()
+            print("else")
+            self.save_input_data()
             self.main_app.show_login()
 
-    def append_input_data(self):
-        append_input(self)
+    def save_input_data(self):
+        # Save the input to the text file
+        with open("data/signup_data.txt", "a") as f:
+            f.write(self.name_textbox.get() + "\n")
+            f.write(self.address_textbox.get() + "\n")
+        print("Data saved")
+
+        # Read the text file and put its contents into a list
+        with open("data/signup_data.txt", "r") as file:
+            lines = file.readlines()
+
+        # Strip newline characters and whitespace from each line and create a list
+        data_list = [line.strip() for line in lines]
+
+        print(data_list)
+
+        # Create a DataFrame with one row
+        df = pd.DataFrame([data_list], columns=["first_name", "middle_name", "last_name", "username", "password",
+                                            "confirm_password", "email", "contact_number", "display_name", "address"])
+
+        # Append the DataFrame to the CSV file
+        df.to_csv("data/profile_data.csv", mode='a', header=False, index=False)
+
+        delete_input()
+
 

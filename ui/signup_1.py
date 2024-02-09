@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import Button, Entry, Radiobutton, StringVar, Text, Label
-from data_handler import save_input, read_input
+from data_handler import read_input
+import pandas as pd
 
 class SignupFrame1(tk.Canvas):
     def __init__(self, master=None, images=None):
@@ -302,18 +303,22 @@ class SignupFrame1(tk.Canvas):
 
         # Set the focus to the first entry box
         self.first_name_signup.focus()
-    
-    def signup_button_clicked(self):
-        pass
-        self.app_main.show_signup_2()
-        # add the functionality of signing up
 
     def signup_button_clicked(self):
         self.save_input_data()
         self.main_app.show_signup_2()
 
     def save_input_data(self):
-        save_input(self)    
+        #save the inputs to the data/signup_data.txt file
+        with open("data/signup_data.txt", "w") as f:
+            f.write(self.first_name_signup.get() + "\n")
+            f.write(self.middle_name_signup.get() + "\n")
+            f.write(self.last_name_signup.get() + "\n")
+            f.write(self.user_name_signup.get() + "\n")
+            f.write(self.password_signup.get() + "\n")
+            f.write(self.confirm_password.get() + "\n")
+            f.write(self.email_address.get() + "\n")
+            f.write(self.contact_number.get() + "\n")
 
     def read_input_data(self):
         read_input(self)
